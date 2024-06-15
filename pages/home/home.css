@@ -1,0 +1,419 @@
+body,
+html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #fde9aede;
+}
+
+button {
+    transition: opacity 0.2s ease;
+    border: 3.5px solid #f2a3bd;
+    color: #f2a3bd;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-family: BPreplayBold;
+    padding: 8px;
+    width: 70%;
+    border-radius: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    button:hover,
+    .menuIcon:hover,
+    .addNewItemButton:hover,
+    .exitIcon:hover,
+    .checkbox:hover,
+    .editIcon:hover,
+    .trashCan:hover {
+        opacity: 0.4;
+        cursor: pointer;
+    }
+}
+
+p {
+    font-family: BPreplayBold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    background-color: rgba(255, 242, 202, 0.9);
+    border-bottom: 0px solid #f2a3bd;
+}
+
+.menuIcon {
+    width: 7vw;
+    max-width: 30px;
+    position: absolute;
+    left: 5vw;
+    transition: opacity 0.4s ease;
+}
+
+.shoppingListTitle {
+    width: 50%;
+    max-width: 300px;
+    padding: 12px 0;
+}
+
+.contentBody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.addNewItemButton {
+    font-family: BPreplayBold;
+    font-size: 0.8em;
+    border: 3px solid #8b96bd;
+    color: #8b96bd;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 5px 5px;
+    margin: 20px 0;
+    width: 80vw;
+    max-width: 500px;
+    text-align: center;
+    letter-spacing: 2px;
+    transition: opacity 0.4s ease;
+}
+
+/* ADD EDIT POP UP */
+
+.popUpEntireContainer {
+    transition: opacity 0.4s ease;
+    width: 100%;
+    height: max-content;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.backgroundBlur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    background-color: #585a6cb9;
+    height: 100vh;
+    width: 100vw;
+}
+.addEditItem {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+
+    display: flex;
+    align-items: end;
+    justify-content: center;
+
+    transition: opacity 0.4s ease;
+}
+
+.addEditWindow {
+    background-color: #ffffff;
+    border: 10px solid #f6e09e;
+    border-radius: 15px;
+    width: 85vw;
+    padding-bottom: 20px;
+    top: 5vh;
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10vh;
+    margin-bottom: 30px;
+
+    position: relative;
+}
+
+.addEditWindowHeader {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 7px;
+    background-color: #f6e09e;
+
+    position: relative;
+}
+
+.addEditWindowTitle {
+    font-size: 1.1em;
+}
+
+.exitIcon {
+    width: 20px;
+    position: absolute;
+    right: 10px;
+}
+
+.addEditWindowBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.label {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    color: #585a6c;
+    margin-bottom: 3px;
+    margin-top: 20px;
+}
+
+.addEditItemName {
+    border: 5px solid #585a6c;
+    border-radius: 15vw;
+    width: 80%;
+    padding: 10px 0;
+    text-align: center;
+    font-family: BPreplayBold;
+    font-size: 1em;
+    color: #585a6c;
+    margin-bottom: 10px;
+}
+
+.unitContainer,
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.unitTypes,
+.weightUnits,
+.liquidUnits,
+.categoryTypes {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.pricesLabel {
+    background-color: #f6e09e;
+    font-size: 1em;
+    color: #393a43;
+    padding: 5px 40px;
+
+    border-radius: 15vw;
+    margin-top: 20px;
+}
+
+.cheapestStore {
+    font-size: 1em;
+    text-align: center;
+    width: 100%;
+}
+
+.priceContainer {
+    display: flex;
+    width: 85%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 10px 10px 10px;
+
+    font-size: 1em;
+    border: 4px solid #585a6c;
+    border-radius: 20px;
+    margin: 10px 0;
+}
+
+input,
+select {
+    border: 3px solid #585a6c;
+    border-radius: 3vw;
+    text-align: center;
+    font-family: BPreplay;
+    font-size: 0.8em;
+    padding: 8px 5px;
+    color: #585a6c;
+    margin: 5px 0px;
+    font-family: BPreplayBold;
+}
+
+select {
+    flex: 1;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+select-container select {
+    padding: 15px;
+}
+
+.priceLabel {
+    font-size: 0.8em;
+}
+
+label {
+    font-size: 0.8em;
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    font-family: BPreplayBold;
+}
+
+.pricesCalcualtionContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.netWeight {
+    width: 42%;
+}
+
+.totalPrice {
+    width: 42%;
+}
+
+.unitPrice {
+    font-size: 0.9em;
+    text-align: center;
+    margin: 10px 0;
+    font-family: BPreplayBold;
+    width: 100%;
+}
+
+.storeName {
+    width: 100%;
+}
+
+.saveAddItemButton {
+    font-family: BPreplayBold;
+    font-size: 1em;
+    border: 0;
+    background-color: #c4cef1;
+    color: #393a43;
+    border-radius: 10px;
+    width: auto;
+    padding: 10px 20px;
+    text-align: center;
+    margin: 20px 0 5px 0;
+}
+
+.addPrice {
+    margin: 10px 0;
+    color: #313136;
+}
+
+.errorMessage {
+    font-family: BPreplayBold;
+    font-size: 1.5em;
+    color: #ea7b7b;
+}
+
+.shoppingListBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoryLabel {
+    background-color: #ffffff;
+    border: 4px solid #f2a3bd;
+    color: #4c4c51;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
+    width: max-content;
+    padding: 5px 40px;
+    border-radius: 20px;
+}
+
+.item {
+    display: flex;
+    width: 80vw;
+    align-items: center;
+}
+
+.checkbox {
+    width: 30px;
+    height: 30px;
+    transition: opacity 0.4s ease;
+    margin-right: 15px;
+}
+
+.itemName {
+    font-size: 1em;
+    color: #4b4750;
+}
+
+.editIcon {
+    width: 20px;
+    position: absolute;
+    right: 40px;
+    transition: opacity 0.4s ease;
+}
+
+.checked {
+    opacity: 0.35;
+    z-index: 5;
+}
+
+.cheapestStore {
+    background-color: #ffc4d8;
+    padding: 5px 30px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    font-size: 0.9em;
+    letter-spacing: 0.2em;
+}
+
+.trashCan {
+    width: 25px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.settingsTab {
+    background-color: #ffefbe;
+    position: fixed;
+    left:0;
+    height: 100vh;
+    width: 50vw;
+    max-width: 200px;
+    z-index: 20;
+    padding-top: 2vh;
+
+    display: flex;
+    flex-direction: column;
+}   
+
+.logoutButton {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    height: max-content
+
+}
+
+.fade-out{-webkit-animation:fade-out .4s ease-out both;animation:fade-out .4s ease-out both}
+@-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}
+
+.fade-in{-webkit-animation:fade-in .4s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in .4s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+
+.slide-in-left{-webkit-animation:slide-in-left .4s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-left .4s cubic-bezier(.25,.46,.45,.94) both}
+@-webkit-keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}
+
+.slide-out-left{-webkit-animation:slide-out-left .4s cubic-bezier(.55,.085,.68,.53) both;animation:slide-out-left .4s cubic-bezier(.55,.085,.68,.53) both}
+@-webkit-keyframes slide-out-left{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}}@keyframes slide-out-left{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}}

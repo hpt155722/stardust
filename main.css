@@ -1,0 +1,50 @@
+@font-face {
+    font-family: BPreplay;
+    src: url(resources/fonts/BPreplay/BPreplay.otf);
+}
+
+@font-face {
+    font-family: BPreplayBold;
+    src: url(resources/fonts/BPreplay/BPreplayBold.otf);
+}
+
+@font-face {
+    font-family: BPreplayBoldItalics;
+    src: url(resources/fonts/BPreplay/BPreplayBoldItalics.otf);
+}
+
+@font-face {
+    font-family: BPreplayItalics;
+    src: url(resources/fonts/BPreplay/BPreplayItalics.otf);
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    background-image: url("resources/images/landscapeBackground.png");
+    background-size: cover;
+    color: #373a4f;
+    font-family: BPreplay;
+}
+
+@media screen and (orientation: portrait) {
+    body, html {
+        background-image: url("resources/images/portraitBackground.png");
+    }
+}
+
+p {
+    color: #373a4f;
+}
+
+
+
+/* ANIMATIONS */
+
+/* Entrances */
+.fade-in{-webkit-animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+
+/* Exits */
+.fade-out{-webkit-animation:fade-out .5s ease-out both;animation:fade-out .5s ease-out both}@-webkit-keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}@keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}
+@-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}
