@@ -154,9 +154,33 @@ button:hover {
     text-decoration: underline;
 }
 
-.link:hover {
+.linkBold {
+    font-family: BPreplayBold;
+    font-size: 1em;
+    color: #eeb5c4;
+    transition: opacity 0.4s ease;
+    text-decoration: none;
+}
+
+.link:hover, .linkBold:hover {
     cursor: pointer;
     opacity: 0.5;
+}
+
+.notAUserLink, .alreadyAUser {
+    position: fixed;
+    text-align: center;
+    font-size: .9em;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration:none;
+    color: #eeb5c4;
+}
+
+.forgotPasswordLink {
+    position: absolute;
+    right: 0;
 }
 
 /* STARS */
@@ -170,7 +194,7 @@ button:hover {
 .star2 {
     width: 35px;
     position: absolute;
-    bottom: 10vh;
+    bottom: 14vh;
     right: 30vw;
 }
 

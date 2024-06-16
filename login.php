@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>starlist - Log in</title>
+    <title>stardust - Log in</title>
 
     <!-- Include stylesheets -->
     <link rel="stylesheet" href="main.css">
@@ -24,7 +24,7 @@
 <body>
     <!-- LOADING SCREEN -->
     <div class = 'loadingContainer' style = 'display: none'>
-        <img class = 'loadingLogo' src = 'resources/images/loadingStar.gif'>
+        <img class = 'loadingLogo' src = 'resources/images/pinkStar.png'>
     </div>
 
 
@@ -32,14 +32,14 @@
         <img class = 'logo' src = 'resources/images/stardustLogo.png'>
         <!-- LOGIN CONTAINER -->
         <div class = 'loginBox'>
-            <input class = 'usernameBox' maxlength = "20" placeholder = 'enter your username'></input>
-            <input class = 'passwordBox' type = 'password' maxlength = "30" placeholder = 'enter your password'></input>
+            <input class = 'usernameBox' maxlength = "20" placeholder = 'username'></input>
+            <input class = 'passwordBox' type = 'password' maxlength = "30" placeholder = 'password'></input>
             <button onclick = 'login()'> log in </button>
             <p class = 'errorMessage' style = 'display: none'> Error message goes here </p>
             <p class = 'successMessage' style = 'display: none'> Success message goes here </p>
             <div class = 'options'>
-                <p class = 'link notAUserLink' onclick = 'switchToSignup()'> Not a User? <br> Create an account. </p>
-                <p class = 'link forgotPaswordLink'> Forgot Password? </p>
+                <p class='notAUserLink' onclick='switchToSignup()'> Not a User? <span class=' linkBold'> Create an account. </span> </p>
+                <p class = 'link forgotPasswordLink'> Forgot password? </p>
             </div>
         </div>
         <!-- SIGNUP CONTAINER -->
@@ -51,7 +51,7 @@
             <button onclick = 'signup()'> create your account </button>
             <p class = 'errorMessage' style = 'display: none'> Error message goes here </p>
             <div class = 'options'>
-                <p class = 'link alreadyAUser' onclick = 'switchToLogin()'> Already a User? <br> Login instead. </p>
+                <p class='alreadyAUser' onclick='switchToLogin()'> Already a User? <span class=' linkBold'> Log in. </span> </p>
             </div>
         </div>
     </div>
