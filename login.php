@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>stardust - Log in</title>
+    <title>stardustr - Log in</title>
 
     <!-- Include stylesheets -->
     <link rel="stylesheet" href="main.css">

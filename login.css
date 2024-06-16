@@ -39,7 +39,7 @@ html {
     top: 20vh;
 
     background-color: #95aacf31;
-    padding: 5vh 5vw 8vh 5vw;
+    padding: 4vh 4vw 6vh 4vw;
     border-radius: 20px;
 }
 
@@ -170,8 +170,9 @@ button:hover {
 .notAUserLink, .alreadyAUser {
     position: fixed;
     text-align: center;
+    white-space: nowrap;
     font-size: .8em;
-    bottom: .5vh;
+    bottom: 1.8vh;
     left: 50%;
     transform: translateX(-50%);
     text-decoration:none;
@@ -187,7 +188,7 @@ button:hover {
 
 /* STARS */
 .star1 {
-    width: 30px;
+    width: 26px;
     position: absolute;
     bottom: 25vh;
     left: 10vw;
@@ -195,7 +196,7 @@ button:hover {
 }
 
 .star2 {
-    width: 35px;
+    width: 30px;
     position: absolute;
     bottom: 14vh;
     right: 30vw;
@@ -206,7 +207,7 @@ button:hover {
     width: 25px;
     position: absolute;
     bottom: 50vh;
-    right: 10vw;
+    right: 4vw;
     z-index: 5;
 }
 
@@ -235,7 +236,7 @@ button:hover {
     position: fixed;
     min-width: 1100px;
     width: 100vw;
-    bottom: -10px; 
+    bottom: -5px; 
     left: 0;
     z-index: 2;
 }

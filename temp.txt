@@ -1,7 +1,7 @@
 
 .slide-bottom2 {
-	-webkit-animation: slide-bottom2 5s ease-in-out infinite alternate both;
-	        animation: slide-bottom2 5s ease-in-out infinite alternate both;
+	-webkit-animation: slide-bottom2 3s ease-in-out infinite alternate both;
+	        animation: slide-bottom2 3s ease-in-out infinite alternate both;
 }
 
 @-webkit-keyframes slide-bottom2 {

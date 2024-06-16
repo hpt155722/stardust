@@ -93,7 +93,7 @@ function switchToLogin() {
         $(".signupBox").hide();
         $(".errorMessage").hide();
         $('.contentBox').css('top', '20vh');
-        $('.contentBox').css('padding', '5vh 5vw 8vh 5vw');
+        $('.contentBox').css('padding: 4vh 4vw 6vh 4vw');
         $(".loginBox").show().addClass("fade-in");
     }, 800);
     setTimeout(() => {
@@ -111,8 +111,8 @@ function switchToSignup() {
     setTimeout(() => {
         $(".loginBox").hide();
         $(".errorMessage").hide();
-        $('.contentBox').css('top', '12vh');
-        $('.contentBox').css('padding', '5vh 5vw');
+        $('.contentBox').css('top', '15vh');
+        $('.contentBox').css('padding', '4vh 4vw');
         $(".signupBox").show().addClass("fade-in");
     }, 800);
     setTimeout(() => {
