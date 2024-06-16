@@ -92,6 +92,8 @@ function switchToLogin() {
     setTimeout(() => {
         $(".signupBox").hide();
         $(".errorMessage").hide();
+        $('.contentBox').css('top', '20vh');
+        $('.contentBox').css('padding', '5vh 5vw 8vh 5vw');
         $(".loginBox").show().addClass("fade-in");
     }, 800);
     setTimeout(() => {
@@ -109,6 +111,8 @@ function switchToSignup() {
     setTimeout(() => {
         $(".loginBox").hide();
         $(".errorMessage").hide();
+        $('.contentBox').css('top', '12vh');
+        $('.contentBox').css('padding', '5vh 5vw');
         $(".signupBox").show().addClass("fade-in");
     }, 800);
     setTimeout(() => {

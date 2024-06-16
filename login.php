@@ -32,8 +32,8 @@
         <img class = 'logo' src = 'resources/images/stardustLogo.png'>
         <!-- LOGIN CONTAINER -->
         <div class = 'loginBox'>
-            <input class = 'usernameBox' maxlength = "20" placeholder = 'username'></input>
-            <input class = 'passwordBox' type = 'password' maxlength = "30" placeholder = 'password'></input>
+            <input class = 'usernameBox' maxlength = "20" placeholder = 'enter your username'></input>
+            <input class = 'passwordBox' type = 'password' maxlength = "30" placeholder = 'enter your password'></input>
             <button onclick = 'login()'> log in </button>
             <p class = 'errorMessage' style = 'display: none'> Error message goes here </p>
             <p class = 'successMessage' style = 'display: none'> Success message goes here </p>
@@ -56,7 +56,8 @@
         </div>
     </div>
 
-    
+    <img class="wave" src = 'resources/images/wave.png'>
+
 
     <!-- STARS -->
 
