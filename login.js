@@ -1,7 +1,36 @@
+//Page startup
+$(document).ready(function() {
+    $('.loadingContainer').hide();
+});
+sessionStorage.removeItem('newUser');
+if (sessionStorage.getItem('loggedInUsername') !== null) {
+    window.location.href = 'pages/home/home.php';
+}
+
 function onload() {
     $('.usernameBox').val('');
     $('.passwordBox').val('');
+
+    var startup = sessionStorage.getItem('startup');
+    if (sessionStorage.getItem('startup') == null) {
+        $('.startUpLogo').show().addClass('puff-in-center');
+        setTimeout(() => {
+            $('.slogalBox').css('opacity', 100).addClass('typewriter');
+        },  1200);
+        setTimeout(() => {
+            $('.pageContent').show();
+            $('.startUpContainer').addClass('fade-out');
+        },  4000);
+        setTimeout(() => {
+            $('.startUpContainer').hide();
+        },  4700);
+        sessionStorage.setItem('startup', 'false');
+    } else {
+        $('.pageContent').show();
+        $('.startUpContainer').hide();
+    }
 }
+
 //When user clicks the login button
 function login() {
     $(".loadingContainer").show();
@@ -17,6 +46,7 @@ function login() {
     } else {
         $.post("utilities/loginFunction.php", { username: userGivenUsername, password: userGivenPassword }, function (data) {
             if (data.trim() === "Logged in successfully.") {
+                sessionStorage.setItem('loggedInUsername', userGivenUsername);
                 window.location.href = "pages/home/home.php";
             } else {
                 $(".errorMessage").text(data);
@@ -42,45 +72,54 @@ function signup() {
     var createdUsername = $(".createdUsernameBox").val();
     var createdPassword = $(".createdPasswordBox").val();
     var confirmPassword = $(".confirmPasswordBox").val();
-    alert(createdPassword);
 
-    alert(createdPassword.length);
     //Validate if input is not blank
     if (userGivenEmail == "" || createdUsername == "" || createdPassword == "" || confirmPassword == "") {
         $(".errorMessage").text("All credentials are required. Please try again.");
         $(".errorMessage").show();
+        $(".loadingContainer").hide();
     } else if (!isValidEmail(userGivenEmail)) {
         //Validate if email is in correct format
         $(".errorMessage").text("Not a valid email. Please try again.");
         $(".errorMessage").show();
+        $(".loadingContainer").hide();
     } else if (createdPassword != confirmPassword) {
         //Validate if password is confirmed
         $(".errorMessage").text("Passwords do not match. Please try again.");
         $(".errorMessage").show();
+        $(".loadingContainer").hide();
     } else if (createdPassword.length < 8) {
         //Validate if password is long enough
         $(".errorMessage").text("Password must be at least 8 characters. Please try again.");
         $(".errorMessage").show();
+        $(".loadingContainer").hide();
     } else {
         $.post("utilities/signupFunction.php", { email: userGivenEmail, username: createdUsername, password: createdPassword }, function (data) {
             //If account created successfully
             if (data.trim() === "Account successfully created. Please log in.") {
-                switchToLogin();
+                $('.emailBox').val('');
+                $('.createdUsernameBox').val('');
+                $('.createdPasswordBox').val('');
+                $('.confirmPasswordBox').val('');
 
                 $(".successMessage").text(data);
                 $(".successMessage").show();
+
+                sessionStorage.setItem('loggedInUsername', createdUsername);
+                sessionStorage.setItem('newUser', 'true');
+                window.location.href = "pages/profileSetup/profileSetup.php";
             } else {
                 $(".errorMessage").text(data);
                 $(".errorMessage").show();
+                $(".loadingContainer").hide();
             }
         });
     }
-    $(".loadingContainer").hide();
 }
 
 //Hide error when user changes input
 $(function () {
-    $("input").on("change", function () {
+    $("input").on("input", function () {
         $(".errorMessage").hide();
         $(".successMessage").hide();
     });
@@ -126,3 +165,7 @@ function switchToSignup() {
         
     }, 1600);
 }
+
+function goToHome() {
+    window.location.href = '../home/home.php';
+}  

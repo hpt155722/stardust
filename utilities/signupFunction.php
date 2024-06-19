@@ -26,6 +26,7 @@
             //If email already exists in database
             if ($result->num_rows > 0) {
                 echo "Email already associated with an account. Please try again.";
+                exit;
             } else {
                 //Test if username is already taken
 
@@ -39,6 +40,7 @@
 
                 if ($result2 ->num_rows > 0) {
                     echo "Username already taken. Please try again.";
+                    exit;
                 } else {
                     //Create account
 
@@ -51,6 +53,10 @@
 
                     //Execute
                     $statement3 -> execute();
+                    $userID = $statement3->insert_id;
+
+                    $_SESSION['loggedInUser'] = $userID;
+                    $_SESSION['loggedInUsername'] = $username;
 
                     if ($statement3) {
                         echo "Account successfully created. Please log in.";

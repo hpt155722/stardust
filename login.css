@@ -1,30 +1,42 @@
-body,
-html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-}
 
-/*LOADING SCREEN*/
-.loadingContainer {
-    height: 100%;
+/*START UP SCREEN*/
+.startUpContainer {
     width: 100%;
-    background-color: #fff2deb0;
+    height: 100vh; 
+    background-image: url('resources/images/portraitBackground.png');
+    background-size: cover;
+    background-position: center; 
+
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.loadingLogo {
-    width: 20vw;
-    max-width: 140px;
+.startUpLogo {
+    width: 65vw;
+}
+
+.startUpSlogan {
+    margin-bottom: 30vh;
+    font-size: 1.03em;
+    font-family: mini;
+    color: #95aace;
+    width: max-content;
+}
+
+@media screen and (orientation: landscape) {
+    .startUpContainer {
+        background-image: url('resources/images/landscapeBackground.png');
+    }
+    .startUpLogo {
+        width: 20vw;
+        max-width: 300px;
+    }    
 }
 
 /*LOGIN/SIGNUP BOX*/
@@ -78,6 +90,7 @@ input {
     transition: opacity 0.4s ease;
     margin-bottom: 15px;
     background-color: #ffffff;
+    font-size: .8em;
 }
 
 @media (orientation:portrait) {
@@ -109,6 +122,7 @@ input:focus {
 
 button {
     font-family: BPreplayBold;
+    font-size: .8em;
     border: 0;
     color: #ffffff;
     background-color: #95aacf;
@@ -130,11 +144,13 @@ button:hover {
 .errorMessage {
     font-family: BPreplayBold;
     color: #f48091;
+    text-align: center;
 }
 
 .successMessage {
     font-family: BPreplayBold;
-    color: #a3cc98;
+    color: #88b77c;
+    text-align: center;
 }
 
 /*OPTION LINKS*/
@@ -190,7 +206,7 @@ button:hover {
 .star1 {
     width: 26px;
     position: absolute;
-    bottom: 25vh;
+    bottom: 28vh;
     left: 10vw;
     z-index: 5;
 }
@@ -198,7 +214,7 @@ button:hover {
 .star2 {
     width: 30px;
     position: absolute;
-    bottom: 14vh;
+    bottom: 17vh;
     right: 30vw;
     z-index: 5;
 }
@@ -206,7 +222,7 @@ button:hover {
 .star3 {
     width: 25px;
     position: absolute;
-    bottom: 50vh;
+    bottom: 65vh;
     right: 4vw;
     z-index: 5;
 }
@@ -236,7 +252,7 @@ button:hover {
     position: fixed;
     min-width: 1100px;
     width: 100vw;
-    bottom: -5px; 
+    bottom: -4px; 
     left: 0;
     z-index: 2;
 }
@@ -251,167 +267,112 @@ button:hover {
 }
 
 /* ANIMATIONS */
-.rotate-center {
-    -webkit-animation: rotate-center 10s linear infinite both;
-    animation: rotate-center 10s linear infinite both;
+.rotate-center, .rotate-reverse, .rotate-center2 {
+    -webkit-animation: r 10s linear infinite both;
+            animation: r 10s linear infinite both;
 }
 
-@-webkit-keyframes rotate-center {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+@-webkit-keyframes r {
+  0% {-webkit-transform: rotate(0); transform: rotate(0);}
+  100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}
 }
 
-@keyframes rotate-center {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+@keyframes r {
+  0% {-webkit-transform: rotate(0); transform: rotate(0);}
+  100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}
 }
 
 .rotate-reverse {
-    -webkit-animation: rotate-reverse 10s linear infinite reverse both;
-    animation: rotate-reverse 10s linear infinite reverse both;
+    -webkit-animation-name: r-reverse;
+            animation-name: r-reverse;
 }
 
-@-webkit-keyframes rotate-reverse {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+@-webkit-keyframes r-reverse {
+  0% {-webkit-transform: rotate(0); transform: rotate(0);}
+  100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}
 }
 
-@keyframes rotate-reverse {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+@keyframes r-reverse {
+  0% {-webkit-transform: rotate(0); transform: rotate(0);}
+  100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}
 }
 
-.rotate-center2 {
-    -webkit-animation: rotate-center2 15s linear infinite both;
-    animation: rotate-center2 15s linear infinite both;
+.slide-bottom1, .slide-up, .slide-bottom2 {
+    -webkit-animation: s 5s ease-in-out infinite alternate both;
+            animation: s 5s ease-in-out infinite alternate both;
 }
 
-@-webkit-keyframes rotate-center2 {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+@-webkit-keyframes s {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(5vh); transform: translateY(5vh);}
 }
 
-@keyframes rotate-center2 {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-.slide-bottom1 {
-	-webkit-animation: slide-bottom1 5s ease-in-out infinite alternate both;
-	        animation: slide-bottom1 5s ease-in-out infinite alternate both;
-}
-
-@-webkit-keyframes slide-bottom1 {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(5vh);
-            transform: translateY(5vh);
-  }
-}
-@keyframes slide-bottom1 {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(5vh);
-            transform: translateY(5vh);
-  }
+@keyframes s {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(5vh); transform: translateY(5vh);}
 }
 
 .slide-up {
-	-webkit-animation: slide-up 7s ease-in-out infinite alternate both;
-	        animation: slide-up 7s ease-in-out infinite alternate both;
+    -webkit-animation-name: s-up;
+            animation-name: s-up;
 }
 
-@-webkit-keyframes slide-up {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-6vh);
-            transform: translateY(-6vh);
-  }
+@-webkit-keyframes s-up {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(-6vh); transform: translateY(-6vh);}
 }
-@keyframes slide-up {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-6vh);
-            transform: translateY(-6vh);
-  }
+
+@keyframes s-up {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(-6vh); transform: translateY(-6vh);}
 }
 
 .slide-bottom2 {
-	-webkit-animation: slide-bottom2 3s ease-in-out infinite alternate both;
-	        animation: slide-bottom2 3s ease-in-out infinite alternate both;
+    -webkit-animation-name: s-bottom2;
+            animation-name: s-bottom2;
 }
 
-@-webkit-keyframes slide-bottom2 {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(4vh);
-            transform: translateY(4vh);
-  }
+@-webkit-keyframes s-bottom2 {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(4vh); transform: translateY(4vh);}
 }
-@keyframes slide-bottom2 {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(4vh);
-            transform: translateY(4vh);
-  }
+
+@keyframes s-bottom2 {
+  0% {-webkit-transform: translateY(0); transform: translateY(0);}
+  100% {-webkit-transform: translateY(4vh); transform: translateY(4vh);}
 }
+
+.puff-in-center{-webkit-animation:puff-in-center .9s both;animation:puff-in-center .9s both}
+@-webkit-keyframes puff-in-center{0%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}}@keyframes puff-in-center{0%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}}
+
+.typewriter p {
+    color: #95aace;
+    overflow: hidden; 
+    border-right: .15em solid #95aace; 
+    white-space: nowrap; 
+    letter-spacing: .10em; 
+    animation: 
+      typing 1.8s steps(30, end),
+      blink-caret .5s step-end 2 2s forwards;
+}
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color:#95aace }
+  }
+  
+  .puff-out-center{-webkit-animation:puff-out-center .7s cubic-bezier(.165,.84,.44,1.000) both;animation:puff-out-center .7s cubic-bezier(.165,.84,.44,1.000) both}
+  @-webkit-keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}@keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}
+
+  .fade-in{-webkit-animation:fade-in .8s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in .8s cubic-bezier(.39,.575,.565,1.000) both}
+  @-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+  
+  .fade-out{-webkit-animation:fade-out .7s ease-out both;animation:fade-out .7s ease-out both}
+  @-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}

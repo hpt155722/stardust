@@ -33,6 +33,7 @@
 
                     //Store userID in sesiion variable
                     $_SESSION['loggedInUser'] = $userID;
+                    $_SESSION['loggedInUsername'] = $username;
 
                     //Login Successful
                     echo "Logged in successfully.";

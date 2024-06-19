@@ -18,13 +18,30 @@
     src: url(resources/fonts/BPreplay/BPreplayItalics.otf);
 }
 
+@font-face {
+    font-family: Mini;
+    src: url(resources/fonts/mini.otf);
+}
+
 body, html {
     height: 100%;
     width: 100%;
+    padding: 0;
+    margin: 0;
     background-image: url("resources/images/landscapeBackground.png");
     background-size: cover;
-    color: #373a4f;
+    background-color: #b3c2dd;
+    color: #34353f;
     font-family: BPreplay;
+    overflow-x: hidden;
+}
+
+.pageContent {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (orientation: portrait) {
@@ -37,6 +54,37 @@ p {
     color: #373a4f;
 }
 
+/*LOADING SCREEN*/
+.loadingContainer {
+    height: 100%;
+    width: 100%;
+    opacity: .9;
+    background-image: url('resources/images/portraitBackground.png');
+    background-size: cover;
+    background-position: center; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingLogo {
+    width: 15vw;
+    max-width: 140px;
+}
+
+@media screen and (orientation: landscape) {
+    .loadingContainer {
+        background-image: url('resources/images/landscapeBackground.png');
+    }
+    .loadingLogo {
+        width: 4vw;
+        max-width: 200px;
+    }    
+}
 
 
 /* ANIMATIONS */
@@ -48,3 +96,6 @@ p {
 /* Exits */
 .fade-out{-webkit-animation:fade-out .5s ease-out both;animation:fade-out .5s ease-out both}@-webkit-keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}@keyframes puff-out-center{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}100%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}}
 @-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}
+
+.rotate-center{-webkit-animation:rotate-center 5s linear infinite both;animation:rotate-center 5s linear infinite both}
+@-webkit-keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}

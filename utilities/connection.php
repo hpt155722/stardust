@@ -2,7 +2,7 @@
     $server_name = "localhost";
     $username = "root";
     $password = "";
-    $database_name = "starlistdatabase";
+    $database_name = "stardustdatabase";
     $port = 3307;
 
     $conn = new mysqli($server_name, $username, $password, $database_name, $port);
