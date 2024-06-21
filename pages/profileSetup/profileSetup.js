@@ -1,14 +1,14 @@
 function onload () {
-    if (sessionStorage.getItem('newUser') == null) {
+    /*if (sessionStorage.getItem('newUser') == null) {
         window.location.href = '../home/home.php';
         
-    }
+    }*/
     sessionStorage.removeItem('newUser');
     $('.loadingContainer').hide();
     $('.pageContent').show();
 
     let loggedInUsername = sessionStorage.getItem('loggedInUsername');
-    $('.greeting').html('hello ' + loggedInUsername + ', <br> welcome to startdust!');
+    $('.greeting').html('hello ' + loggedInUsername + ', <br> welcome to stardust!');
 
     setTimeout(() => {
         $('.greeting').css('opacity','100').addClass('fade-in');

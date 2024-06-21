@@ -30,11 +30,11 @@ p {
 	font-size: 1.6em;
 	letter-spacing: 2px;
 	text-align: center;
-	margin-top: 10vh;
+	margin-top: 15vh;
 }
 
 .bioQuestion {
-	margin-top: 15vh;
+	margin-top: 20vh;
 }
 
 .uploadQuestion {
@@ -58,7 +58,7 @@ p {
 .skipBio {
 	font-size: .9em;
 	position: absolute;
-	bottom: 5vh;
+	bottom: 10vh;
 	transition: opacity .4s ease;
 }
 

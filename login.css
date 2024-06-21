@@ -188,7 +188,7 @@ button:hover {
     text-align: center;
     white-space: nowrap;
     font-size: .8em;
-    bottom: 1.8vh;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     text-decoration:none;

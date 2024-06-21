@@ -10,33 +10,52 @@
     if (isset($_POST['image'])) {
         $imageData = $_POST['image'];
 
-        // Remove the data:image/png;base64, part
         $imageData = str_replace('data:image/png;base64,', '', $imageData);
         $imageData = str_replace(' ', '+', $imageData);
         
         $decodedImage = base64_decode($imageData);
 
         if ($decodedImage !== false) {
-            $filename = uniqid('profile_pic_') . '.png';
-            $targetDir = '../resources/profilePics/';
-            $targetPath = $targetDir . $filename;
+            // Delete old profile picture if it exists
+            $loggedInUser = $_SESSION['loggedInUser'];
+            $sql = "SELECT username, profilePic FROM users WHERE userID = '$loggedInUser'";
+            $result = $conn->query($sql);
 
-            // Save the image to the server
-            if (file_put_contents($targetPath, $decodedImage)) {
-                // Image saved successfully
-                $loggedInUser = $_SESSION['loggedInUser'];
-                $sql = "UPDATE users SET profilePic = '$filename' WHERE userID = '$loggedInUser'";
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $username = $row['username'];
+                $oldProfilePic = $row['profilePic'];
 
-                if ($conn->query($sql) === TRUE) {
-                    // Query executed successfully
-                    echo "Profile picture updated successfully";
+                if (!empty($oldProfilePic)) {
+                    $oldFilePath = '../resources/profilePics/' . $oldProfilePic;
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath); // Delete old file
+                    }
+                }
+
+                // Save the new image to the server
+                $filename = $username . '-' . $loggedInUser . '-profilePicture.png';
+                $targetDir = '../resources/profilePics/';
+                $targetPath = $targetDir . $filename;
+
+                if (file_put_contents($targetPath, $decodedImage)) {
+                    // Update profile picture in database
+                    $sql = "UPDATE users SET profilePic = '$filename' WHERE userID = '$loggedInUser'";
+
+                    if ($conn->query($sql) === TRUE) {
+                        // Query executed successfully
+                        echo "Profile picture updated successfully";
+                    } else {
+                        // Error in query execution
+                        echo "Error updating profile picture: " . $conn->error;
+                    }
                 } else {
-                    // Error in query execution
-                    echo "Error updating profile picture: " . $conn->error;
+                    // Error saving image
+                    echo "Failed to save the image.";
                 }
             } else {
-                // Error saving image
-                echo "Failed to save the image.";
+                // User not found
+                echo "User not found in database.";
             }
         } else {
             // Invalid base64 format
