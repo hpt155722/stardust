@@ -1,3 +1,45 @@
+let currentPageOpened = "account";
+
+function changePage(pageToOpen) {
+    currentPageOpened = pageToOpen
+
+    if (currentPageOpened == "feed") {
+        // Show feed page
+        $('.feedPage').show();
+    
+        // Hide other pages
+        $('.searchPage').hide();
+        $('.notificationsPage').hide();
+        $('.accountsPage').hide();
+    } else if (currentPageOpened == "search") {
+        // Show search page
+        $('.searchPage').show();
+    
+        // Hide other pages
+        $('.feedPage').hide();
+        $('.notificationsPage').hide();
+        $('.accountsPage').hide();
+    } else if (currentPageOpened == "notifications") {
+        // Show notifications page
+        $('.notificationsPage').show();
+    
+        // Hide other pages
+        $('.feedPage').hide();
+        $('.searchPage').hide();
+        $('.accountsPage').hide();
+    } else if (currentPageOpened == "accounts") {
+        // Show accounts page
+        $('.accountsPage').show();
+    
+        // Hide other pages
+        $('.feedPage').hide();
+        $('.searchPage').hide();
+        $('.notificationsPage').hide();
+    } else {
+        console.log("Unknown currentPageOpened value: " + currentPageOpened);
+    }
+}
+
 function onload() {
     loadCurrentUserProfile();
     $('.pageContent').show();
