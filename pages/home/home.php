@@ -40,8 +40,17 @@
 			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
 		</div>
 		<!-- FEED -->
+		<div class='feedPage contentPage' style = 'display: none'>
+			<p> feed page here implement later </p>
+		</div>
 		<!-- SEARCH -->
+		<div class='searchPage contentPage' style = 'display: none'>
+			<p> search page here implement later</p>
+		</div>
 		<!-- NOTIFICATIONS PAGE -->
+		<div class='notificationsPage contentPage' style = 'display: none'>
+			<p> notifications page here implement later</p>
+		</div>
 		<!-- ACCOUNT PAGE -->
 		<div class='accountsPage contentPage'>
 			<!-- EDIT BIO PAGE -->
@@ -87,10 +96,10 @@
 		</div>
 		<!-- FOOTER -->
 		<div class='footer'>
-			<img class='footerIcon feed' onclick='reselectPage(this)' src='../../resources/images/feedIcon.png'>
-			<img class='footerIcon search' onclick="reselectPage(this)" src='../../resources/images/searchIcon.png'>
-			<img class='footerIcon notifications' onclick="reselectPage(this)" src='../../resources/images/notificationsIcon.png'>
-			<img class='footerIcon profile selectedPage' onclick="reselectPage(this)" src='../../resources/images/profileIcon.png'>
+			<img class='footerIcon feed' onclick="changePage('feed'); reselectPage(this)" src='../../resources/images/feedIcon.png'>
+			<img class='footerIcon search' onclick="changePage('search'); reselectPage(this)" src='../../resources/images/searchIcon.png'>
+			<img class='footerIcon notifications' onclick="changePage('notifications'); reselectPage(this)" src='../../resources/images/notificationsIcon.png'>
+			<img class='footerIcon profile selectedPage' onclick="changePage('accounts'); eselectPage(this)" src='../../resources/images/profileIcon.png'>
 		</div>
 	</div>
 
