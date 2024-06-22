@@ -1,170 +1,203 @@
 .pageContent {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    display: inline;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	display: inline;
 }
 
-
 p {
-    color: #34353f;
-    text-align: center;
+	color: #34353f;
+	text-align: center;
 }
 
 .loadingContainer {
-    opacity: 1;
+	opacity: 1;
 }
+
 .header {
-    background-color: #95aace;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 28vh;
-    max-height: 60px;
-    padding: 10px 0 5px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
+	background-color: #95aace;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: max-content;
+	padding: 10px 0 10px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 5;
 }
 
 .headerLogo {
-    width: 30vw;
-    max-width: 150px;
+	width: 110px;
 }
 
 .footer {
-    background-color: #95aace;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: max-content;
-    padding: 10px 0 15px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 5;
+	background-color: #95aace;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	height: max-content;
+	padding: 8px 0 15px 0;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	z-index: 5;
 }
 
 .footerIcon {
-    width: 5vw;
-    max-width: 22px;
-    transition: opacity .4s ease;
+	width: 5vw;
+	max-width: 22px;
+	transition: opacity .4s ease;
 }
 
 @media (hover: hover) {
-    .footerIcon:hover, .settingsIcon:hover, .exitSettings:hover, button:hover {
-        opacity: .4;
-        cursor: pointer;
-    }
+
+	.footerIcon:hover,
+	.settingsIcon:hover,
+	.exitSettings:hover,
+	button:hover,
+	.postCommentIcon:hover,
+	.postHeartIcon:hover,
+	.postMenu:hover {
+		opacity: .4;
+		cursor: pointer;
+	}
 }
 
 .selectedPage {
-    background-color: #eeb5c4;
-    padding: 10px;
-    border-radius: 10px;
+	background-color: #eeb5c4;
+	padding: 8px;
+	border-radius: 10px;
 }
 
 .contentPage {
-    margin-top: 10vh;
-    position: relative;
+	margin-top: 8vh;
+	position: relative;
 }
 
 .accountsPage {
-    padding: 30px;
+	padding: 30px;
 }
+
 .currentUserInfo {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
+
 .currentUserTextInfo {
-    display: flex;
-    flex-direction: column;
-    margin-left: 15px;
+	display: flex;
+	flex-direction: column;
+	width: max-content;
+	margin-left: 15px;
 }
-.currentUserProfilePic{
-    border-radius: 999vw;
-    width: 25vw;
-    max-width: 100px;
-    border: 5px solid white;
+
+.currentUserProfilePic {
+	border-radius: 999vw;
+	width: 22vw;
+	max-width: 100px;
+	border: 0;
 }
+
 .currentUserUsername {
-    font-family: BPreplayBold;
-    font-size: 1.3em;
-    letter-spacing: 2px;
-    margin: 0 0 2vh 0;
-    text-align: left;
+	font-family: BPreplayBold;
+	font-size: 1.3em;
+	letter-spacing: 2px;
+	margin: 0;
+	text-align: left;
 }
+
 .currentUserBio {
-    font-size: .9em;
-    margin: 0;
+	font-size: 1em;
+	margin: 0;
+	text-align: left;
+}
+
+.currentUserFollowersInfo {
+	background-color: #e7a0b3;
+	color: white;
+	padding: 7px 10px;
+	border-radius: 90px;
+	margin-left: 4vw;
+	font-size: .9em;
+	white-space: nowrap;
+}
+
+.usernameAndFollowersCount {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 hr {
-    border: none; 
-    border-top: 2px solid #95aace; 
-    margin: 20px 0;
+	border: none;
+	border-top: 2px solid #95aace;
+	margin: 20px 0;
 }
 
 .noPostsYet {
-    text-align: center;
-    font-family: BPreplayBold;
-    opacity: .35;
+	text-align: center;
+	font-family: BPreplayBold;
+	opacity: .35;
 }
 
 .settingsIcon {
-    width: 5vw;
-    max-width: 25px;
-    position: absolute;
-    top: 15px;
-    right: 15px;
+	width: 5vw;
+	max-width: 25px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
 }
 
-.accountSettingsContainer, .editBioContainer {
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.accountSettingsContainer,
+.editBioContainer, 
+.postEditContainer {
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.accountSettingsBackground, .editBioBackground {
-    background-color: #ffffffbd;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
+.accountSettingsBackground,
+.editBioBackground,
+.postEditBackground {
+	background-color: #ffffffbd;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
 }
 
-.accountSettingsMenu, .editBioMenu {
-    background-color: #95aace;
-    min-width: 50vw;
-    width: max-content;
-    height: max-content;
-    padding: 30px;
-    border-radius: 20px;
-    margin-bottom: 20vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 5;
-
+.accountSettingsMenu,
+.editBioMenu,
+.postEditMenu {
+	background-color: #95aace;
+	min-width: 50vw;
+	width: max-content;
+	height: max-content;
+	padding: 30px;
+	border-radius: 20px;
+	margin-bottom: 20vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	z-index: 5;
 }
 
 .editBioLabel {
-    color: white;
-    font-family: BPreplayBold;
-    letter-spacing: 1px;
-    text-align: center;
+	color: white;
+	font-family: BPreplayBold;
+	letter-spacing: 1px;
+	text-align: center;
 }
 
 .editBioTextArea {
@@ -189,33 +222,149 @@ hr {
 }
 
 button {
-    background-color: white;
-    color: #95aace;
-    font-family: BPreplayBold;
-    text-align: center;
-    border-radius: 20px;
-    padding: 7px 30px;
-    margin: 15px 0;
-    border: 0;
-    font-size: 1em;
+	background-color: white;
+	color: #95aace;
+	font-family: BPreplayBold;
+	text-align: center;
+	border-radius: 20px;
+	padding: 7px 30px;
+	margin: 15px 0;
+	border: 0;
+	font-size: 1em;
 }
 
 .saveProfilePicButton {
-    background-color: #95aace;
-    width: 100%;
-    font-size: 1em;
-    color: white;
-    padding: 8px;
-    margin: 10px 0 2px 0;
-    letter-spacing: 1px;
+	background-color: #95aace;
+	width: 100%;
+	font-size: 1em;
+	color: white;
+	padding: 8px;
+	margin: 10px 0 2px 0;
+	letter-spacing: 1px;
 }
+
 .logoutButton {
-    background-color: #22232600;
-    color: white;
+	background-color: #22232600;
+	color: white;
 }
 
-.exitSettings{
-    text-align: center;
-    color: rgb(255, 255, 255);
+.exitSettings {
+	text-align: center;
+	color: rgb(255, 255, 255);
 
+}
+
+/* POST STYLING */
+
+.feedPage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    height: max-content;
+    padding-bottom: 5vh;
+}
+
+.postContainer {
+	width: 85vw;
+	max-width: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 0 5vh 0;
+}
+
+.posterInfo {
+	display: flex;
+	align-items: center;
+	width: 90%;
+	padding: 0 0 5px 0;
+}
+
+.posterProfilePic {
+	width: 12vw;
+	max-width: 50px;
+	border-radius: 999vw;
+}
+
+.postUsername {
+	font-size: 1em;
+	font-family: BPreplayBold;
+	text-align: left;
+	letter-spacing: 3px;
+	width: 100%;
+	color: #8ca1c5;
+	padding-left: 10px;
+}
+
+.postMenu {
+	width: 22px;
+	transition: opacity .2s ease;
+}
+
+.postImage {
+	width: 100%;
+	max-width: 400px;
+	border-radius: 10px;
+	margin: 0;
+}
+
+.postFooter {
+	display: flex;
+	width: 100%;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 15px 15px 0 15px;
+}
+
+.postText {
+	display: flex;
+	flex-direction: column;
+	width: 65%;
+}
+
+.postCaption {
+	text-align: left;
+	margin: 0 0 5px 0;
+	background-color: #eeb5c482;
+	padding: 10px 15px;
+	border-radius: 10px;
+	color: #34353f;
+	font-size: .85em;
+}
+
+.postDate {
+	font-size: .7em;
+	opacity: .5;
+	text-align: left;
+	margin: 3px 0 0 5px;
+}
+
+.postIcons {
+	display: flex;
+	align-items: center;
+	margin: 5px 0 20px 0;
+}
+
+.postCommentCount,
+.postLikeCount {
+	font-family: BPreplayBold;
+	font-size: .85em;
+	margin: 0;
+}
+
+.postCommentCount {
+	color: #95aace;
+}
+
+.postLikeCount {
+	color: #eeb5c4;
+}
+
+.postCommentIcon,
+.postHeartIcon {
+	width: 22px;
+	margin: 0 8px;
+	transition: opacity .2s ease;
 }
