@@ -9,26 +9,36 @@ session_start();
 if (isset($_SESSION['loggedInUser'])) {
     try {
         // Prepare and execute query to fetch user information
-        $stmt = $conn->prepare("SELECT username, biography, profilePic, userID FROM users WHERE userID = ?");
+        $stmt_user = $conn->prepare("SELECT username, biography, profilePic, userID FROM users WHERE userID = ?");
         
-        // Bind parameter (userID)
-        $stmt->bind_param('i', $_SESSION['loggedInUser']);
+        $stmt_user->bind_param('i', $_SESSION['loggedInUser']);
         
-        // Execute statement
-        $stmt->execute();
+        $stmt_user->execute();
         
-        // Get result
-        $result = $stmt->get_result();
+        $result_user = $stmt_user->get_result();
         
         // Fetch user information
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
+        if ($result_user->num_rows > 0) {
+            $user = $result_user->fetch_assoc();
             
+            // Fetch count of rows in relationships table where followingID matches loggedInUser
+            $stmt_relationships = $conn->prepare("SELECT COUNT(*) AS count FROM relationships WHERE followingID = ?");
+            
+            $stmt_relationships->bind_param('i', $_SESSION['loggedInUser']);
+            
+            $stmt_relationships->execute();
+            
+            $result_relationships = $stmt_relationships->get_result();
+            
+            $relationship_count = ($result_relationships->num_rows > 0) ? $result_relationships->fetch_assoc()['count'] : 0;
+            
+            // Prepare data to return as JSON including relationship count
             $data = [
                 'username' => $user['username'],
                 'biography' => $user['biography'] ?: 'no biography yet',
                 'profilePic' => $user['profilePic'] ?: '../../resources/images/defaultProfilePic.png',
-                'userID' => $user['userID']
+                'userID' => $user['userID'],
+                'relationshipCount' => $relationship_count
             ];
             
             echo json_encode($data);

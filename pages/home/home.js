@@ -70,41 +70,45 @@ function reselectPage(element) {
 
 // Load current user's profile
 function loadCurrentUserProfile() {
-	$.get('../../utilities/loadCurrentUserProfile.php', function(userData, status) {
-			// Load current user profile
-			if (userData) {
-				var profilePicUrl = "../../resources/profilePics/" + userData.profilePic;
-				var img = new Image();
+    $.get('../../utilities/loadCurrentUserProfile.php', function(userData, status) {
+        // Load current user profile
+        if (userData) {
+            var profilePicUrl = "../../resources/profilePics/" + userData.profilePic;
+            var img = new Image();
 
-				img.onload = function() {
-					// Image has loaded, set the source and hide loading container
-					$('.currentUserProfilePic').attr('src', profilePicUrl);
-					$('.loadingContainer').hide();
-				};
+            img.onload = function() {
+                // Image has loaded, set the source and hide loading container
+                $('.currentUserProfilePic').attr('src', profilePicUrl);
+                $('.loadingContainer').hide();
+            };
 
-				img.onerror = function() {
-					// In case of image loading error
-					console.error('Error loading profile picture:', profilePicUrl);
-					$('.loadingContainer').hide();
-				};
+            img.onerror = function() {
+                // In case of image loading error
+                console.error('Error loading profile picture:', profilePicUrl);
+                $('.loadingContainer').hide();
+            };
 
-				img.src = profilePicUrl;
+            img.src = profilePicUrl;
 
-				$('.currentUserUsername').text(userData.username);
-				$('.currentUserBio').text(userData.biography);
-			} else {
-				// Handle case where user data is not available
-				sessionStorage.removeItem('loggedInUsername');
-				window.location.href = '../../login.php';
-			}
-		}, 'json')
-		.fail(function(xhr, status, error) {
-			// Handle AJAX error
-			console.error('Error loading user profile:', status, error);
-			// You can add additional error handling as needed
-			$('.loadingContainer').hide();
-		});
+            $('.currentUserUsername').text(userData.username);
+            $('.currentUserBio').text(userData.biography);
+            
+            // Display relationship count
+            $('.currentUserFollowersInfo').text(userData.relationshipCount + ' followers');
+        } else {
+            // Handle case where user data is not available
+            sessionStorage.removeItem('loggedInUsername');
+            window.location.href = '../../login.php';
+        }
+    }, 'json')
+    .fail(function(xhr, status, error) {
+        // Handle AJAX error
+        console.error('Error loading user profile:', status, error);
+        // You can add additional error handling as needed
+        $('.loadingContainer').hide();
+    });
 }
+
 
 //Open up settings page
 function openSettings() {
