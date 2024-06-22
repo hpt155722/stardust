@@ -9,7 +9,7 @@ session_start();
 $query = "SELECT p.*, u.username, u.profilePic 
           FROM posts p 
           INNER JOIN users u ON p.userID = u.userID 
-          ORDER BY p.datePosted ASC";
+          ORDER BY p.datePosted DESC";
 $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) > 0) {
@@ -53,8 +53,9 @@ if (mysqli_num_rows($result) > 0) {
         echo "<img class='postImage' src='../../resources/posts/$imageFilePath'>";
         echo "<div class='postFooter'>";
         echo "<div class='postText'>";
-        echo "<p class='postCaption'>$caption</p>";
-        echo "<p class='postDate'>$datePosted</p>";
+        if (!empty($caption)) {
+            echo "<p class='postCaption'>$caption</p>";
+        }        echo "<p class='postDate'>$datePosted</p>";
         echo "</div>";
         echo "<div class='postIcons'>";
         echo "<p class='postCommentCount'>$commentCount</p>";
