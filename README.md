@@ -17,10 +17,11 @@ stardust is a social media app. Currently in progress.
 <!--
 ### ☆ ───── Features ───── ☆
  <br>
-☆ Create, edit, delete items <br>
-☆ Add prices from different stores<br>
-☆ Automatic unit price calculations<br>
-☆ Automatically show cheapest store to buy from<br>
+☆ Create, edit, delete posts, captions <br>
+☆ Create, edit profiles<br>
+☆ Create, edit profiles<br>
+☆ Create, edit profiles<br>
+☆ Create, edit profiles<br>
 ☆ Password encryption<br>
  <br>
   

@@ -1,1 +1,1 @@
-<img class='postHeartIcon' data-postID='<?php echo $postID; ?>' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>
+write me a jquery .get to send the variable postID to a php file. then write me the php file called loadPostView.php that takes the postID and queries the posts table for that row then join it with the row in the users table where userID = userID. then echos out

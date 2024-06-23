@@ -47,10 +47,16 @@ if (mysqli_num_rows($result) > 0) {
         echo "<img class='posterProfilePic' src='../../resources/profilePics/$profilePic'>";
         echo "<p class='postUsername' data-userID='$userID'>$username</p>";
         if ($showMenu) {
-            echo "<img class='postMenu' data-postID='$postID' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID)'>";
+            echo "<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID)'>";
         }
         echo "</div>";
-        echo "<img class='postImage' src='../../resources/posts/$imageFilePath'>";
+        
+        if (file_exists('../resources/posts/'.$imageFilePath)) {
+            echo "<img class='postImage' src='../../resources/posts/$imageFilePath'>";
+        } else {
+            // Display default image
+            echo "<img class='postImage' src='../../resources/images/imageNotFound.png'>";
+        }
         echo "<div class='postFooter'>";
         echo "<div class='postText'>";
         if (!empty($caption)) {
@@ -59,7 +65,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "</div>";
         echo "<div class='postIcons'>";
         echo "<p class='postCommentCount'>$commentCount</p>";
-        echo "<img class='postCommentIcon' data-postID='$postID' src='../../resources/images/comment.png' data-postid='$postID'>";
+        echo "<img class='postCommentIcon' onclick = 'loadPostView($postID)' src='../../resources/images/comment.png' data-postid='$postID'>";
         echo "<p class='postLikeCount'>$likeCount</p>";
         if ($liked > 0) {
             echo "<img class='postHeartIcon' data-postID='$postID' src='../../resources/images/likedHeart.png' onclick='toggleLike(this);'>";

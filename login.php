@@ -19,6 +19,7 @@
 
     <!-- Include Javascript -->
     <script src="login.js"></script>
+	<script src="main.js"></script>
 
 </head>
 <body onload = 'onload()'>
@@ -35,8 +36,6 @@
     <div class = 'loadingContainer'>
         <img class = 'loadingLogo rotate-center' src = '../../resources/images/pinkStar.png'>
     </div>
-
-
 
     <div class = 'pageContent' style = 'display: none;'>
         <div class = 'contentBox'>

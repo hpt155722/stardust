@@ -16,8 +16,6 @@ function changePage(pageToOpen) {
 		$('.searchPage').hide();
 		$('.notificationsPage').hide();
 		$('.accountsPage').hide();
-
-		$('.loadingContainer').hide();
 	} else if (currentPageOpened == "search") {
 		// Show search page
 		$('.searchPage').show();
@@ -27,6 +25,7 @@ function changePage(pageToOpen) {
 		$('.notificationsPage').hide();
 		$('.accountsPage').hide();
 
+		$('.pageContent').show();
 		$('.loadingContainer').hide();
 	} else if (currentPageOpened == "notifications") {
 		// Show notifications page
@@ -37,8 +36,12 @@ function changePage(pageToOpen) {
 		$('.searchPage').hide();
 		$('.accountsPage').hide();
 
+		$('.pageContent').show();
 		$('.loadingContainer').hide();
 	} else if (currentPageOpened == "accounts") {
+		//Load accounts page
+		loadCurrentUserProfile();
+
 		// Show accounts page
 		$('.accountsPage').show();
 
@@ -46,8 +49,6 @@ function changePage(pageToOpen) {
 		$('.feedPage').hide();
 		$('.searchPage').hide();
 		$('.notificationsPage').hide();
-
-		$('.loadingContainer').hide();
 	} else {
 		console.log("Unknown currentPageOpened value: " + currentPageOpened);
 	}
@@ -55,10 +56,6 @@ function changePage(pageToOpen) {
 }
 
 function onload() {
-	loadCurrentUserProfile();
-	$('.pageContent').show();
-	//Testing
-	$('.currentUserBio').text("saklklklklkldjalksdjaklsjdkalsjdkalsjdkalsjdkasld");
 	changePage('feed');
 }
 
@@ -70,6 +67,7 @@ function reselectPage(element) {
 
 // Load current user's profile
 function loadCurrentUserProfile() {
+	$('.loadingContainer').show();
     $.get('../../utilities/loadCurrentUserProfile.php', function(userData, status) {
         // Load current user profile
         if (userData) {
@@ -79,14 +77,16 @@ function loadCurrentUserProfile() {
             img.onload = function() {
                 // Image has loaded, set the source and hide loading container
                 $('.currentUserProfilePic').attr('src', profilePicUrl);
-                $('.loadingContainer').hide();
-            };
+				//Display page
+				$('.pageContent').show();
+				$('.loadingContainer').hide();	            };
 
             img.onerror = function() {
                 // In case of image loading error
                 console.error('Error loading profile picture:', profilePicUrl);
-                $('.loadingContainer').hide();
-            };
+				//Display page
+				$('.pageContent').show();
+				$('.loadingContainer').hide();	            };
 
             img.src = profilePicUrl;
 
@@ -95,7 +95,8 @@ function loadCurrentUserProfile() {
             
             // Display relationship count
             $('.currentUserFollowersInfo').text(userData.relationshipCount + ' followers');
-        } else {
+			
+		} else {
             // Handle case where user data is not available
             sessionStorage.removeItem('loggedInUsername');
             window.location.href = '../../login.php';
@@ -107,6 +108,16 @@ function loadCurrentUserProfile() {
         // You can add additional error handling as needed
         $('.loadingContainer').hide();
     });
+	$.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
+		if (data == "No posts found.") {
+			$('.noPostsYet').show();
+			$('.currentUserPostContainer').hide();
+		} else {
+			$('.currentUserPostPreviewContainer').html(data);
+			$('.currentUserPostContainer').show();
+		}
+    });
+
 }
 
 
@@ -174,6 +185,92 @@ function saveBio() {
 		}
 	});
 }
+
+//Open up change password page
+function openChangePassword() {
+	$('.updatePasswordErrorMessage').hide();
+	$('.updatePasswordSuccessMessage').hide();
+	$('.currentPasswordBox').val('');
+    $('.createdPasswordBox').val('');
+    $('.confirmPasswordBox').val('');
+	$('.changePasswordContainer').addClass('fade-in').show();
+	$('.accountSettingsContainer').addClass('fade-out');
+	setTimeout(() => {
+		$('.changePasswordContainer').removeClass('fade-in');
+		$('.accountSettingsContainer').removeClass('fade-out').hide();
+	}, 400);
+}
+
+//Close up change password page
+function closeChangePassword() {
+	$('.changePasswordContainer').addClass('fade-out');
+	setTimeout(() => {
+		$('.changePasswordContainer').removeClass('fade-out').hide();
+	}, 400);
+}
+
+// Function to check if all password fields are filled
+function checkPasswordsFilled() {
+	var currentPassword = $('.currentPasswordBox').val();
+	var newPassword = $('.createdPasswordBox').val();
+	var confirmPassword = $('.confirmPasswordBox').val();
+	
+	return currentPassword !== '' && newPassword !== '' && confirmPassword !== '';
+}
+
+// Function to toggle the visibility of the update password button
+function toggleUpdateButton() {
+	if (checkPasswordsFilled()) {
+		$('.changePasswordConfirmButton').show();
+	} else {
+		$('.changePasswordConfirmButton').hide();
+	}
+}
+
+// Bind keyup event to all password input fields
+$('.currentPasswordBox, .createdPasswordBox, .confirmPasswordBox').keyup(function() {
+	toggleUpdateButton();
+	$('.updatePasswordErrorMessage').hide();
+	$('.updatePasswordSuccessMessage').hide();
+});
+
+//When user clicks update password 
+function updatePassword() {
+    var currentPassword = $('.currentPasswordBox').val();
+    var createdPassword = $('.createdPasswordBox').val();
+    var errorMessageElement = $('.updatePasswordErrorMessage');
+    var successMessageElement = $('.updatePasswordSuccessMessage');
+
+    // Send data using $.post()
+    $.post('../../utilities/updatePassword.php', {
+        currentPassword: currentPassword,
+        createdPassword: createdPassword
+    })
+    .done(function(response) {
+        // Handle success response
+        if (response === "password updated successfully") {
+			$('.currentPasswordBox').val('');
+			$('.createdPasswordBox').val('');
+			$('.confirmPasswordBox').val('');
+
+            successMessageElement.text(response);
+            successMessageElement.show();
+			
+        } else {
+            errorMessageElement.text(response);
+            errorMessageElement.show();
+        }
+    })
+    .fail(function(xhr, status, error) {
+        // Handle error response
+        console.error('Error updating password:', error);
+        errorMessageElement.text("Error updating password: " + error);
+        errorMessageElement.show();
+    });
+}
+
+
+
 
 /* UPLOAD PROFILE PICTURE */
 
@@ -246,15 +343,54 @@ $('.saveProfilePicButton').on('click', function() {
 
 //Load feed 
 function loadFeed() {
-	$.get('../../utilities/loadFeed.php', function(response) {
-			$('.feedPage.contentPage').html(response);
-			$('.feedPage.contentPage').show();
-		})
-		.fail(function(xhr, status, error) {
-			//SHOW ERROR PAGE
-			console.error('Error fetching data:', error);
-		});
+    $('.loadingContainer').show();
+
+    $.get('../../utilities/loadFeed.php', function(response) {
+        var tempElement = $('<div>').html(response);
+
+        // Append the temporary element to a hidden container
+        var hiddenContainer = $('<div>').css('display', 'none').appendTo('body');
+        hiddenContainer.append(tempElement);
+
+        // Function to check if all resources are loaded
+        function checkResourcesLoaded() {
+            var images = hiddenContainer.find('img');
+            var totalImages = images.length;
+            var loadedImages = 0;
+
+            images.on('load', function() {
+                loadedImages++;
+                if (loadedImages === totalImages) {
+                    // All images are loaded
+                    $('.feedPage.contentPage').html(tempElement.html());
+                    hiddenContainer.remove();
+                    $('.pageContent').show();
+                    $('.loadingContainer').hide();
+                }
+            }).each(function() {
+                // Check if images are already loaded (for cached images)
+                if (this.complete) {
+                    $(this).trigger('load');
+                }
+            });
+
+            // If there are no images to load, proceed
+            if (totalImages === 0) {
+                $('.feedPage.contentPage').html(tempElement.html());
+                hiddenContainer.remove();
+                $('.pageContent').show();
+                $('.loadingContainer').hide();
+            }
+        }
+
+        // Check if all resources (images) are loaded
+        checkResourcesLoaded();
+
+    }).fail(function(xhr, status, error) {
+        console.error('Error fetching data:', error);
+    });
 }
+
 
 
 //Open edit post
@@ -281,6 +417,7 @@ function deletePost() {
         console.log("Data: " + data + "\nStatus: " + status);
         loadFeed();
         closeEditPost();
+		closePostView();
     });
 
 }
@@ -331,6 +468,42 @@ function toggleLike(img) {
     }
 }
 
+//Open up post view page
+function openPostView() {
+	$('.postViewContainer').show();
+	$('.postViewMainContainer').addClass('slide-in-right').show();
+	$('.postViewBackground').addClass('fade-in').show();
+	setTimeout(() => {
+		$('.postViewMainContainer').removeClass('slide-in-right');
+		$('.postViewBackground').removeClass('fade-in');
+	}, 400);
+}
+
+//Close up post view page
+function closePostView() {
+	$('.postViewBackground').addClass('fade-out');
+	$('.postViewMainContainer').addClass('slide-out-right');
+	setTimeout(() => {
+		$('.postViewBackground').removeClass('fade-out');
+		$('.postViewMainContainer').removeClass('slide-out-right');	
+		$('.postViewContainer').hide();
+	}, 400);
+}
+
+function loadPostView(postID) {
+	$.get("../../utilities/loadPostView.php", { postID: postID }, function(response) {
+		if (response.error) {
+			console.error("Error fetching post:", response.error);
+		} else {
+			$(".postViewMainContainer").html(response.postData); // Set postData to postViewMainContainer
+
+			var commentsContainer = $("<hr style='width: 90%; margin: 10px 0;'>").append("<div class='allCommentsContainer'>" + response.commentsData + "</div>");
+			$(".postViewMainContainer").append(commentsContainer);
+			openPostView();
+		}
+	}, 'json');
+	
+}
 
 //Logout
 function logout() {

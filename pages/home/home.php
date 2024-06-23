@@ -12,10 +12,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Shopping List</title>
+	<title>stardust - home</title>
 
 	<!-- Include stylesheets -->
-	<link rel="stylesheet" href="../../main.css">
+	<link rel="stylesheet" href="../../main.css">\
 	<link rel="stylesheet" href="home.css">
 
 	<!-- Include jQuery -->
@@ -38,6 +38,47 @@
 		<!-- HEADER -->
 		<div class='header'>
 			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
+		</div>
+
+
+		<!-- POST VIEW PAGE -->
+		<div class = 'postViewContainer' style='display: none'>
+			<div class='postViewMainContainer'>
+				<!-- POST VIEW -->
+				<div class='postContainer'>
+					<div class='posterInfo'>
+						<img class='posterProfilePic' src='../../mater.jpg'>
+						<p class='postUsername'>usernameNull</p>
+						<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost()'>
+					</div>
+					<img class='postImage' src='../../mater.jpg'>
+					<div class='postFooter'>
+						<div class='postText'>
+							<p class='postCaption'>tester caption b;lah blah</p>
+							<p class='postDate'></p>
+						</div>
+						<div class='postIcons'>
+							<p class='postLikeCount'></p>
+							<img class='postHeartIcon' data-postID='' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>
+						</div>
+					</div>
+				</div>
+				<hr style = 'width: 90%; margin: 10px 0;'>
+				<!-- POST VIEW COMMENTS -->
+				 <div class = 'allCommentsContainer'>
+					<div class = 'commentContainer'>
+						<img class = 'commentorProfilePic' src = '../../mater.jpg'>
+						<div class = 'commentText'>
+							<p class = 'commentorUsername'> sillygirl24</p>
+							<p class = 'commentorComment'> so cute! i love it</p>
+						</div>
+						<p class = 'commentDate'> 06.23.24</p>
+					</div>
+				 </div>
+				
+			</div>
+
+			<div class='postViewBackground' onclick='closePostView()'></div>
 		</div>
 		<!-- FEED -->
 		<!-- POST DELETE PAGE -->
@@ -89,11 +130,24 @@
 				</div>
 				<div class='editBioBackground' onclick='closeEditBio()'></div>
 			</div>
+			<!-- CHANGE PASSWORD PAGE -->
+			 <div class='changePasswordContainer' style='display: none'>
+				<div class='changePasswordMenu'>
+					<p class='changePasswordLabel'> change password</p>
+					<input class = 'currentPasswordBox' type = 'password' maxlength = "30" placeholder = 'current password'></input>
+					<input class = 'createdPasswordBox' type = 'password' maxlength = "30" placeholder = 'create a new password'></input>
+					<input class = 'confirmPasswordBox' type = 'password' maxlength = "30" placeholder = 'confirm your new password'></input>
+					<button class='changePasswordConfirmButton' onclick='updatePassword()' style='display: none'> update password </button>
+					<p class = 'updatePasswordErrorMessage' style='display: none'> Error message goes here</p>
+					<p class = 'updatePasswordSuccessMessage' style='display: none'> Success message goes here</p>
+				</div>
+				<div class='editBioBackground' onclick='closeChangePassword()'></div>
+			</div>
 			<!-- ACCOUNT SETTINGS PAGE -->
 			<div class='accountSettingsContainer' style='display: none'>
 				<div class='accountSettingsMenu'>
 					<button class='editBioButton' onclick='closeSettings(); openEditBio()'> edit bio</button>
-					<button class='menuButton' onclick='logout()'> tester 2</button>
+					<button class='changePasswordButton' onclick='openChangePassword()'> change password</button>
 					<button class='menuButton' onclick='logout()'> tester 3</button>
 					<button class='logoutButton' onclick='logout()'> log out</button>
 				</div>
@@ -124,8 +178,14 @@
 			<button class='saveProfilePicButton' style='display: none'> save profile picture </button>
 
 			<hr>
-			<div class='currentUserPostContainer'>
-				<p class='noPostsYet'> no posts yet</p>
+			<p class='noPostsYet' style = 'display: none'> no posts yet</p>
+			<div class='currentUserPostContainer'  style = 'display: none'>
+				<div class = 'currentUserPostPreviewContainer'>
+					<img class = 'currentUserPostPreview' src = '../../mater.jpg'>
+					<img class = 'currentUserPostPreview' src = '../../mater.jpg'>
+					<img class = 'currentUserPostPreview' src = '../../mater.jpg'>
+
+				</div>
 			</div>
 			<img class='settingsIcon' onclick='openSettings()' src='../../resources/images/settingsIcon.png'>
 		</div>
@@ -141,6 +201,7 @@
 
 	<!-- Include Javascript -->
 	<script src="home.js"></script>
+	<script src="../../main.js"></script>
 
 </body>
 
