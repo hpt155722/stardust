@@ -7,6 +7,13 @@
 	overflow-y: scroll;
 	display: flex;
 	align-items: flex-start;
+	overflow-x: hidden;
+
+}
+
+body {
+	overflow-x: hidden;
+	
 }
 
 /* Typography */
@@ -87,8 +94,7 @@ p {
 .contentPage {
 	margin-top: 50px;
 	width: 100vw;
-	padding: 30px;
-	overflow-x: hidden;
+	padding: 30px 0;
 }
 
 .createAPostPage {
@@ -108,6 +114,7 @@ p {
 .currentUserInfo {
 	display: flex;
 	align-items: flex-start;
+	width: 90%;
 }
 
 .currentUserTextInfo {
@@ -159,6 +166,7 @@ hr {
 	border: none;
 	border-top: 2px solid #95aace;
 	margin: 20px 0;
+	width: 90%;
 }
 
 /* No Posts Yet */
@@ -317,6 +325,13 @@ input:focus {
 	width: 100vw;
 }
 
+.accountsPage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .postsContainer {
 	display: flex;
 	flex-direction: column;
@@ -325,7 +340,7 @@ input:focus {
 }
 
 .postContainer {
-	width: 85vw;
+	width: 90%;
 	max-width: 350px;
 	display: flex;
 	flex-direction: column;
@@ -626,7 +641,7 @@ input:focus {
 	background-color: #e7a0b3;
 	color: white;
 	letter-spacing: 1px;
-	width: 100%;
+	width: 90%;	
 	padding: 8px 0;
 	margin: 0 0 15px 0;
 	font-size: .9em;
@@ -645,13 +660,14 @@ input:focus {
 }
 
 .uploadImageButton {
-	width: 70vw;
+	width: 60vw;
+	margin-top: 20px;
 	max-width: 300px;
 }
 
 .createACaption {
 	font-size: .9em;
-	margin-top: 20px;
+	margin-top: 10px;
 	font-family: BPreplay;
 	width: 60%;
 	max-width: 250px;
@@ -662,8 +678,12 @@ input:focus {
 	resize: none;
 }
 
-.createACaptionL:focus {
+.createACaptiom:focus {
 	outline: 0;
+}
+
+.createACaption::placeholder {
+	color: #34353f;
 }
 
 .createPostButton {
@@ -671,6 +691,24 @@ input:focus {
 	color: white;
 	padding: 10px 20px;
 	min-width: max-content;
+}
+
+#croppedImage
+{
+	width: 100%;
+}
+.cr-boundary {
+	border-radius: 15px;
+	border: 8px solid #eeb5c4;
+}
+.croppie-container, .cr-viewport {
+	border: 0 !important;
+}
+.cr-slider-wrap {
+	display:none;
+}
+.croppie-container {
+    height: max-content !important;
 }
 
 /* Update Password Styling */

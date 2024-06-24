@@ -33,9 +33,8 @@
         $caption = sanitize($_POST['caption']);
 
         // Decode base64 image data
-        $imageData = str_replace("data:image/png;base64,", "", $imageData);
-        $imageData = str_replace(" ", "+", $imageData);
-        $decodedImage = base64_decode($imageData);
+        $data = explode(',', $imageData);
+        $decodedImage = base64_decode($data[1]);
 
         if ($decodedImage !== false) {
             // Generate a unique filename

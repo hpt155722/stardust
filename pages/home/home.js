@@ -595,6 +595,7 @@ function openCreateAPostPage() {
 	$('.createPostButton').hide();
 	$('#createPostFileInput').val(''); 
 	$('.uploadImageButton').attr('src', '../../resources/images/uploadAnImage.png');
+	$('#croppedImage').hide();
 
 
 	$('.footer').addClass('slide-out-bottom');
@@ -620,61 +621,88 @@ function closeCreateAPostPage() {
 		$('.createAPostPage').removeClass('slide-out-right').hide();
 	}, 400);
 }
-
+// Function to handle image upload
 function handleImageUpload() {
     $('#createPostFileInput').click();
 }
 
-$('#createPostFileInput').on('change', function() {
+// Function to process selected image using Croppie
+$('#createPostFileInput').change(function() {
+    $('.loadingContainer').show();
+    $('.uploadImageButton').hide();
+    $('#croppedImage').show();
+
     var file = this.files[0];
-    var reader = new FileReader();
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var image = new Image();
+            image.src = e.target.result;
+            $(image).on('load', function() {
+                // Initialize Croppie
+                var $croppedImage = $('#croppedImage');
+                $croppedImage.croppie({
+                    viewport: {
+                        width: 250,
+                        height: 250,
+                    },
+                    boundary: {
+                        width: 250,
+                        height: 250
+                    }
+                });
+                $croppedImage.croppie('bind', {
+                    url: e.target.result
+                });
 
-    reader.onload = function(e) {
-        var img = new Image();
-        img.onload = function() {
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            var squareSize = Math.min(this.width, this.height);
-            
-            canvas.width = squareSize;
-            canvas.height = squareSize;
-            
-            // Crop image to square
-            ctx.drawImage(img, (this.width - squareSize) / 2, (this.height - squareSize) / 2, squareSize, squareSize, 0, 0, squareSize, squareSize);
-            
-            // Create a new canvas for resizing
-            var resizedCanvas = document.createElement('canvas');
-            var resizedCtx = resizedCanvas.getContext('2d');
-            resizedCanvas.width = 500;
-            resizedCanvas.height = 500;
-            
-            // Resize cropped image to 500x500
-            resizedCtx.drawImage(canvas, 0, 0, squareSize, squareSize, 0, 0, 500, 500);
-            
-            // Convert canvas to data URL and set as src for preview
-            var resizedImg = resizedCanvas.toDataURL('image/png');
-            $('.uploadImageButton').css('border-radius', '10px');
-            $('.uploadImageButton').attr('src', resizedImg);
-            
-            // Store resized image data URL for later use
-            $('.createPostButton').data('resizedImg', resizedImg);
+                // Set cropContainer size to a square
+                var size = Math.min(image.width, image.height);
+                var $cropContainer = $('#cropContainer');
+                $cropContainer.width(size);
+                $cropContainer.height(size);
+
+                // Set up Croppie events
+                $croppedImage.on('update.croppie', function(ev, data) {
+                    // Update the display of the cropped image
+                    var $croppedResult = $('#croppedResult');
+                    $croppedResult.empty();
+                    $croppedResult.append($('<img>', { src: data.image }));
+
+                    // Hide loading container when everything is loaded
+                    $('.loadingContainer').hide();
+					$('body').css('zoom', '100%');
+
+                });
+
+                // Show additional UI elements
+                $('.createACaption').show();
+                $('.createPostButton').show();
+            });
         };
-
-        img.src = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-	$('.createACaption').show();
-	$('.createPostButton').show();
+        reader.readAsDataURL(file);
+    }
 });
 
-$('.createPostButton').on('click', function() {
+// Function to crop image using Croppie
+function uploadPost() {
 	$('.createPostButton').hide();
-    var resizedImg = $(this).data('resizedImg');
-	var caption = $('.createACaption').val();
 
-    if (resizedImg) {
-        $.post('../../utilities/createAPost.php', { image: resizedImg, caption:caption })
+
+    $('#croppedImage').croppie('result', {
+        type: 'base64',
+        size: { width: 800, height: 800 }, 
+        format: 'jpeg'
+        }).then(function(croppedData) {
+        createAPost(croppedData);
+    });
+}
+
+function createAPost(croppedData){
+	var caption = $('.createACaption').val();
+	console.log(croppedData);
+
+    if (croppedData) {
+        $.post('../../utilities/createAPost.php', { image: croppedData, caption:caption })
         .done(function(response) {
             console.log(response);
 			$.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
@@ -696,7 +724,7 @@ $('.createPostButton').on('click', function() {
     } else {
         console.error('No cropped image available to save.');
     }
-});
+}
 
 
 

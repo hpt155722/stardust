@@ -23,21 +23,21 @@
                     // Delete image file
                     if (file_exists('../resources/posts/'.$imageFilePath)) {
                         unlink('../resources/posts/'.$imageFilePath);
-                        echo "Image file deleted successfully<br>";
+                        echo "Image file deleted successfully";
                     } else {
                         echo "Image file not found: ../resources/posts/".$imageFilePath;
                     }
                 } else {
-                    echo "Failed to fetch image file path<br>";
+                    echo "Failed to fetch image file path";
                 }
 
                 // Close statement
                 $stmt_select->close();
             } else {
-                echo "Error executing select statement<br>";
+                echo "Error executing select statement";
             }
         } else {
-            echo "Prepare select statement failed<br>";
+            echo "Prepare select statement failed";
         }
 
         // Now delete the post from the database
@@ -51,16 +51,16 @@
             // Execute statement
             if ($stmt_delete->execute()) {
                 // Delete successful
-                echo "Post deleted successfully<br>";
+                echo "Post deleted successfully";
             } else {
                 // Delete failed
-                echo "Error deleting post<br>";
+                echo "Error deleting post";
             }
 
             // Close statement
             $stmt_delete->close();
         } else {
-            echo "Prepare delete statement failed<br>";
+            echo "Prepare delete statement failed";
         }
 
         // Close database connection

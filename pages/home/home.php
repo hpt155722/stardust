@@ -25,6 +25,12 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
+	<!-- Include Croppie CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+
+	<!-- Include Croppie JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
 
 </head>
 
@@ -136,10 +142,14 @@
 				<!-- IMAGE UPLOAD -->
 				<input type="file" id="createPostFileInput" style="display: none;">
 				<img class="uploadImageButton" onclick="handleImageUpload()" src="../../resources/images/uploadAnImage.png" style="cursor: pointer;">
+				
+				<!-- Crop photo container -->
+				<div id="croppedImage"></div>
+
 				<!-- CAPTION -->
 				<textarea class='postCaption createACaption' placeholder="share your thoughts..." maxlength="110" spellcheck="false"></textarea>
 				<!-- POST -->
-				<button class = 'createPostButton'> post </button>
+				<button class = 'createPostButton' onclick = 'uploadPost()'> post </button>
 		
 			</div>
 		<!-- ACCOUNT PAGE -->
