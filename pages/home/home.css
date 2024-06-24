@@ -1,3 +1,4 @@
+/* Layout */
 .pageContent {
 	height: 100%;
 	width: 100%;
@@ -6,16 +7,23 @@
 	display: inline;
 }
 
+.no-scroll {
+    overflow-y: hidden !important; 
+}
+
+/* Typography */
 p {
 	color: #34353f;
 	text-align: center;
 }
 
+/* Loading */
 .loadingContainer {
 	opacity: 1;
-    z-index: 100;
+	z-index: 100;
 }
 
+/* Header */
 .header {
 	background-color: #95aace;
 	position: fixed;
@@ -23,7 +31,7 @@ p {
 	left: 0;
 	width: 100vw;
 	height: max-content;
-	padding: 10px 0 10px 0;
+	padding: 10px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -34,6 +42,7 @@ p {
 	width: 110px;
 }
 
+/* Footer */
 .footer {
 	background-color: #95aace;
 	position: fixed;
@@ -41,7 +50,7 @@ p {
 	left: 0;
 	width: 100vw;
 	height: max-content;
-	padding: 8px 0 8px 0;
+	padding: 8px 0;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -54,7 +63,6 @@ p {
 }
 
 @media (hover: hover) {
-
 	.footerIcon:hover,
 	.settingsIcon:hover,
 	.exitSettings:hover,
@@ -67,6 +75,7 @@ p {
 	}
 }
 
+/* Page Styles */
 .selectedPage {
 	background-color: #eeb5c4;
 	padding: 8px;
@@ -74,7 +83,7 @@ p {
 }
 
 .contentPage {
-	margin-top: 50px;
+	margin-top: 75px;
 	position: relative;
 }
 
@@ -82,6 +91,7 @@ p {
 	padding: 30px;
 }
 
+/* Current User Info */
 .currentUserInfo {
 	display: flex;
 	align-items: center;
@@ -99,7 +109,7 @@ p {
 	width: 22vw;
 	max-width: 100px;
 	border: 0;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .currentUserUsername {
@@ -132,18 +142,21 @@ p {
 	align-items: center;
 }
 
+/* Horizontal Rule */
 hr {
 	border: none;
 	border-top: 2px solid #95aace;
 	margin: 20px 0;
 }
 
+/* No Posts Yet */
 .noPostsYet {
 	text-align: center;
 	font-family: BPreplayBold;
 	opacity: .35;
 }
 
+/* Settings and Menus */
 .settingsIcon {
 	width: 5vw;
 	max-width: 25px;
@@ -153,7 +166,7 @@ hr {
 }
 
 .accountSettingsContainer,
-.editBioContainer, 
+.editBioContainer,
 .postEditContainer,
 .changePasswordContainer {
 	height: 100vh;
@@ -169,7 +182,7 @@ hr {
 
 .accountSettingsBackground,
 .editBioBackground,
-.postEditBackground, 
+.postEditBackground,
 .postViewBackground {
 	background-color: #ffffffbd;
 	height: 100vh;
@@ -194,7 +207,7 @@ hr {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-    align-items: center;
+	align-items: center;
 	z-index: 5;
 }
 
@@ -227,6 +240,7 @@ hr {
 	outline: 0;
 }
 
+/* Buttons */
 button {
 	background-color: white;
 	color: #95aace;
@@ -237,7 +251,7 @@ button {
 	margin: 15px 0;
 	border: 0;
 	font-size: 1em;
-    min-width: 70%;
+	min-width: 70%;
 }
 
 .saveProfilePicButton {
@@ -258,40 +272,50 @@ button {
 .exitSettings {
 	text-align: center;
 	color: rgb(255, 255, 255);
-
 }
 
-
+/* Input Fields */
 input {
-    font-family: BPreplayBold;
-    border: 0 solid #bac1db;
-    border-radius: 30px;
-    color: #8b96bd;
-    width: 30vw;
-    max-width: 280px;
-    padding: 10px 10px;
-    text-align: center;
-    transition: opacity 0.4s ease;
-    margin-bottom: 15px;
+	font-family: BPreplayBold;
+	border: 0 solid #bac1db;
+	border-radius: 30px;
+	color: #8b96bd;
+	width: 30vw;
+	max-width: 280px;
+	padding: 10px 10px;
+	text-align: center;
+	transition: opacity 0.4s ease;
+	margin-bottom: 15px;
 	background-color: rgba(255, 255, 255, 0.655);
-    font-size: .8em;
+	font-size: .8em;
 }
 
 input:focus {
-    outline: 0;
+	outline: 0;
+}
+
+/* Post Styling */
+.feedPage {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
 
 }
 
-
-/* POST STYLING */
-
-.feedPage {
+.feedPagePosts {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-    height: max-content;
-    padding-bottom: 5vh;
+	height: max-content;
+	padding-bottom: 80px;
+}
+
+.postsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .postContainer {
@@ -398,30 +422,35 @@ input:focus {
 	transition: opacity .2s ease;
 }
 
-/* POST VIEW CONTAINER */
-
+/* Post View Container */
 .postViewContainer {
-    z-index: 5;
+	z-index: 5;
+	display: flex;
+	width: 100vw;
+	position: absolute;
+	height: max-content;
 }
 
 .postViewMainContainer {
-    background-image: url('../../resources/images/portraitBackground.png');
-    background-size: cover;
-	height: 100vh;
-	width: 380px;
-	position: fixed;
+	background-image: url('../../resources/images/portraitBackground.png');
+	background-size: cover;
+	min-height: 100vh;
+	width: 80vw;
+	max-width: 380px;
+	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 5;
-    border-left: 4px solid #95aace;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 80px;
+	border-left: 4px solid #95aace;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 75px 0 0px 0;
+	overflow-y: scroll;
 }
-    
-.postViewMainContainer .postContainer {
+
+ .postViewMainContainer .postContainer {
 	width: 85%;
 	max-width: 400px;
 	display: flex;
@@ -432,114 +461,209 @@ input:focus {
 }
 
 .postViewMainContainer .postText {
-    margin: 0;
+	margin: 0;
+	width: 75%;
+}
+
+.commentingContainer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	background-color: #8ca1c5;
+	width: 90%;
+	padding: 10px;
+	border-radius: 15px;
+	margin-bottom: 15px;
+}
+.commentingInputBox {
+	padding: 8px 15px;
+	font-size: .9em;
+	font-family: BPreplay;
+	text-align: left;
+	width: 70%;
+	margin: 0 15px 0 0;
+	color: #222326;
+	background-color: #ffffffc1;
+}
+
+.commentingInputBox::placeholder{
+	color:#34353f;
+}
+
+.postCommentButton {
+	width: max-content;
+	padding: 8px 10px;
+	margin: 0;
+	font-size: .9em;
+	min-width: max-content;
+	color: #e5a1b3;
 }
 
 .allCommentsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	margin-bottom: 50px;
 }
 
-.allCommentsContainer p {
-    font-size: .9em;
-    opacity: .8;
-}
 .commentContainer {
-    width: 90%;
-    display: flex;
-    align-items: center;
+	width: 90%;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .commentorProfilePic {
-    width: 50px;
-    border-radius: 99vw;
+	width: 50px;
+	border-radius: 99vw;
 }
 
 .commentText {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-left: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-left: 15px;
+	font-size: .9em;
+	opacity: .8;
 }
+
 .commentorUsername {
-    font-family: BPreplayBold;
-    font-size: .8em;
-    text-align: left;
-    margin: 0 0 5px 0;
-    color: #34353f;
-    letter-spacing: 1px;
+	font-family: BPreplayBold;
+	font-size: .8em;
+	text-align: left;
+	margin: 0 0 5px 0;
+	color: #34353f;
+	letter-spacing: 1px;
 }
+
 .commentorComment {
-    font-size: .9em;
-    margin-left: 15px;   
-    margin: 0;
-    color: #34353f;
+	font-size: .9em;
+	margin-left: 15px;
+	margin: 0;
+	color: #34353f;
 }
 
 .commentDate {
-    font-size: .7em;
-    opacity: .4;
-    position: absolute;
-    right: 20px;
+	font-size: .7em;
+	opacity: .4;
+	position: absolute;
+	right: 20px;
 }
 
-/* ANIMATIONS */
-.slide-in-right{-webkit-animation:slide-in-right .3s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-right .3s cubic-bezier(.25,.46,.45,.94) both}
-@-webkit-keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}
+/* Animations */
+.slide-in-right {
+	-webkit-animation: slide-in-right .3s cubic-bezier(.25, .46, .45, .94) both;
+	animation: slide-in-right .3s cubic-bezier(.25, .46, .45, .94) both
+}
 
-.slide-out-right{-webkit-animation:slide-out-right .3s cubic-bezier(.55,.085,.68,.53) both;animation:slide-out-right .3s cubic-bezier(.55,.085,.68,.53) both}
-@-webkit-keyframes slide-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}}@keyframes slide-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}}
+@-webkit-keyframes slide-in-right {
+	0% {
+		-webkit-transform: translateX(1000px);
+		transform: translateX(1000px);
+		opacity: 0
+	}
 
-/* CURRENT USER POST PREVIEWS */
+	100% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1
+	}
+}
 
+@keyframes slide-in-right {
+	0% {
+		-webkit-transform: translateX(1000px);
+		transform: translateX(1000px);
+		opacity: 0
+	}
+
+	100% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1
+	}
+}
+
+.slide-out-right {
+	-webkit-animation: slide-out-right .3s cubic-bezier(.55, .085, .68, .53) both;
+	animation: slide-out-right .3s cubic-bezier(.55, .085, .68, .53) both
+}
+
+@-webkit-keyframes slide-out-right {
+	0% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1
+	}
+
+	100% {
+		-webkit-transform: translateX(1000px);
+		transform: translateX(1000px);
+		opacity: 0
+	}
+}
+
+@keyframes slide-out-right {
+	0% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1
+	}
+
+	100% {
+		-webkit-transform: translateX(1000px);
+		transform: translateX(1000px);
+		opacity: 0
+	}
+}
+
+/* Current User Post Previews */
 .currentUserPostContainer {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; 
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .currentUserPostPreviewContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(23vw, 1fr));
-    gap: 10px 7px;
-    width: 95vw;
-    justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(23vw, 1fr));
+	gap: 10px 7px;
+	width: 95vw;
+	justify-content: center;
 }
 
 .currentUserPostPreview {
-    width: 100%; 
-    max-width: 140px;
-    border-radius: 10px;
-    cursor:pointer;
+	width: 100%;
+	max-width: 140px;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 @media screen and (orientation: landscape) {
-    .currentUserPostPreviewContainer {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
-    .currentUserPostContainer {
-        justify-content: flex-start;
-}
+	.currentUserPostPreviewContainer {
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	}
+
+	.currentUserPostContainer {
+		justify-content: flex-start;
+	}
 }
 
-/* UPDATE PASSWORD STYLING */
-
+/* Update Password Styling */
 .updatePasswordErrorMessage {
-    font-family: BPreplayBold;
-    color: #f48091;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.782);
-    padding: 10px;
-    border-radius: 10px;
+	font-family: BPreplayBold;
+	color: #f48091;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.782);
+	padding: 10px;
+	border-radius: 10px;
 }
 
 .updatePasswordSuccessMessage {
-    font-family: BPreplayBold;
-    color: #88b77c;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.782);
-    padding: 10px;
-    border-radius: 10px;
+	font-family: BPreplayBold;
+	color: #88b77c;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.782);
+	padding: 10px;
+	border-radius: 10px;
 }
-

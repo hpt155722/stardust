@@ -2,38 +2,37 @@
     //Hide PHP errors from being displayed
     error_reporting(0);
 
-    include ("connection.php");
+    include "connection.php";
 
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = htmlspecialchars($_POST['username']);
-        $password = htmlspecialchars($_POST['password']);
+        $username = htmlspecialchars($_POST["username"]);
+        $password = htmlspecialchars($_POST["password"]);
 
         try {
             //Prepare statements
-            $statement = $conn -> prepare("SELECT * FROM users WHERE username = ?");
-            $statement -> bind_param("s", $username);
+            $statement = $conn->prepare("SELECT * FROM users WHERE username = ?");
+            $statement->bind_param("s", $username);
 
             //Execute and get results
-            $statement -> execute();
+            $statement->execute();
             $result = $statement->get_result();
 
             //See if user exists
             if ($result->num_rows == 1) {
-                
                 //Get row data
-                $selectedUser = $result -> fetch_assoc();
+                $selectedUser = $result->fetch_assoc();
 
                 //Verify password
-                $storedHashedPassword = $selectedUser['password'];
+                $storedHashedPassword = $selectedUser["password"];
                 if (password_verify($password, $storedHashedPassword)) {
                     //Get user ID
-                    $userID = $selectedUser['userID'];
+                    $userID = $selectedUser["userID"];
 
                     //Store userID in sesiion variable
-                    $_SESSION['loggedInUser'] = $userID;
-                    $_SESSION['loggedInUsername'] = $username;
+                    $_SESSION["loggedInUser"] = $userID;
+                    $_SESSION["loggedInUsername"] = $username;
 
                     //Login Successful
                     echo "Logged in successfully.";
@@ -44,14 +43,12 @@
                 //Login Failed
                 echo "Invalid credentials. Please try again.";
             }
-            $statement -> close();
-
+            $statement->close();
         } catch (Exception $e) {
             echo "Login error.";
         }
 
         //Close connection
-        $conn -> close();
-
+        $conn->close();
     }
 ?>

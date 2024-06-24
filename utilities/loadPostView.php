@@ -33,6 +33,9 @@
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
 
+            // Format datePosted field
+            $formattedDatePosted = date("g:iA • m.d.y", strtotime($row["datePosted"]));
+
             // Build post data structure
             $postData = "<div class='postContainer'>
                 <div class='posterInfo'>
@@ -53,7 +56,7 @@
                 <div class='postFooter'>
                 <div class='postText'>
                     <p class='postCaption'>" . $row['caption'] . "</p>
-                    <p class='postDate'>" . $row['datePosted'] . "</p>
+                    <p class='postDate'>" . $formattedDatePosted . "</p> <!-- Updated date format here -->
                 </div>
                 <div class='postIcons'>
                     <p class='postLikeCount'>" . $row['like_count'] . "</p>";
@@ -86,15 +89,17 @@
 
             if ($commentsResult && mysqli_num_rows($commentsResult) > 0) {
                 while ($commentRow = mysqli_fetch_assoc($commentsResult)) {
+                    $formattedCommentDate = date("m.d.y", strtotime($commentRow['dateCommented']));
                     $commentsData .= "<div class='commentContainer'>
                         <img class='commentorProfilePic' src='../../resources/profilePics/" . $commentRow['profilePic'] . "'>
                         <div class='commentText'>
                             <p class='commentorUsername'>" . $commentRow['username'] . "</p>
                             <p class='commentorComment'>" . $commentRow['commentText'] . "</p>
                         </div>
-                        <p class='commentDate'>" . $commentRow['dateCommented'] . "</p>
+                        <p class='commentDate'>" . $formattedCommentDate . "</p>
                     </div>";
                 }
+                
             } else {
                 $commentsData = "<p>No comments yet.</p>";
             }
