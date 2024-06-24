@@ -34,18 +34,15 @@
 		<img class='loadingLogo rotate-center' src='../../resources/images/pinkStar.png'>
 	</div>
 
-	<div class='pageContent' style='display: none'>
-		<!-- HEADER -->
-		<div class='header'>
-			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
-		</div>
-
-
-		<!-- POST VIEW PAGE -->
-		<div class='postViewContainer' style='display: none'>
+			<!-- POST VIEW PAGE -->
+			<div class='postViewContainer' style='display: none'>
 			<div class='postViewMainContainer'>
+				<<div class = 'backToFeedButtonContainer'>
+					<button class = 'backToFeedButton' onclick='closePostView()'> back to feed </button>
+				</div>
 				<!-- POST VIEW -->
 				<div class='postsContainer'>
+					
 					<div class='postContainer'>
 						<div class='posterInfo'>
 							<img class='posterProfilePic' src='../../mater.jpg'>
@@ -84,8 +81,17 @@
 
 			</div>
 
-			<div class='postViewBackground' onclick='closePostView()'></div>
+			<!--<div class='postViewBackground' onclick='closePostView()'></div>-->
 		</div>
+
+
+	<div class='pageContent' style='display: none'>
+		<!-- HEADER -->
+		<div class='header'>
+			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
+		</div>
+
+
 		<!-- FEED -->
 		<!-- POST DELETE PAGE -->
 		<div class='postEditContainer' style='display: none'>
@@ -96,25 +102,23 @@
 		</div>
 		<!-- MAIN FEED PAGE -->
 		<div class='feedPage contentPage' style='display: none'>
-			<div class='feedPagePosts'>
-				<div class='postContainer'>
-					<div class='posterInfo'>
-						<img class='posterProfilePic' src='../../mater.jpg'>
-						<p class='postUsername'> testuser </p>
-						<img class='postMenu' src='../../resources/images/ellipsis.png'>
+			<div class='postContainer'>
+				<div class='posterInfo'>
+					<img class='posterProfilePic' src='../../mater.jpg'>
+					<p class='postUsername'> testuser </p>
+					<img class='postMenu' src='../../resources/images/ellipsis.png'>
+				</div>
+				<img class='postImage' src='../../mater.jpg'>
+				<div class='postFooter'>
+					<div class='postText'>
+						<p class='postCaption'>tester caption 123 i love pancakes lololol beep boop </p>
+						<p class='postDate'>4:35AM • 06.21.24</p>
 					</div>
-					<img class='postImage' src='../../mater.jpg'>
-					<div class='postFooter'>
-						<div class='postText'>
-							<p class='postCaption'>tester caption 123 i love pancakes lololol beep boop </p>
-							<p class='postDate'>4:35AM • 06.21.24</p>
-						</div>
-						<div class='postIcons'>
-							<p class='postCommentCount'> 7 </p>
-							<img class='postCommentIcon' src='../../resources/images/comment.png'>
-							<p class='postLikeCount'> 22 </p>
-							<img class='postHeartIcon' src='../../resources/images/unlikedHeart.png'>
-						</div>
+					<div class='postIcons'>
+						<p class='postCommentCount'> 7 </p>
+						<img class='postCommentIcon' src='../../resources/images/comment.png'>
+						<p class='postLikeCount'> 22 </p>
+						<img class='postHeartIcon' src='../../resources/images/unlikedHeart.png'>
 					</div>
 				</div>
 			</div>

@@ -358,7 +358,7 @@ function loadFeed() {
 			images.on('load', function() {
 				loadedImages++;
 				if (loadedImages === totalImages) {
-					$('.feedPagePosts').html(tempElement.html());
+					$('.feedPage').html(tempElement.html());
 					hiddenContainer.remove();
 					$('.pageContent').show();
 					$('.loadingContainer').hide();
@@ -370,7 +370,7 @@ function loadFeed() {
 			});
 
 			if (totalImages === 0) {
-				$('.feedPagePosts').html(tempElement.html());
+				$('.feedPage').html(tempElement.html());
 				hiddenContainer.remove();
 				$('.pageContent').show();
 				$('.loadingContainer').hide();
@@ -465,31 +465,34 @@ function toggleLike(img) {
 // Post View Operations
 
 // Open post view page
-var currentScroll;
 function openPostView() {
-    // Apply 'fixed' positioning to the feed and set its top position
-	currentScroll = $('.pageContent').offset().top - $(window).scrollTop() + 'px';
-    $('.feedPage').css({
-        'position': 'fixed',
-        'top': currentScroll,
-    });
-
+	$('.footer').addClass('slide-out-bottom');
+	$('.postViewMainContainer').scrollTop(0);
     $('.postViewContainer').show();
     $('.postViewMainContainer').addClass('slide-in-right').show();
     $('.postViewBackground').addClass('fade-in').show();
+
     setTimeout(() => {
+		$('.feedPage').css({
+			'position': 'fixed',
+		});
         $('.postViewMainContainer').removeClass('slide-in-right');
         $('.postViewBackground').removeClass('fade-in');
+		$('.footer').remove('slide-out-bottom').hide();
+		$('html, body').scrollTop(0);
     }, 400);
 }
 
 // Close post view page
 function closePostView() {
-    scrollBackToCurrentPost(function() {
-        // This code will execute after scrollBackToCurrentPost has finished
-        $('.postViewBackground').addClass('fade-out');
-        $('.postViewMainContainer').addClass('slide-out-right');
+    // Call scrollToCurrentPost and pass closePostView as a callback
+    scrollToCurrentPost(function() {
+		$('.postViewBackground').addClass('fade-out');
+		$('.postViewMainContainer').addClass('slide-out-right');
+		$('.footer').addClass('slide-in-bottom').show();
+
         setTimeout(() => {
+			$('.footer').removeClass('slide-out-bottom');
             $('.postViewBackground').removeClass('fade-out');
             $('.postViewMainContainer').removeClass('slide-out-right');
             $('.postViewContainer').hide();
@@ -497,21 +500,28 @@ function closePostView() {
     });
 }
 
-function scrollBackToCurrentPost(callback) {
-    $('.feedPage').css({
-        'position': 'relative',
-        'top': '0px',
+// Scroll to current post and invoke callback when done
+function scrollToCurrentPost(callback) {
+	$('.feedPage').css({
+        'position': 'absolute',
     });
 
-    var scrollValue = parseInt(currentScroll, 10); 
-    scrollValue = Math.abs(scrollValue); 
+    let elementId = 'post' + currentlyOpenPost;
 
-    var currentScrollTop = $(window).scrollTop();
-    $('html, body').scrollTop(currentScrollTop + scrollValue);
+    let $element = $('#' + elementId);
     
-    // Call the callback immediately after scrolling
-    callback();
+    if ($element.length) {
+        let targetScrollTop = $element.offset().top - 80;
+        $('html, body').scrollTop(targetScrollTop);
+        
+        if (typeof callback === 'function') {
+            callback();
+        }
+    } else {
+        console.error('Element with ID ' + elementId + ' not found.');
+    }
 }
+
 
 // Load post view
 let currentlyOpenPost;
