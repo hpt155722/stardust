@@ -57,19 +57,9 @@
                 <div class='postText'>
                     <p class='postCaption'>" . $row['caption'] . "</p>
                     <p class='postDate'>" . $formattedDatePosted . "</p> <!-- Updated date format here -->
-                </div>
-                <div class='postIcons'>
-                    <p class='postLikeCount'>" . $row['like_count'] . "</p>";
-
-            // Conditional rendering of like icon based on $row['liked_by_user']
-            if ($row['liked_by_user']) {
-                $postData .= "<img class='postHeartIcon' data-postID='" . $row['postID'] . "' src='../../resources/images/likedHeart.png' onclick='toggleLike(this);'>";
-            } else {
-                $postData .= "<img class='postHeartIcon' data-postID='" . $row['postID'] . "' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>";
-            }
-
+                </div>";
+                
             $postData .= "</div>
-                </div>
                 </div>
                 </div>"; // Close remaining divs
 
@@ -89,7 +79,7 @@
 
             if ($commentsResult && mysqli_num_rows($commentsResult) > 0) {
                 while ($commentRow = mysqli_fetch_assoc($commentsResult)) {
-                    $formattedCommentDate = date("m.d.y", strtotime($commentRow['dateCommented']));
+$formattedCommentDate = date("m.d.y", strtotime($commentRow['dateCommented']));
                     $commentsData .= "<div class='commentContainer'>
                         <img class='commentorProfilePic' src='../../resources/profilePics/" . $commentRow['profilePic'] . "'>
                         <div class='commentText'>

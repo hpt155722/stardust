@@ -1,14 +1,12 @@
 /* Layout */
 .pageContent {
 	height: 100%;
-	width: 100%;
+	width: 100vw;
 	padding: 0;
 	margin: 0;
-	display: inline;
-}
-
-.no-scroll {
-    overflow-y: hidden !important; 
+	overflow-y: scroll;
+	display: flex;
+	align-items: flex-start;
 }
 
 /* Typography */
@@ -76,6 +74,10 @@ p {
 }
 
 /* Page Styles */
+::-webkit-scrollbar {
+    display: none;
+}
+
 .selectedPage {
 	background-color: #eeb5c4;
 	padding: 8px;
@@ -84,30 +86,29 @@ p {
 
 .contentPage {
 	margin-top: 75px;
-	position: relative;
 }
 
 .accountsPage {
+	width: 100vw;
 	padding: 30px;
 }
 
 /* Current User Info */
 .currentUserInfo {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .currentUserTextInfo {
 	display: flex;
 	flex-direction: column;
-	width: max-content;
+	width: 90%;
 	margin-left: 15px;
 }
 
 .currentUserProfilePic {
 	border-radius: 999vw;
-	width: 22vw;
-	max-width: 100px;
+	width: 80px;
 	border: 0;
 	cursor: pointer;
 }
@@ -138,7 +139,7 @@ p {
 
 .usernameAndFollowersCount {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 }
 
@@ -161,8 +162,8 @@ hr {
 	width: 5vw;
 	max-width: 25px;
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: 83px;
+	right: 18px;
 }
 
 .accountSettingsContainer,
@@ -182,8 +183,7 @@ hr {
 
 .accountSettingsBackground,
 .editBioBackground,
-.postEditBackground,
-.postViewBackground {
+.postEditBackground {
 	background-color: #fff2f5;
 	height: 100vh;
 	width: 100vw;
@@ -418,19 +418,19 @@ input:focus {
 }
 
 /* Post View Container */
-.postViewContainer {
-	z-index: 5;
-	display: flex;
-	width: 100vw;
-	position: fixed;
-	top:0;
-	right:0;
-	padding:0;
-	margin: 0;
-	height: 100vh;
-	overflow-y: auto; 
-}
 
+.postViewPage {
+    height: 100vh;
+    width: 100vw;
+    z-index: 5;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+	position: fixed;
+	overflow-y: scroll;
+}
 
 .backToFeedButtonContainer {
 	display: flex;
@@ -448,47 +448,19 @@ input:focus {
 	font-size: .9em;
 }
 
-
-.postViewMainContainer {
-    background-image: url('../../resources/images/portraitBackground.png');
-    background-size: cover;
-    min-height: 100vh;
-    width: 80vw;
-    max-width: 380px;
-    max-height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 5;
-    border-left: 4px solid #95aace;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 75px 0px 0px 0;
-    overflow-y: auto;
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-}
-
-.postViewMainContainer::-webkit-scrollbar {
-    display: none; /* Hides scrollbar in WebKit browsers (Chrome, Safari, etc.) */
-}
-
-
- .postViewMainContainer .postContainer {
+ .postViewPage .postContainer {
 	width: 85%;
 	max-width: 400px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 0 0 15px 0;
+	margin: 10px 0 0px 0;
 }
 
-.postViewMainContainer .postText {
+.postViewPage .postText {
 	margin: 0;
-	width: 75%;
+	width: 100%;
 }
 
 .commentingContainer {
@@ -529,7 +501,7 @@ input:focus {
 	display: flex;
 	flex-direction: column;
 	width: 90%;
-	margin-bottom: 50px;
+	margin-bottom: 100px;
 }
 
 .commentContainer {
@@ -577,77 +549,24 @@ input:focus {
 }
 
 /* Animations */
-.slide-in-right {
-	-webkit-animation: slide-in-right .3s cubic-bezier(.25, .46, .45, .94) both;
-	animation: slide-in-right .3s cubic-bezier(.25, .46, .45, .94) both
-}
-
-@-webkit-keyframes slide-in-right {
-	0% {
-		-webkit-transform: translateX(1000px);
-		transform: translateX(1000px);
-		opacity: 0
-	}
-
-	100% {
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-		opacity: 1
-	}
-}
-
-@keyframes slide-in-right {
-	0% {
-		-webkit-transform: translateX(1000px);
-		transform: translateX(1000px);
-		opacity: 0
-	}
-
-	100% {
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-		opacity: 1
-	}
-}
-
-.slide-out-right {
-	-webkit-animation: slide-out-right .3s cubic-bezier(.55, .085, .68, .53) both;
-	animation: slide-out-right .3s cubic-bezier(.55, .085, .68, .53) both
-}
-
-@-webkit-keyframes slide-out-right {
-	0% {
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-		opacity: 1
-	}
-
-	100% {
-		-webkit-transform: translateX(1000px);
-		transform: translateX(1000px);
-		opacity: 0
-	}
-}
-
-@keyframes slide-out-right {
-	0% {
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-		opacity: 1
-	}
-
-	100% {
-		-webkit-transform: translateX(1000px);
-		transform: translateX(1000px);
-		opacity: 0
-	}
-}
-
-.slide-out-bottom{-webkit-animation:slide-out-bottom .3s cubic-bezier(.55,.085,.68,.53) both;animation:slide-out-bottom .3s cubic-bezier(.55,.085,.68,.53) both}
+.slide-out-bottom{-webkit-animation:slide-out-bottom .4s cubic-bezier(.55,.085,.68,.53) both;animation:slide-out-bottom .4s cubic-bezier(.55,.085,.68,.53) both}
 @-webkit-keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}@keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}
 
-.slide-in-bottom{-webkit-animation:slide-in-bottom .3s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-bottom .3s cubic-bezier(.25,.46,.45,.94) both}
+.slide-in-bottom{-webkit-animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both}
 @-webkit-keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}
+
+.slide-in-left{animation:slide-in-left .4s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes slide-in-left{0%{transform:translateX(-1000px);opacity:0}100%{transform:translateX(0);opacity:1}}
+
+.slide-in-right{animation:slide-in-right .4s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes slide-in-right{0%{transform:translateX(1000px);opacity:0}100%{transform:translateX(0);opacity:1}}
+
+.slide-out-right{animation:slide-out-right .4s cubic-bezier(.55,.085,.68,.53) both}
+@keyframes slide-out-right{0%{transform:translateX(0);opacity:1}100%{transform:translateX(1000px);opacity:0}}
+
+.slide-out-left{animation:slide-out-left .4s cubic-bezier(.55,.085,.68,.53) both}
+@keyframes slide-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-1000px);opacity:0}}
+
 
 /* Current User Post Previews */
 .currentUserPostContainer {
@@ -660,7 +579,7 @@ input:focus {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(23vw, 1fr));
 	gap: 10px 7px;
-	width: 95vw;
+	width: 90vw;
 	justify-content: center;
 }
 

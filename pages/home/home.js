@@ -467,45 +467,34 @@ function toggleLike(img) {
 // Open post view page
 function openPostView() {
 	$('.footer').addClass('slide-out-bottom');
-	$('.postViewMainContainer').scrollTop(0);
-    $('.postViewContainer').show();
-    $('.postViewMainContainer').addClass('slide-in-right').show();
-    $('.postViewBackground').addClass('fade-in').show();
+    $('.feedPage').addClass('slide-out-left');
+    $('.postViewPage').addClass('slide-in-right').show();
 
     setTimeout(() => {
-		$('.feedPage').css({
-			'position': 'fixed',
-		});
-        $('.postViewMainContainer').removeClass('slide-in-right');
-        $('.postViewBackground').removeClass('fade-in');
-		$('.footer').remove('slide-out-bottom').hide();
-		$('html, body').scrollTop(0);
+		$('.feedPage').removeClass('slide-out-left').hide();
+        $('.postViewPage').removeClass('slide-in-right');
+		$('.footer').removeClass('slide-out-bottom').hide();
     }, 400);
 }
 
 // Close post view page
 function closePostView() {
-    // Call scrollToCurrentPost and pass closePostView as a callback
+	
     scrollToCurrentPost(function() {
-		$('.postViewBackground').addClass('fade-out');
-		$('.postViewMainContainer').addClass('slide-out-right');
+		$('.postViewPage').addClass('slide-out-right');
+		$('.feedPage').addClass('slide-in-left').show();
 		$('.footer').addClass('slide-in-bottom').show();
 
         setTimeout(() => {
-			$('.footer').removeClass('slide-out-bottom');
-            $('.postViewBackground').removeClass('fade-out');
-            $('.postViewMainContainer').removeClass('slide-out-right');
-            $('.postViewContainer').hide();
+			$('.footer').removeClass('slide-in-bottom');
+			$('.feedPage').removeClass('slide-in-left');
+            $('.postViewPage').removeClass('slide-out-right').hide();
         }, 400);
     });
 }
 
 // Scroll to current post and invoke callback when done
 function scrollToCurrentPost(callback) {
-	$('.feedPage').css({
-        'position': 'absolute',
-    });
-
     let elementId = 'post' + currentlyOpenPost;
 
     let $element = $('#' + elementId);

@@ -34,61 +34,57 @@
 		<img class='loadingLogo rotate-center' src='../../resources/images/pinkStar.png'>
 	</div>
 
-			<!-- POST VIEW PAGE -->
-			<div class='postViewContainer' style='display: none'>
-			<div class='postViewMainContainer'>
-				<<div class = 'backToFeedButtonContainer'>
-					<button class = 'backToFeedButton' onclick='closePostView()'> back to feed </button>
-				</div>
-				<!-- POST VIEW -->
-				<div class='postsContainer'>
-					
-					<div class='postContainer'>
-						<div class='posterInfo'>
-							<img class='posterProfilePic' src='../../mater.jpg'>
-							<p class='postUsername'>usernameNull</p>
-							<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost()'>
-						</div>
-						<img class='postImage' src='../../mater.jpg'>
-						<div class='postFooter'>
-							<div class='postText'>
-								<p class='postCaption'>tester caption b;lah blah</p>
-								<p class='postDate'></p>
-							</div>
-							<div class='postIcons'>
-								<p class='postLikeCount'></p>
-								<img class='postHeartIcon' data-postID='' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr style='width: 90%; margin: 10px 0;'>
-				<!-- POST VIEW COMMENTS -->
-				<div class = 'commentingContainer'>
-					<input class = 'commentingInputBox' maxlength="150" spellcheck = "false" placeholder = 'write a comment...'/>
-					<button class = 'postCommentButton' onclick = 'postComment()'> post </button>
-				</div>
-				<div class='allCommentsContainer'>
-					<div class='commentContainer'>
-						<img class='commentorProfilePic' src='../../mater.jpg'>
-						<div class='commentText'>
-							<p class='commentorUsername'> sillygirl24</p>
-							<p class='commentorComment'> so cute! i love it</p>
-						</div>
-						<p class='commentDate'> 06.23.24</p>
-					</div>
-				</div>
-
-			</div>
-
-			<!--<div class='postViewBackground' onclick='closePostView()'></div>-->
-		</div>
-
 
 	<div class='pageContent' style='display: none'>
 		<!-- HEADER -->
 		<div class='header'>
 			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
+		</div>
+			<!-- POST VIEW PAGE -->
+			<div class='postViewPage contentPage' style='display: none'>
+				<div class = 'backToFeedButtonContainer'>
+						<button class = 'backToFeedButton' onclick='closePostView()'> back to feed </button>
+					</div>
+					<!-- POST VIEW -->
+					<div class='postsContainer'>
+						
+						<div class='postContainer'>
+							<div class='posterInfo'>
+								<img class='posterProfilePic' src='../../mater.jpg'>
+								<p class='postUsername'>usernameNull</p>
+								<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost()'>
+							</div>
+							<img class='postImage' src='../../mater.jpg'>
+							<div class='postFooter'>
+								<div class='postText'>
+									<p class='postCaption'>tester caption b;lah blah</p>
+									<p class='postDate'></p>
+								</div>
+								<div class='postIcons'>
+									<p class='postLikeCount'></p>
+									<img class='postHeartIcon' data-postID='' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr style='width: 90%; margin: 10px 0;'>
+					<!-- POST VIEW COMMENTS -->
+					<div class = 'commentingContainer'>
+						<input class = 'commentingInputBox' maxlength="150" spellcheck = "false" placeholder = 'write a comment...'/>
+						<button class = 'postCommentButton' onclick = 'postComment()'> post </button>
+					</div>
+					<div class='allCommentsContainer'>
+						<div class='commentContainer'>
+							<img class='commentorProfilePic' src='../../mater.jpg'>
+							<div class='commentText'>
+								<p class='commentorUsername'> sillygirl24</p>
+								<p class='commentorComment'> so cute! i love it</p>
+							</div>
+							<p class='commentDate'> 06.23.24</p>
+						</div>
+					</div>
+
+			<!--<div class='postViewBackground' onclick='closePostView()'></div>-->
 		</div>
 
 
