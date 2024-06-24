@@ -39,11 +39,12 @@
             // Build post data structure
             $postData = "<div class='postContainer'>
                 <div class='posterInfo'>
-                <img class='posterProfilePic' src='../../resources/profilePics/" . $row['profilePic'] . "'>
-                <p class='postUsername'>" . $row['username'] . "</p>
-                <img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost()'>
+                    <img class='posterProfilePic' src='../../resources/profilePics/" . $row['profilePic'] . "'>
+                    <p class='postUsername'>" . $row['username'] . "</p>
+                    <img class='postMenu' src='../../resources/images/ellipsis.png' onclick=\"openEditPost('$postID', 'postView')\">
                 </div>
                 <img class='postImage' src='";
+
 
             // Check if the image file exists
             if (file_exists("../resources/posts/" . $row['imageFilePath'])) {

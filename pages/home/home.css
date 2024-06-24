@@ -85,12 +85,23 @@ p {
 }
 
 .contentPage {
-	margin-top: 75px;
-}
-
-.accountsPage {
+	margin-top: 50px;
 	width: 100vw;
 	padding: 30px;
+	overflow-x: hidden;
+}
+
+.createAPostPage {
+	height: 100vh;
+    width: 100vw;
+    z-index: 5;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+	position: fixed;
+	overflow-y: scroll;
 }
 
 /* Current User Info */
@@ -131,7 +142,7 @@ p {
 	background-color: #e7a0b3;
 	color: white;
 	padding: 7px 10px;
-	border-radius: 90px;
+	border-radius: 10px;
 	margin-left: 20px;
 	font-size: .9em;
 	white-space: nowrap;
@@ -184,7 +195,7 @@ hr {
 .accountSettingsBackground,
 .editBioBackground,
 .postEditBackground {
-	background-color: #fff2f5;
+	background-color: #ffffffc1;
 	height: 100vh;
 	width: 100vw;
 	position: fixed;
@@ -432,20 +443,26 @@ input:focus {
 	overflow-y: scroll;
 }
 
-.backToFeedButtonContainer {
+.backToFeedButtonContainer, .backToAccountButtonContainer{
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 	width: 90%;
 }
 
-.backToFeedButton {
+.backToFeedButton , .backToAccountButton{
 	margin: 0;
 	padding: 5px 10px;
 	background-color: #e7a0b3;
 	color: white;
 	min-width: max-content;
 	font-size: .9em;
+}
+
+.postViewHR {
+	width: 90%;
+	margin: 10px 0;
+	max-width: 500px;
 }
 
  .postViewPage .postContainer {
@@ -469,6 +486,7 @@ input:focus {
 	justify-content: flex-start;
 	background-color: #8ca1c5;
 	width: 90%;
+	max-width: 400px;
 	padding: 10px;
 	border-radius: 15px;
 	margin-bottom: 15px;
@@ -500,7 +518,10 @@ input:focus {
 .allCommentsContainer {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	width: 90%;
+	max-width: 400px;
+
 	margin-bottom: 100px;
 }
 
@@ -509,6 +530,7 @@ input:focus {
 	display: flex;
 	align-items: center;
 	margin-bottom: 20px;
+	position: relative;
 }
 
 .commentorProfilePic {
@@ -545,7 +567,7 @@ input:focus {
 	font-size: .7em;
 	opacity: .4;
 	position: absolute;
-	right: 20px;
+	right: 5px;
 }
 
 /* Animations */
@@ -555,18 +577,17 @@ input:focus {
 .slide-in-bottom{-webkit-animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both}
 @-webkit-keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}
 
-.slide-in-left{animation:slide-in-left .4s cubic-bezier(.25,.46,.45,.94) both}
-@keyframes slide-in-left{0%{transform:translateX(-1000px);opacity:0}100%{transform:translateX(0);opacity:1}}
+.slide-in-left{animation:slide-in-left .4s ease-in-out both}
+@keyframes slide-in-left{0%{transform:translateX(-100vw);opacity:0}100%{transform:translateX(0);opacity:1}}
 
-.slide-in-right{animation:slide-in-right .4s cubic-bezier(.25,.46,.45,.94) both}
-@keyframes slide-in-right{0%{transform:translateX(1000px);opacity:0}100%{transform:translateX(0);opacity:1}}
+.slide-in-right{animation:slide-in-right .4s ease-in-out both}
+@keyframes slide-in-right{0%{transform:translateX(100vw);opacity:0}100%{transform:translateX(0);opacity:1}}
 
 .slide-out-right{animation:slide-out-right .4s cubic-bezier(.55,.085,.68,.53) both}
-@keyframes slide-out-right{0%{transform:translateX(0);opacity:1}100%{transform:translateX(1000px);opacity:0}}
+@keyframes slide-out-right{0%{transform:translateX(0);opacity:1}100%{transform:translateX(100vw);opacity:0}}
 
 .slide-out-left{animation:slide-out-left .4s cubic-bezier(.55,.085,.68,.53) both}
-@keyframes slide-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-1000px);opacity:0}}
-
+@keyframes slide-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-100vw);opacity:0}}
 
 /* Current User Post Previews */
 .currentUserPostContainer {
@@ -598,6 +619,58 @@ input:focus {
 	.currentUserPostContainer {
 		justify-content: flex-start;
 	}
+}
+
+/* Create a Post Styling */
+.createAPostButton {
+	background-color: #e7a0b3;
+	color: white;
+	letter-spacing: 1px;
+	width: 100%;
+	padding: 8px 0;
+	margin: 0 0 15px 0;
+	font-size: .9em;
+}
+
+.createAPostLabel {
+	background-color: #8ca1c5;
+	color: white;
+	padding: 10px 5px;
+	width: 100%;
+	max-width: 350px;
+	border-radius: 15px;
+	font-size: 1.2em;
+	font-family: BPreplayBold;
+	margin-top: 35px;
+}
+
+.uploadImageButton {
+	width: 70vw;
+	max-width: 300px;
+}
+
+.createACaption {
+	font-size: .9em;
+	margin-top: 20px;
+	font-family: BPreplay;
+	width: 60%;
+	max-width: 250px;
+	outline: 0;
+	border: 0;
+	padding: 25px;
+	height: auto;
+	resize: none;
+}
+
+.createACaptionL:focus {
+	outline: 0;
+}
+
+.createPostButton {
+	background-color: #8b96bd;
+	color: white;
+	padding: 10px 20px;
+	min-width: max-content;
 }
 
 /* Update Password Styling */

@@ -47,7 +47,7 @@
             echo "<img class='posterProfilePic' src='../../resources/profilePics/$profilePic'>";
             echo "<p class='postUsername' data-userID='$userID'>$username</p>";
             if ($showMenu) {
-                echo "<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID)'>";
+                echo "<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID, \"feedPage\")'>";
             }
             echo "</div>";
 
@@ -66,7 +66,7 @@
             echo "</div>";
             echo "<div class='postIcons'>";
             echo "<p class='postCommentCount'>$commentCount</p>";
-            echo "<img class='postCommentIcon' onclick = 'loadPostView($postID)' src='../../resources/images/comment.png' data-postid='$postID'>";
+            echo "<img class='postCommentIcon'  onclick=\"loadPostView($postID, 'feedPage')\" src='../../resources/images/comment.png' data-postid='$postID'>";
             echo "<p class='postLikeCount'>$likeCount</p>";
             if ($liked > 0) {
                 echo "<img class='postHeartIcon' data-postID='$postID' src='../../resources/images/likedHeart.png' onclick='toggleLike(this);'>";

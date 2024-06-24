@@ -12,6 +12,9 @@ function changePage(pageToOpen) {
 		// Load feed page
 		loadFeed();
 
+		//Change footer
+		reselectPage($('.feed'));
+
 		// Show feed page
 		$('.feedPage').show();
 
@@ -23,6 +26,9 @@ function changePage(pageToOpen) {
 		// Show search page
 		$('.searchPage').show();
 
+		//Change footer
+		reselectPage($('.search'));
+				
 		// Hide other pages
 		$('.feedPage').hide();
 		$('.notificationsPage').hide();
@@ -34,6 +40,9 @@ function changePage(pageToOpen) {
 		// Show notifications page
 		$('.notificationsPage').show();
 
+		//Change footer
+		reselectPage($('.notifications'))
+
 		// Hide other pages
 		$('.feedPage').hide();
 		$('.searchPage').hide();
@@ -44,6 +53,9 @@ function changePage(pageToOpen) {
 	} else if (currentPageOpened == "accounts") {
 		// Load accounts page
 		loadCurrentUserProfile();
+
+		//Change footer
+		reselectPage($('.profile'))
 
 		// Show accounts page
 		$('.accountsPage').show();
@@ -59,7 +71,7 @@ function changePage(pageToOpen) {
 
 // Page Initialization
 function onload() {
-	changePage('feed');
+	changePage('accounts');
 }
 
 // Footer Page Selection
@@ -388,8 +400,10 @@ function loadFeed() {
 
 // Edit post
 let postCurrentlyEditting;
+let currentPageOpenedEditPostOn;
 
-function openEditPost(postID) {
+function openEditPost(postID, pageOpenedEditPostOn) {
+	currentPageOpenedEditPostOn = pageOpenedEditPostOn;
 	postCurrentlyEditting = postID;
 	$('.postEditContainer').addClass('fade-in').show();
 	setTimeout(() => {
@@ -411,9 +425,15 @@ function deletePost() {
 		postID: postCurrentlyEditting
 	}, function(data, status) {
 		console.log("Data: " + data + "\nStatus: " + status);
-		loadFeed();
-		closeEditPost();
-		closePostView();
+		if (currentPageOpenedEditPostOn == 'feedPage') {
+			loadFeed();
+			closeEditPost();
+		}
+		if (currentPageOpenedEditPostOn == 'postView') {
+			closePostView();
+			closeEditPost();
+			changePage('accounts');
+		}
 	});
 }
 
@@ -464,14 +484,20 @@ function toggleLike(img) {
 
 // Post View Operations
 
+var previousPageFromPostView;
 // Open post view page
 function openPostView() {
+	if (previousPageFromPostView == 'feedPage') {
+		$('.backToFeedButton').text('back to feed');
+	} else {
+		$('.backToFeedButton').text('back to account');
+	}
 	$('.footer').addClass('slide-out-bottom');
-    $('.feedPage').addClass('slide-out-left');
+    $('.'+previousPageFromPostView).addClass('slide-out-left');
     $('.postViewPage').addClass('slide-in-right').show();
 
     setTimeout(() => {
-		$('.feedPage').removeClass('slide-out-left').hide();
+		$('.'+previousPageFromPostView).removeClass('slide-out-left').hide();
         $('.postViewPage').removeClass('slide-in-right');
 		$('.footer').removeClass('slide-out-bottom').hide();
     }, 400);
@@ -479,18 +505,29 @@ function openPostView() {
 
 // Close post view page
 function closePostView() {
+	if (previousPageFromPostView == 'feedPage') {
+		scrollToCurrentPost(function() {
+			$('.postViewPage').addClass('slide-out-right');
+			$('.'+previousPageFromPostView).addClass('slide-in-left').show();
+			$('.footer').addClass('slide-in-bottom').show();
 	
-    scrollToCurrentPost(function() {
+			setTimeout(() => {
+				$('.footer').removeClass('slide-in-bottom');
+				$('.'+previousPageFromPostView).removeClass('slide-in-left');
+				$('.postViewPage').removeClass('slide-out-right').hide();
+			}, 400);
+		});	
+	} else {
 		$('.postViewPage').addClass('slide-out-right');
-		$('.feedPage').addClass('slide-in-left').show();
+		$('.'+previousPageFromPostView).addClass('slide-in-left').show();
 		$('.footer').addClass('slide-in-bottom').show();
 
-        setTimeout(() => {
+		setTimeout(() => {
 			$('.footer').removeClass('slide-in-bottom');
-			$('.feedPage').removeClass('slide-in-left');
-            $('.postViewPage').removeClass('slide-out-right').hide();
-        }, 400);
-    });
+			$('.'+previousPageFromPostView).removeClass('slide-in-left');
+			$('.postViewPage').removeClass('slide-out-right').hide();
+		}, 400);
+	}
 }
 
 // Scroll to current post and invoke callback when done
@@ -514,7 +551,8 @@ function scrollToCurrentPost(callback) {
 
 // Load post view
 let currentlyOpenPost;
-function loadPostView(postID) {
+function loadPostView(postID, previousPage) {
+	previousPageFromPostView = previousPage;
 	currentlyOpenPost = postID;
 	$.get("../../utilities/loadPostView.php", {
 		postID: postID
@@ -548,6 +586,118 @@ function postComment() {
         });
     }
 }
+
+// Create a Post Operations
+
+// Open create a post page
+function openCreateAPostPage() {
+	$('.createACaption').hide();
+	$('.createPostButton').hide();
+	$('#createPostFileInput').val(''); 
+	$('.uploadImageButton').attr('src', '../../resources/images/uploadAnImage.png');
+
+
+	$('.footer').addClass('slide-out-bottom');
+    $('.accountsPage').addClass('slide-out-left');
+    $('.createAPostPage').addClass('slide-in-right').show();
+
+    setTimeout(() => {
+		$('.accountsPage').removeClass('slide-out-left').hide();
+        $('.postViewPage').removeClass('slide-in-right');
+		$('.footer').removeClass('slide-out-bottom').hide();
+    }, 400);
+}
+
+// Close create a post page
+function closeCreateAPostPage() {
+	$('.createAPostPage').addClass('slide-out-right');
+	$('.footer').addClass('slide-in-bottom').show();
+	$('.accountsPage').addClass('slide-in-left').show();
+
+	setTimeout(() => {
+		$('.footer').removeClass('slide-in-bottom');
+		$('.accountsPage').removeClass('slide-in-left');
+		$('.createAPostPage').removeClass('slide-out-right').hide();
+	}, 400);
+}
+
+function handleImageUpload() {
+    $('#createPostFileInput').click();
+}
+
+$('#createPostFileInput').on('change', function() {
+    var file = this.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var squareSize = Math.min(this.width, this.height);
+            
+            canvas.width = squareSize;
+            canvas.height = squareSize;
+            
+            // Crop image to square
+            ctx.drawImage(img, (this.width - squareSize) / 2, (this.height - squareSize) / 2, squareSize, squareSize, 0, 0, squareSize, squareSize);
+            
+            // Create a new canvas for resizing
+            var resizedCanvas = document.createElement('canvas');
+            var resizedCtx = resizedCanvas.getContext('2d');
+            resizedCanvas.width = 500;
+            resizedCanvas.height = 500;
+            
+            // Resize cropped image to 500x500
+            resizedCtx.drawImage(canvas, 0, 0, squareSize, squareSize, 0, 0, 500, 500);
+            
+            // Convert canvas to data URL and set as src for preview
+            var resizedImg = resizedCanvas.toDataURL('image/png');
+            $('.uploadImageButton').css('border-radius', '10px');
+            $('.uploadImageButton').attr('src', resizedImg);
+            
+            // Store resized image data URL for later use
+            $('.createPostButton').data('resizedImg', resizedImg);
+        };
+
+        img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+	$('.createACaption').show();
+	$('.createPostButton').show();
+});
+
+$('.createPostButton').on('click', function() {
+	$('.createPostButton').hide();
+    var resizedImg = $(this).data('resizedImg');
+	var caption = $('.createACaption').val();
+
+    if (resizedImg) {
+        $.post('../../utilities/createAPost.php', { image: resizedImg, caption:caption })
+        .done(function(response) {
+            console.log(response);
+			$.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
+				if (data == "No posts found.") {
+					$('.noPostsYet').show();
+					$('.currentUserPostContainer').hide();
+				} else {
+					$('.currentUserPostPreviewContainer').html(data);
+					$('.currentUserPostContainer').show();
+				}
+			});
+
+            closeCreateAPostPage();
+			
+        })
+        .fail(function(xhr, status, error) {
+            console.error('Error uploading image');
+        });
+    } else {
+        console.error('No cropped image available to save.');
+    }
+});
+
 
 
 // Logout

@@ -26,10 +26,10 @@
                 $imageFilePath = $row["imageFilePath"];
 
                 if (file_exists("../resources/posts/" . $imageFilePath)) {
-                    echo "<img class='currentUserPostPreview' src='../../resources/posts/$imageFilePath' onclick='loadPostView($postID)'>";
+                    echo "<img class='currentUserPostPreview' src='../../resources/posts/$imageFilePath' onclick=\"loadPostView($postID, 'accountsPage')\">";
                 } else {
                     // Display default image
-                    echo "<img class='currentUserPostPreview' src='../../resources/images/imageNotFound.png' onclick='loadPostView($postID)'>";
+                    echo "<img class='currentUserPostPreview' src='../../resources/images/imageNotFound.png' onclick=\"loadPostView($postID, 'accountsPage')\">";
                 }
             }
         } else {

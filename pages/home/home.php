@@ -42,7 +42,7 @@
 		</div>
 			<!-- POST VIEW PAGE -->
 			<div class='postViewPage contentPage' style='display: none'>
-				<div class = 'backToFeedButtonContainer'>
+					<div class = 'backToFeedButtonContainer'>
 						<button class = 'backToFeedButton' onclick='closePostView()'> back to feed </button>
 					</div>
 					<!-- POST VIEW -->
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 					</div>
-					<hr style='width: 90%; margin: 10px 0;'>
+					<hr class = 'postViewHR'>
 					<!-- POST VIEW COMMENTS -->
 					<div class = 'commentingContainer'>
 						<input class = 'commentingInputBox' maxlength="150" spellcheck = "false" placeholder = 'write a comment...'/>
@@ -127,13 +127,28 @@
 		<div class='notificationsPage contentPage' style='display: none'>
 			<p> notifications page here implement later</p>
 		</div>
+		<!-- CREATE A POST PAGE -->
+		<div class = 'createAPostPage contentPage' style='display: none'>
+				<div class = 'backToAccountButtonContainer'>
+					<button class = 'backToAccountButton' onclick='closeCreateAPostPage()'> back to account </button>
+				</div>
+				<p class = 'createAPostLabel'> &#9733; create a post &#9733; </p>
+				<!-- IMAGE UPLOAD -->
+				<input type="file" id="createPostFileInput" style="display: none;">
+				<img class="uploadImageButton" onclick="handleImageUpload()" src="../../resources/images/uploadAnImage.png" style="cursor: pointer;">
+				<!-- CAPTION -->
+				<textarea class='postCaption createACaption' placeholder="share your thoughts..." maxlength="110" spellcheck="false"></textarea>
+				<!-- POST -->
+				<button class = 'createPostButton'> post </button>
+		
+			</div>
 		<!-- ACCOUNT PAGE -->
 		<div class='accountsPage contentPage'>
 			<!-- EDIT BIO PAGE -->
 			<div class='editBioContainer' style='display: none'>
 				<div class='editBioMenu'>
 					<p class='editBioLabel'> edit bio </p>
-					<textarea class='editBioTextArea'> </textarea>
+					<textarea class='editBioTextArea' spellcheck="false"> </textarea>
 					<button class='saveEdittedBio' onclick='saveBio()' style='display: none'> save bio </button>
 				</div>
 				<div class='editBioBackground' onclick='closeEditBio()'></div>
@@ -186,6 +201,7 @@
 			<button class='saveProfilePicButton' style='display: none'> save profile picture </button>
 
 			<hr>
+			<button class = 'createAPostButton' onclick = 'openCreateAPostPage()'> new post + </button>
 			<p class='noPostsYet' style='display: none'> no posts yet</p>
 			<div class='currentUserPostContainer' style='display: none'>
 				<div class='currentUserPostPreviewContainer'>
@@ -199,7 +215,7 @@
 		</div>
 		<!-- FOOTER -->
 		<div class='footer'>
-			<img class='footerIcon feed selectedPage' onclick="changePage('feed'); reselectPage(this)" src='../../resources/images/feedIcon.png'>
+			<img class='footerIcon feed' onclick="changePage('feed'); reselectPage(this)" src='../../resources/images/feedIcon.png'>
 			<img class='footerIcon search' onclick="changePage('search'); reselectPage(this)" src='../../resources/images/searchIcon.png'>
 			<img class='footerIcon notifications' onclick="changePage('notifications'); reselectPage(this)" src='../../resources/images/notificationsIcon.png'>
 			<img class='footerIcon profile' onclick="changePage('accounts'); reselectPage(this)" src='../../resources/images/profileIcon.png'>
