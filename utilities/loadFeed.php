@@ -45,7 +45,7 @@
             echo "<div class='postContainer' id = 'post$postID'>";
             echo "<div class='posterInfo'>";
             echo "<img class='posterProfilePic' src='../../resources/profilePics/$profilePic'>";
-            echo "<p class='postUsername' onclick = 'loadProfileView($userID)'>$username</p>";
+            echo "<p class='postUsername' onclick = 'loadProfileView($userID, false)'>$username</p>";
             if ($showMenu) {
                 echo "<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID, \"feedPage\")'>";
             }

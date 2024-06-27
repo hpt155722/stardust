@@ -512,19 +512,6 @@ function openPostView() {
 
 // Close post view page
 function closePostView() {
-		if (profileOpened != null) { //If currently looking at someone's profile
-		loadProfileView(profileOpened);
-
-		$('.postViewPage').addClass('slide-out-right');
-		$('.profileViewPage').addClass('slide-in-left').show();
-		$('.footer').addClass('slide-in-bottom').show();
-
-		setTimeout(() => {
-			$('.footer').removeClass('slide-in-bottom');
-			$('.profileViewPage').removeClass('slide-in-left');
-			$('.postViewPage').removeClass('slide-out-right').hide();
-		}, 400);
-	} else {
 		if (currentPageOpened == 'feed') {
 			$('.postViewPage').addClass('slide-out-right');
 			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
@@ -546,8 +533,6 @@ function closePostView() {
 				$('.postViewPage').removeClass('slide-out-right').hide();
 			}, 400);
 		}
-	
-	}
 
 }
 
@@ -850,7 +835,7 @@ function closeProfileView(fromWhere) {
 	}
 }
 
-function loadProfileView(userID) {
+function loadProfileView(userID, fromSearch) {
 	profileOpened = userID;
 
 	$('.profileViewPage .noPostsYet').hide();
@@ -864,7 +849,7 @@ function loadProfileView(userID) {
         });
 
     // Load user's posts
-    $.get("../../utilities/loadUserPosts.php", { userID: userID })
+    $.get("../../utilities/loadUserPosts.php", { userID: userID, fromSearch: fromSearch })
         .done(function(response) {
 			if (response == 'User has no posts') {
 				$('.profileViewPage .noPostsYet').show();

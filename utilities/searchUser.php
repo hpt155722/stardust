@@ -40,7 +40,7 @@ if(isset($_GET['searchquery'])) {
             // Output HTML for each result
             echo "<div class='resultContainer'>
                     <img class='profilePicture' src='../../resources/profilePics/$profilePic'>
-                    <p class='username' onclick = 'loadProfileView($userID)'>$username</p>
+                    <p class='username' onclick = 'loadProfileView($userID, 'true')' >$username</p>
                 </div>";
         }
     } else {

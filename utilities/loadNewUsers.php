@@ -21,7 +21,7 @@
             // Echo out the HTML structure for each row
             echo "<div class='resultContainer'>
                     <img class='profilePicture' src='../../resources/profilePics/$profilePic'>
-                    <p class='username' onclick = 'loadProfileView($userID)' >$username</p>
+                    <p class='username' onclick = 'loadProfileView($userID, true)' >$username</p>
                 </div>";
         }
     } else {
