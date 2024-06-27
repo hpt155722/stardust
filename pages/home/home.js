@@ -486,9 +486,15 @@ function toggleLike(img) {
 
 // Open post view page
 function openPostView() {
+	if (profileOpened != null) {
+		$('.backToFeedButton').text('back to profile');
+		closeProfileView('fromSearchUser');
+
+	}
 	if (currentPageOpened == 'feed') {
 		$('.backToFeedButton').text('back to feed');
-	} else {
+	}
+	if (currentPageOpened == 'account') {
 		$('.backToFeedButton').text('back to account');
 	}
 	$('.footer').addClass('slide-out-bottom');
@@ -502,29 +508,47 @@ function openPostView() {
     }, 400);
 }
 
+
+
 // Close post view page
 function closePostView() {
-	if (currentPageOpened == 'feed') {
+		if (profileOpened != null) { //If currently looking at someone's profile
+		loadProfileView(profileOpened);
+
 		$('.postViewPage').addClass('slide-out-right');
-		$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
-		$('.footer').addClass('slide-in-bottom').show();
-		setTimeout(() => {
-			$('.footer').removeClass('slide-in-bottom');
-			$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
-			$('.postViewPage').removeClass('slide-out-right').hide();
-			scrollToCurrentPost();
-		}, 400);
-	} else {
-		$('.postViewPage').addClass('slide-out-right');
-		$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+		$('.profileViewPage').addClass('slide-in-left').show();
 		$('.footer').addClass('slide-in-bottom').show();
 
 		setTimeout(() => {
 			$('.footer').removeClass('slide-in-bottom');
-			$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+			$('.profileViewPage').removeClass('slide-in-left');
 			$('.postViewPage').removeClass('slide-out-right').hide();
 		}, 400);
+	} else {
+		if (currentPageOpened == 'feed') {
+			$('.postViewPage').addClass('slide-out-right');
+			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+			$('.footer').addClass('slide-in-bottom').show();
+			setTimeout(() => {
+				$('.footer').removeClass('slide-in-bottom');
+				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+				$('.postViewPage').removeClass('slide-out-right').hide();
+				scrollToCurrentPost();
+			}, 400);
+		} else {
+			$('.postViewPage').addClass('slide-out-right');
+			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+			$('.footer').addClass('slide-in-bottom').show();
+	
+			setTimeout(() => {
+				$('.footer').removeClass('slide-in-bottom');
+				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+				$('.postViewPage').removeClass('slide-out-right').hide();
+			}, 400);
+		}
+	
 	}
+
 }
 
 // Scroll to current post and invoke callback when done
@@ -782,6 +806,7 @@ function loadNotificationsPage() {
 //Profile View Operations
 
 // Open profileView page
+var profileOpened = null;
 function openProfileView() {
 	if (currentPageOpened == 'feed') {
 		$('.backToFeedButton').text('back to feed');
@@ -801,20 +826,33 @@ function openProfileView() {
 }
 
 // Close profile view page
-function closeProfileView() {
-	$('.footer').addClass('slide-in-bottom').show();
-	$('.profileViewPage').addClass('slide-out-right');
-	$('.'+currentPageOpened + 'Page').addClass('slide-in-left').show();
+function closeProfileView(fromWhere) {
+	if (fromWhere == null) {
+		profileOpened = null;
+		$('.footer').addClass('slide-in-bottom').show();
+		$('.profileViewPage').addClass('slide-out-right');
+		$('.'+currentPageOpened + 'Page').addClass('slide-in-left').show();
 
-	setTimeout(() => {
-		$('.footer').removeClass('slide-in-bottom');
-		$('.profileViewPage').removeClass('slide-out-right').hide();
-		$('.'+currentPageOpened + 'Page').removeClass('slide-in-left');
-	}, 400);
+		setTimeout(() => {
+			$('.footer').removeClass('slide-in-bottom');
+			$('.profileViewPage').removeClass('slide-out-right').hide();
+			$('.'+currentPageOpened + 'Page').removeClass('slide-in-left');
+		}, 400);
+	}
+	if (fromWhere == 'fromSearchUser') {
+		$('.footer').addClass('slide-in-bottom').show();
+		$('.profileViewPage').addClass('slide-out-left');
 
+		setTimeout(() => {
+			$('.footer').removeClass('slide-in-bottom');
+			$('.profileViewPage').removeClass('slide-out-left').hide();
+		}, 400);
+	}
 }
 
 function loadProfileView(userID) {
+	profileOpened = userID;
+
 	$('.profileViewPage .noPostsYet').hide();
     // Load user profile information
     $.get("../../utilities/loadUser.php", { userID: userID })
