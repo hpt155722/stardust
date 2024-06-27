@@ -38,6 +38,7 @@ function changePage(pageToOpen) {
 		$('.loadingContainer').hide();
 	} else if (currentPageOpened == "notifications") {
 		// Show notifications page
+		loadNotificationsPage();
 		$('.notificationsPage').show();
 
 		//Change footer
@@ -71,7 +72,7 @@ function changePage(pageToOpen) {
 
 // Page Initialization
 function onload() {
-	changePage('notifications');
+	changePage('feed');
 }
 
 // Footer Page Selection
@@ -120,7 +121,7 @@ function loadCurrentUserProfile() {
 
 	$.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
 		if (data == "No posts found.") {
-			$('.noPostsYet').show();
+			$('.accountsPage .noPostsYet').show();
 			$('.currentUserPostContainer').hide();
 		} else {
 			$('.currentUserPostPreviewContainer').html(data);
@@ -716,7 +717,7 @@ function createAPost(croppedData){
             console.log(response);
             $.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
                 if (data == "No posts found.") {
-                    $('.noPostsYet').show();
+                    $('.accountsPage .noPostsYet').show();
                     $('.currentUserPostContainer').hide();
                 } else {
                     $('.currentUserPostPreviewContainer').html(data);
@@ -771,10 +772,116 @@ function deleteComment() {
 
 //Notifications Page Operations
 
-//loadNotificationsPage 
+//Load Notifications Page 
 function loadNotificationsPage() {
-	
+    $.get("../../utilities/loadNotificationsPage.php", {})
+    .done(function(response) {
+        $('.notificationsPage').html(response);
+    })
+    .fail(function(xhr, textStatus, errorThrown) {
+        console.error("Error loading notifications:", errorThrown);
+    });
 }
+
+//Profile View Operations
+
+// Open profileView page
+function openProfileView() {
+	$('.footer').addClass('slide-out-bottom');
+	$('.feedPage').addClass('slide-out-left');
+    $('.profileViewPage').addClass('slide-in-right').show();
+
+    setTimeout(() => {
+        $('.profileViewPage').removeClass('slide-in-right');
+		$('.footer').removeClass('slide-out-bottom').hide();
+		$('.feedPage').removeClass('slide-out-left').hide();
+    }, 400);
+}
+
+// Close profile view page
+function closeProfileView() {
+	$('.footer').addClass('slide-in-bottom').show();
+	$('.profileViewPage').addClass('slide-out-right');
+	$('.feedPage').addClass('slide-in-left').show();
+
+	setTimeout(() => {
+		$('.footer').removeClass('slide-in-bottom');
+		$('.profileViewPage').removeClass('slide-out-right').hide();
+		$('.feedPage').removeClass('slide-in-left');
+	}, 400);
+
+}
+
+function loadProfileView(userID) {
+	$('.profileViewPage .noPostsYet').hide();
+
+    // Load user profile information
+    $.get("../../utilities/loadUser.php", { userID: userID })
+        .done(function(response) {
+            $('.userInfo').html(response);
+        })
+        .fail(function(xhr, textStatus, errorThrown) {
+            console.error("Error loading user:", errorThrown);
+        });
+
+    // Load user's posts
+    $.get("../../utilities/loadUserPosts.php", { userID: userID })
+        .done(function(response) {
+			if (response == 'User has no posts') {
+				$('.profileViewPage .noPostsYet').show();
+				$('.userPostContainer').hide();
+			} else {
+				$('.userPostPreviewContainer').html(response);
+				$('.userPostContainer').show();
+			}
+            openProfileView(); 
+        })
+        .fail(function(xhr, textStatus, errorThrown) {
+            console.error("Error loading user's posts:", errorThrown);
+        });
+}
+
+// Follow or unfollow a user
+function toggleFollow(userID) {
+    var follow = '../../resources/images/follow.png';
+    var following = '../../resources/images/following.png';
+    var $img = $('.followButton');
+
+    var $followersInfo = $('.userFollowersInfo'); 
+
+    var followersInfoText = $followersInfo.text().trim();
+    var parts = followersInfoText.split(' ');
+    var followersCount = parseInt(parts[0]);
+
+    if ($img.attr('src') === follow) {
+        $.post('../../utilities/addFollower.php', {
+            userID: userID
+        }, function(response) {
+            if (response === 'Follower added successfully!') {
+                $img.attr('src', following);
+                followersCount++;
+                $followersInfo.text(followersCount + ' followers');
+				$('.followButton').addClass('following');
+            } else {
+                console.log(response);
+            }
+        });
+    } else if ($img.attr('src') === following) {
+        $.post('../../utilities/removeFollower.php', {
+            userID: userID
+        }, function(response) {
+            if (response === 'Follower removed successfully!') {
+                $img.attr('src', follow);
+                followersCount--;
+                $followersInfo.text(followersCount + ' followers');
+				$('.followButton').removeClass('following');
+            } else {
+                console.log(response);
+            }
+        });
+    }
+}
+
 
 // Logout
 function logout() {

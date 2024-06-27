@@ -46,6 +46,41 @@
 		<div class='header'>
 			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
 		</div>
+			<!-- USER VIEW PAGE -->
+			<div class = 'profileViewPage contentPage' style = 'display: none'>
+				<div class = 'backToFeedButtonContainer'>
+						<button class = 'backToFeedButton' onclick='closeProfileView()'> back to feed </button>
+					</div>
+
+				<div class='userInfo'>
+					<img class='userProfilePic' src='../../resources/profilePics/defaultProfilePic.png'>
+					<div class='userTextInfo'>
+						<div class='usernameAndFollowersCount'>
+							<p class='userUsername'>
+								username default
+							</p>
+							<p class='userFollowersInfo'>
+								0 followers
+							</p>
+						</div>
+						<p class='userBio'>
+							no biography yet
+						</p>
+					</div>
+				</div>
+				<hr>
+                <p class='noPostsYet' style='display: none'> no posts yet</p>
+                <div class='userPostContainer' style='display: none'>
+                    <div class='userPostPreviewContainer'>
+                        <img class='userPostPreview' src='../../mater.jpg'>
+                        <img class='userPostPreview' src='../../mater.jpg'>
+                        <img class='userPostPreview' src='../../mater.jpg'>
+
+                    </div>
+                </div>
+			</div>
+
+			
 			<!-- COMMENT DELETE PAGE -->
 			<div class='deleteCommentContainer' style='display: none'>
 				<div class='deleteCommentMenu'>

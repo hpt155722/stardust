@@ -14,7 +14,7 @@
         $query =
             "SELECT postID, imageFilePath FROM posts WHERE userID = ? ORDER BY datePosted DESC";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $loggedInUserID); // Assuming userID is an integer, adjust accordingly if it's a different type
+        $stmt->bind_param("i", $loggedInUserID);
         $stmt->execute();
         $result = $stmt->get_result();
 

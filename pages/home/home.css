@@ -75,7 +75,9 @@ p {
 	.postCommentIcon:hover,
 	.postHeartIcon:hover,
 	.postMenu:hover,
-	.commentMenu:hover {
+	.commentMenu:hover,
+	.postUsername:hover,
+	.followButton:hover {
 		opacity: .4;
 		cursor: pointer;
 	}
@@ -112,9 +114,10 @@ p {
 }
 
 /* Current User Info */
-.currentUserInfo {
+.currentUserInfo, .userInfo {
 	display: flex;
 	align-items: flex-start;
+	align-items: center;
 	width: 90%;
 	position: relative;
 	bottom: 20px;
@@ -122,21 +125,25 @@ p {
 
 }
 
-.currentUserTextInfo {
+.userInfo {
+	margin-top: 60px;
+}
+
+.currentUserTextInfo, .userTextInfo {
 	display: flex;
 	flex-direction: column;
 	width: 90%;
 	margin-left: 15px;
 }
 
-.currentUserProfilePic {
+.currentUserProfilePic, .userProfilePic {
 	border-radius: 999vw;
 	width: 80px;
 	border: 0;
 	cursor: pointer;
 }
 
-.currentUserUsername {
+.currentUserUsername, .userUsername {
 	font-family: BPreplayBold;
 	font-size: 1.3em;
 	letter-spacing: 2px;
@@ -144,14 +151,14 @@ p {
 	text-align: left;
 }
 
-.currentUserBio {
+.currentUserBio, .userBio {
 	font-size: .9em;
 	margin: 0;
 	text-align: left;
 }
 
-.currentUserFollowersInfo {
-	background-color: #e7a0b3;
+.currentUserFollowersInfo, .userFollowersInfo {
+	background-color: #c5b8d9;
 	color: white;
 	padding: 7px 10px;
 	border-radius: 10px;
@@ -164,6 +171,18 @@ p {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+}
+
+.followButton {
+	background-color: #95aace;
+	border-radius: 30px;
+	padding: 10px;
+	width: 25px;
+	margin-right: 15px;
+}
+
+.following {
+	background-color: #c5b8d9;
 }
 
 /* Horizontal Rule */
@@ -337,11 +356,15 @@ input:focus {
 	width: 100vw;
 }
 
-.accountsPage {
+.accountsPage, .profileViewPage {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.profileViewPage {
+	padding-top: 25px;
 }
 
 .postsContainer {
@@ -382,6 +405,7 @@ input:focus {
 	width: 100%;
 	color: #8ca1c5;
 	padding-left: 10px;
+	transition: opacity .4s ease;
 }
 
 .postMenu, .commentMenu {
@@ -617,13 +641,17 @@ input:focus {
 @keyframes slide-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-100vw);opacity:0}}
 
 /* Current User Post Previews */
-.currentUserPostContainer {
+.currentUserPostContainer, .userPostContainer {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
 }
 
-.currentUserPostPreviewContainer {
+.userPostContainer {
+	margin-top: 20px;
+}
+
+.currentUserPostPreviewContainer, .userPostPreviewContainer {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(23vw, 1fr));
 	gap: 10px 7px;
@@ -631,7 +659,7 @@ input:focus {
 	justify-content: center;
 }
 
-.currentUserPostPreview {
+.currentUserPostPreview, .userPostPreview {
 	width: 100%;
 	max-width: 140px;
 	border-radius: 10px;
@@ -639,11 +667,11 @@ input:focus {
 }
 
 @media screen and (orientation: landscape) {
-	.currentUserPostPreviewContainer {
+	.currentUserPostPreviewContainer, .userPostPreviewContainer {
 		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 	}
 
-	.currentUserPostContainer {
+	.currentUserPostContainer, .userPostContainer {
 		justify-content: flex-start;
 	}
 }
@@ -776,7 +804,7 @@ input:focus {
 }
 
 .notificationText {
-	font-size: .9em;
+	font-size: .8em;
 	text-align: left;
 	opacity: .9;
 }
@@ -785,9 +813,14 @@ input:focus {
 	opacity: 1;
 }
 
+.comment {
+	font-style: italic;
+}
+
 .dateNotified {
-	font-size: .8em;
+	font-size: .7em;
 	opacity: .7;
+	margin-left: 10px;
 }
 
 .postPreviewPic {
