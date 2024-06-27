@@ -24,6 +24,7 @@ function changePage(pageToOpen) {
 		$('.accountsPage').hide();
 	} else if (currentPageOpened == "search") {
 		// Show search page
+		loadNewUser();
 		$('.searchPage').show();
 
 		//Change footer
@@ -72,7 +73,7 @@ function changePage(pageToOpen) {
 
 // Page Initialization
 function onload() {
-	changePage('feed');
+	changePage('search');
 }
 
 // Footer Page Selection
@@ -492,11 +493,11 @@ function openPostView() {
 	}
 	$('.footer').addClass('slide-out-bottom');
     $('.'+currentPageOpened+'Page').addClass('slide-out-left');
-    $('.postViewPage').addClass('slide-in-right').show();
+    $('.postViewPage').addClass('slide-in-right').show().css('position', 'fixed');
 
     setTimeout(() => {
 		$('.'+currentPageOpened+'Page').removeClass('slide-out-left').hide();
-        $('.postViewPage').removeClass('slide-in-right');
+        $('.postViewPage').removeClass('slide-in-right').css('position', 'absolute');;
 		$('.footer').removeClass('slide-out-bottom').hide();
     }, 400);
 }
@@ -504,17 +505,15 @@ function openPostView() {
 // Close post view page
 function closePostView() {
 	if (currentPageOpened == 'feed') {
-		scrollToCurrentPost(function() {
-			$('.postViewPage').addClass('slide-out-right');
-			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
-			$('.footer').addClass('slide-in-bottom').show();
-	
-			setTimeout(() => {
-				$('.footer').removeClass('slide-in-bottom');
-				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
-				$('.postViewPage').removeClass('slide-out-right').hide();
-			}, 400);
-		});	
+		$('.postViewPage').addClass('slide-out-right');
+		$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+		$('.footer').addClass('slide-in-bottom').show();
+		setTimeout(() => {
+			$('.footer').removeClass('slide-in-bottom');
+			$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+			$('.postViewPage').removeClass('slide-out-right').hide();
+			scrollToCurrentPost();
+		}, 400);
 	} else {
 		$('.postViewPage').addClass('slide-out-right');
 		$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
@@ -529,7 +528,8 @@ function closePostView() {
 }
 
 // Scroll to current post and invoke callback when done
-function scrollToCurrentPost(callback) {
+function scrollToCurrentPost() {
+	console.log(currentlyOpenPost);
 	loadFeed(); 
     let elementId = 'post' + currentlyOpenPost;
 
@@ -538,10 +538,6 @@ function scrollToCurrentPost(callback) {
     if ($element.length) {
         let targetScrollTop = $element.offset().top - 80;
         $('html, body').scrollTop(targetScrollTop);
-        
-        if (typeof callback === 'function') {
-            callback();
-        }
     } else {
         console.error('Element with ID ' + elementId + ' not found.');
     }
@@ -787,14 +783,20 @@ function loadNotificationsPage() {
 
 // Open profileView page
 function openProfileView() {
+	if (currentPageOpened == 'feed') {
+		$('.backToFeedButton').text('back to feed');
+	}
+	if (currentPageOpened == 'search') {
+		$('.backToFeedButton').text('back to search');
+	}
 	$('.footer').addClass('slide-out-bottom');
-	$('.feedPage').addClass('slide-out-left');
-    $('.profileViewPage').addClass('slide-in-right').show();
+	$('.'+currentPageOpened + 'Page').addClass('slide-out-left');
+    $('.profileViewPage').addClass('slide-in-right').show().css('position', 'fixed');
 
     setTimeout(() => {
-        $('.profileViewPage').removeClass('slide-in-right');
+        $('.profileViewPage').removeClass('slide-in-right').css('position', 'absolute');
 		$('.footer').removeClass('slide-out-bottom').hide();
-		$('.feedPage').removeClass('slide-out-left').hide();
+		$('.'+currentPageOpened + 'Page').removeClass('slide-out-left').hide();
     }, 400);
 }
 
@@ -802,19 +804,18 @@ function openProfileView() {
 function closeProfileView() {
 	$('.footer').addClass('slide-in-bottom').show();
 	$('.profileViewPage').addClass('slide-out-right');
-	$('.feedPage').addClass('slide-in-left').show();
+	$('.'+currentPageOpened + 'Page').addClass('slide-in-left').show();
 
 	setTimeout(() => {
 		$('.footer').removeClass('slide-in-bottom');
 		$('.profileViewPage').removeClass('slide-out-right').hide();
-		$('.feedPage').removeClass('slide-in-left');
+		$('.'+currentPageOpened + 'Page').removeClass('slide-in-left');
 	}, 400);
 
 }
 
 function loadProfileView(userID) {
 	$('.profileViewPage .noPostsYet').hide();
-
     // Load user profile information
     $.get("../../utilities/loadUser.php", { userID: userID })
         .done(function(response) {
@@ -880,6 +881,46 @@ function toggleFollow(userID) {
             }
         });
     }
+}
+
+//Search Operations
+
+$('.searchInput').on('input', function() {
+	// Check if the input field is not empty
+	if ($(this).val().trim() !== '') {
+		searchUser();
+	} else {
+		loadNewUser();	
+	}	
+});
+
+function searchUser() {
+	$('.newUserLabel').hide();
+	$('.newUsers').hide();
+
+
+	$.get("../../utilities/searchUser.php", { searchquery: $('.searchInput').val()})
+	.done(function(response) {
+		$('.searchResults').html(response);
+		$('.searchResults').show();
+	})
+	.fail(function(xhr, textStatus, errorThrown) {
+		console.error("Error loading user:", errorThrown);
+	});
+}
+
+function loadNewUser() {
+	$('.searchResults').hide();
+	$('.newUserLabel').show();
+
+	$.get("../../utilities/loadNewUsers.php", { })
+	.done(function(response) {
+		$('.newUsers').html(response);
+		$('.newUsers').show();
+	})
+	.fail(function(xhr, textStatus, errorThrown) {
+		console.error("Error loading user:", errorThrown);
+	});
 }
 
 

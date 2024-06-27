@@ -77,7 +77,8 @@ p {
 	.postMenu:hover,
 	.commentMenu:hover,
 	.postUsername:hover,
-	.followButton:hover {
+	.followButton:hover,
+	.username:hover {
 		opacity: .4;
 		cursor: pointer;
 	}
@@ -100,6 +101,11 @@ p {
 	padding: 30px 0;
 }
 
+.searchPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 .createAPostPage {
 	height: 100vh;
     width: 100vw;
@@ -829,3 +835,74 @@ input:focus {
 	margin-left: 15px;
 }
 
+/* SEARCH PAGE STYLING */
+
+.searchBar {
+	background-color: #b6c8e684;
+	color:#34353f;
+	width: 80%;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.searchIcon {
+	width: 25px;
+	margin-left: 10px;
+	opacity: .4;
+}
+
+.searchBar input {
+	background-color: #22232600;
+	color: white;
+	margin: 0;
+	color: #3a3b3fcc;
+	text-align: left;
+}
+
+.searchBar input::placeholder {
+	color: #3a3b3fcc;
+}
+
+.searchResults {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.resultContainer {
+	background-color: #b2bcdd6f;
+	padding: 10px;
+	margin-bottom: 15px;
+	width: 80vw;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.profilePicture {
+	width: 50px;
+	border-radius: 999vw;
+	margin-right: 20px;
+}
+.username {
+	font-size: 1em;
+	color:#222326;
+	font-family: BPreplayBold;
+	letter-spacing: 1px;
+	transition: opacity .4s ease;
+}
+
+.searchResults {
+	font-family: BPreplayBold;
+	letter-spacing: 2px;
+
+}
+
+.newUserLabel {
+	font-family: BPreplayBold;
+	letter-spacing: 3px;
+	font-size: .9em;
+}

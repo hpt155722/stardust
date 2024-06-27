@@ -27,34 +27,31 @@
             $ifFollowing = 0;
         }
 
-        // Prepare SQL statement to fetch user information including followers count and post count
-                $stmt = $conn->prepare("
-                SELECT 
-                    u.username, 
-                    u.biography,
-                    u.profilePic,
-                    COUNT(p.postID) AS post_count,
-                    COUNT(r.followerID) AS followers_count
-                FROM 
-                    users u 
-                LEFT JOIN 
-                    relationships r ON u.userID = r.followingID 
-                LEFT JOIN
-                    posts p ON u.userID = p.userID
-                WHERE 
-                    u.userID = ?
-                GROUP BY 
-                    u.userID
-            ");
-    
-        $stmt->bind_param('i', $userID); // 'i' indicates the userID is an integer
-        $stmt->execute();
+        // Prepare SQL statement to fetch user information including post count
+        $stmt_user = $conn->prepare("
+            SELECT 
+                u.username, 
+                u.biography,
+                u.profilePic,
+                COUNT(p.postID) AS post_count
+            FROM 
+                users u 
+            LEFT JOIN 
+                posts p ON u.userID = p.userID
+            WHERE 
+                u.userID = ?
+            GROUP BY 
+                u.userID
+        ");
+
+        $stmt_user->bind_param('i', $userID); // 'i' indicates the userID is an integer
+        $stmt_user->execute();
 
         // Bind result variables
-        $stmt->bind_result($username, $bio, $profilePic, $post_count, $followers_count);
+        $stmt_user->bind_result($username, $bio, $profilePic, $post_count);
 
         // Fetch user information
-        if ($stmt->fetch()) {
+        if ($stmt_user->fetch()) {
             // Output HTML structure with user information
             echo "
             <img class='userProfilePic' src='../../resources/profilePics/$profilePic'>
@@ -64,7 +61,7 @@
                         $username
                     </p>
                     <p class='userFollowersInfo'>
-                        $followers_count followers
+                        Loading followers count... <!-- Placeholder for followers count -->
                     </p>
                 </div>
                 <p class='userBio'>
@@ -72,14 +69,33 @@
                 </p>
             </div>";
 
-        
-        // Determine follow button image based on $ifFollowing
-        if ($ifFollowing == 0) {
-            echo "<img class='followButton' onclick='toggleFollow($userID)' src='../../resources/images/follow.png'>";
-        } else {
-            echo "<img class='followButton following' onclick='toggleFollow($userID)' src='../../resources/images/following.png'>";
-        }
-        
+            // Close $stmt_user
+            $stmt_user->close();
+
+            // Prepare SQL statement to fetch followers count
+            $stmt_followers = $conn->prepare("
+                SELECT COUNT(*) AS followers_count
+                FROM relationships
+                WHERE followingID = ?
+            ");
+            $stmt_followers->bind_param('i', $userID);
+            $stmt_followers->execute();
+            $stmt_followers->bind_result($followers_count);
+            $stmt_followers->fetch();
+            $stmt_followers->close();
+
+            // Output followers count
+            echo "<script>document.querySelector('.userFollowersInfo').innerHTML = '$followers_count followers';</script>";
+
+            // Output follow button based on $ifFollowing
+            if ($userID != $_SESSION['loggedInUser']) {
+                if ($ifFollowing == 0) {
+                    echo "<img class='followButton' onclick='toggleFollow($userID)' src='../../resources/images/follow.png'>";
+                } else {
+                    echo "<img class='followButton following' onclick='toggleFollow($userID)' src='../../resources/images/following.png'>";
+                }
+            }
+
             // Check if user has any posts
             if ($post_count == 0) {
                 echo "User has no posts";
@@ -88,9 +104,6 @@
             // Handle case where user with given userID is not found
             echo "User not found";
         }
-
-        // Close statement
-        $stmt->close();
     } else {
         // Handle case where userID is not provided
         echo "userID parameter is missing";

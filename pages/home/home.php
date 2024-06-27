@@ -168,8 +168,26 @@
 			</div>
 		</div>
 		<!-- SEARCH -->
-		<div class='searchPage contentPage' style='display: none'>
-			<p> search page here implement later</p>
+		<div class='searchPage contentPage' style='display: flex'>
+			<div class = 'searchBar'>
+				<img class = 'searchIcon' src = '../../resources/images/searchIconBlack.png'>
+				<input class = 'searchInput' placeholder="search for a user here..." maxlength="30" spellcheck="false">
+			</div>
+
+			<p class = 'newUserLabel'> recently joined </p>
+			<div class  = 'newUsers' style = 'display: none'>
+				<div class = 'resultContainer'>
+					<img class = 'profilePicture' src  = '../../mater.jpg'>
+					<p class = 'username'> tester </p>
+				</div>
+			</div>
+
+			<div class  = 'searchResults' style = 'display: none'>
+				<div class = 'resultContainer'>
+					<img class = 'profilePicture' src  = '../../mater.jpg'>
+					<p class = 'username'> tester </p>
+				</div>
+			</div>
 		</div>
 		<!-- NOTIFICATIONS PAGE -->
 		<div class='notificationsPage contentPage' style='display: none'>
