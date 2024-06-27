@@ -1,0 +1,96 @@
+<?php
+
+    // Include database connection file
+    include "connection.php";
+
+    // Start session
+    session_start();
+
+    // Query and fetch data
+    //CHANGE THIS QUERY SO IT COMBINES WITH posts TABLE WHERE postID = postID. IF USER ID from posts table =  $_SESSION["loggedInUser"]  then show in query 
+    $sql = "-- Query to combine likes, comments, and posts
+    SELECT 
+        q.likeID,
+        q.userID AS actionUserID,
+        q.dateLiked AS actionDate,
+        q.postID,
+        q.commentID,
+        q.commentText,
+        q.dateCommented,
+        p.*
+    FROM (
+        -- Subquery for combining likes and comments
+        SELECT 
+            likeID,
+            userID,
+            dateLiked,
+            postID,
+            NULL AS commentID,
+            NULL AS commentText,
+            NULL AS dateCommented
+        FROM likes
+        WHERE userID = 69
+    
+        UNION ALL
+    
+        SELECT 
+            NULL as likeID,
+            userID,
+            NULL as dateLiked,
+            postID,
+            commentID,
+            commentText,
+            dateCommented
+        FROM comments
+    ) AS q
+    -- Joining with the posts table
+    LEFT JOIN posts p ON q.postID = p.postID;    
+    ";
+
+    // Assuming $mysqli is your MySQLi connection object
+    $stmt = $mysqli->prepare($sql);
+
+    // Assuming $_SESSION["loggedInUser"] is an integer (userID)
+    $loggedInUserID = $_SESSION["loggedInUser"];
+
+    $stmt->bind_param('ii', $loggedInUserID, $loggedInUserID);
+    $stmt->execute();
+
+    // Process the result set
+    $result = $stmt->get_result();
+
+
+    if ($result->num_rows > 0) {
+        //Output HTML based on the result
+        while ($row = $result->fetch_assoc()) {
+            $notificationText = '';
+            $dateNotified = ''; 
+            $postPreviewPic = $row['imageFilePath'];
+
+            if (isset($row['dateLiked'])) {
+                // If it's from likes table
+                $notificationText = "{$row['username']} liked your post!";
+            } elseif (isset($row['dateCommented'])) {
+                // If it's from comments table
+                $notificationText = "{$row['username']} commented on your post:<br><span class='comment'>\"{$row['commentText']}\"</span>";
+            }
+
+            // Output the HTML
+            echo "<div class='notificationContainer'>
+                    <div class='accountAndNotification'>
+                        <img class='accountProfilePic' src='../../{$row['userPic']}'>
+                        <p class='notificationText'>$notificationText</p>
+                    </div>
+                    <div class='dateAndPostPreview'>
+                        <p class='dateNotified'>$dateNotified</p>
+                        <img class='postPreviewPic' src='../../$postPreviewPic'>
+                    </div>
+                </div>";
+        }
+    } else {
+        echo "No notifications found.";
+    }
+
+    $conn->close();
+
+?>
