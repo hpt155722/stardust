@@ -71,7 +71,7 @@ function changePage(pageToOpen) {
 
 // Page Initialization
 function onload() {
-	changePage('accounts');
+	changePage('notifications');
 }
 
 // Footer Page Selection
@@ -400,10 +400,8 @@ function loadFeed() {
 
 // Edit post
 let postCurrentlyEditting;
-let currentPageOpenedEditPostOn;
 
 function openEditPost(postID, pageOpenedEditPostOn) {
-	currentPageOpenedEditPostOn = pageOpenedEditPostOn;
 	postCurrentlyEditting = postID;
 	$('.postEditContainer').addClass('fade-in').show();
 	setTimeout(() => {
@@ -425,11 +423,11 @@ function deletePost() {
 		postID: postCurrentlyEditting
 	}, function(data, status) {
 		console.log("Data: " + data + "\nStatus: " + status);
-		if (currentPageOpenedEditPostOn == 'feedPage') {
+		if (currentPageOpened == 'feed') {
 			loadFeed();
 			closeEditPost();
 		}
-		if (currentPageOpenedEditPostOn == 'postView') {
+		if (currentPageOpened == 'accounts') {
 			closePostView();
 			closeEditPost();
 			changePage('accounts');
@@ -484,20 +482,19 @@ function toggleLike(img) {
 
 // Post View Operations
 
-var previousPageFromPostView;
 // Open post view page
 function openPostView() {
-	if (previousPageFromPostView == 'feedPage') {
+	if (currentPageOpened == 'feed') {
 		$('.backToFeedButton').text('back to feed');
 	} else {
 		$('.backToFeedButton').text('back to account');
 	}
 	$('.footer').addClass('slide-out-bottom');
-    $('.'+previousPageFromPostView).addClass('slide-out-left');
+    $('.'+currentPageOpened+'Page').addClass('slide-out-left');
     $('.postViewPage').addClass('slide-in-right').show();
 
     setTimeout(() => {
-		$('.'+previousPageFromPostView).removeClass('slide-out-left').hide();
+		$('.'+currentPageOpened+'Page').removeClass('slide-out-left').hide();
         $('.postViewPage').removeClass('slide-in-right');
 		$('.footer').removeClass('slide-out-bottom').hide();
     }, 400);
@@ -505,26 +502,26 @@ function openPostView() {
 
 // Close post view page
 function closePostView() {
-	if (previousPageFromPostView == 'feedPage') {
+	if (currentPageOpened == 'feed') {
 		scrollToCurrentPost(function() {
 			$('.postViewPage').addClass('slide-out-right');
-			$('.'+previousPageFromPostView).addClass('slide-in-left').show();
+			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
 			$('.footer').addClass('slide-in-bottom').show();
 	
 			setTimeout(() => {
 				$('.footer').removeClass('slide-in-bottom');
-				$('.'+previousPageFromPostView).removeClass('slide-in-left');
+				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
 				$('.postViewPage').removeClass('slide-out-right').hide();
 			}, 400);
 		});	
 	} else {
 		$('.postViewPage').addClass('slide-out-right');
-		$('.'+previousPageFromPostView).addClass('slide-in-left').show();
+		$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
 		$('.footer').addClass('slide-in-bottom').show();
 
 		setTimeout(() => {
 			$('.footer').removeClass('slide-in-bottom');
-			$('.'+previousPageFromPostView).removeClass('slide-in-left');
+			$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
 			$('.postViewPage').removeClass('slide-out-right').hide();
 		}, 400);
 	}
@@ -532,6 +529,7 @@ function closePostView() {
 
 // Scroll to current post and invoke callback when done
 function scrollToCurrentPost(callback) {
+	loadFeed(); 
     let elementId = 'post' + currentlyOpenPost;
 
     let $element = $('#' + elementId);
@@ -551,8 +549,7 @@ function scrollToCurrentPost(callback) {
 
 // Load post view
 let currentlyOpenPost;
-function loadPostView(postID, previousPage) {
-	previousPageFromPostView = previousPage;
+function loadPostView(postID) {
 	currentlyOpenPost = postID;
 	$.get("../../utilities/loadPostView.php", {
 		postID: postID
@@ -594,8 +591,9 @@ function openCreateAPostPage() {
 	$('.createACaption').hide();
 	$('.createPostButton').hide();
 	$('#createPostFileInput').val(''); 
-	$('.uploadImageButton').attr('src', '../../resources/images/uploadAnImage.png');
 	$('#croppedImage').hide();
+	$('.uploadImageButton').show();
+	$('.createACaption').val('');
 
 
 	$('.footer').addClass('slide-out-bottom');
@@ -604,13 +602,14 @@ function openCreateAPostPage() {
 
     setTimeout(() => {
 		$('.accountsPage').removeClass('slide-out-left').hide();
-        $('.postViewPage').removeClass('slide-in-right');
+        $('.createAPostPage').removeClass('slide-in-right');
 		$('.footer').removeClass('slide-out-bottom').hide();
     }, 400);
 }
 
 // Close create a post page
 function closeCreateAPostPage() {
+	$('#croppedImage').croppie('destroy');
 	$('.createAPostPage').addClass('slide-out-right');
 	$('.footer').addClass('slide-in-bottom').show();
 	$('.accountsPage').addClass('slide-in-left').show();
@@ -638,6 +637,8 @@ $('#createPostFileInput').change(function() {
         reader.onload = function(e) {
             var image = new Image();
             image.src = e.target.result;
+			$('#croppedImage').croppie('destroy');
+
             $(image).on('load', function() {
                 // Initialize Croppie
                 var $croppedImage = $('#croppedImage');
@@ -681,42 +682,49 @@ $('#createPostFileInput').change(function() {
         };
         reader.readAsDataURL(file);
     }
+	 else {
+		$('.loadingContainer').hide();
+
+	 }
 });
 
 // Function to crop image using Croppie
 function uploadPost() {
-	$('.createPostButton').hide();
-
+    $('.createPostButton').hide();
+    $('.loadingContainer').show();
 
     $('#croppedImage').croppie('result', {
         type: 'base64',
         size: { width: 800, height: 800 }, 
         format: 'jpeg'
-        }).then(function(croppedData) {
+    }).then(function(croppedData) {
         createAPost(croppedData);
+        // Destroy Croppie instance after uploading
+        $('#croppedImage').croppie('destroy');
+		$('.loadingContainer').hide();
+
     });
 }
 
 function createAPost(croppedData){
-	var caption = $('.createACaption').val();
-	console.log(croppedData);
+    var caption = $('.createACaption').val();
+    console.log(croppedData);
 
     if (croppedData) {
         $.post('../../utilities/createAPost.php', { image: croppedData, caption:caption })
         .done(function(response) {
             console.log(response);
-			$.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
-				if (data == "No posts found.") {
-					$('.noPostsYet').show();
-					$('.currentUserPostContainer').hide();
-				} else {
-					$('.currentUserPostPreviewContainer').html(data);
-					$('.currentUserPostContainer').show();
-				}
-			});
+            $.get('../../utilities/loadCurrentUsersPosts.php', function(data) {
+                if (data == "No posts found.") {
+                    $('.noPostsYet').show();
+                    $('.currentUserPostContainer').hide();
+                } else {
+                    $('.currentUserPostPreviewContainer').html(data);
+                    $('.currentUserPostContainer').show();
+                }
+            });
 
             closeCreateAPostPage();
-			
         })
         .fail(function(xhr, status, error) {
             console.error('Error uploading image');
@@ -726,7 +734,47 @@ function createAPost(croppedData){
     }
 }
 
+//Delete comment operations
 
+var currentlyOpenComment;
+// Open delete comment page
+function openDeleteComment(commentID) {
+	currentlyOpenComment = commentID;
+	$('.deleteCommentContainer').addClass('fade-in').show();
+	setTimeout(() => {
+		$('.deleteCommentContainer').removeClass('fade-in');
+	}, 400);
+}
+
+// Close  delete comment page
+function closeDeleteComment() {
+	$('.deleteCommentContainer').addClass('fade-out');
+	setTimeout(() => {
+		$('.deleteCommentContainer').removeClass('fade-out').hide();
+	}, 400);
+}
+
+function deleteComment() {
+    $.get("../../utilities/deleteComment.php", {
+        commentID: currentlyOpenComment,
+		postID: currentlyOpenPost
+    })
+    .done(function(response) {
+		$(".allCommentsContainer").html(response);
+		closeDeleteComment(); // Close the delete comment UI or perform other actions
+
+    })
+    .fail(function(xhr, textStatus, errorThrown) {
+        console.error("Error deleting comment:", errorThrown);
+    });
+}
+
+//Notifications Page Operations
+
+//loadNotificationsPage 
+function loadNotificationsPage() {
+	
+}
 
 // Logout
 function logout() {
@@ -739,3 +787,4 @@ function logout() {
 		console.error('Error logging out:', error);
 	});
 }
+

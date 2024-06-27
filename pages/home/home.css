@@ -74,7 +74,8 @@ p {
 	button:hover,
 	.postCommentIcon:hover,
 	.postHeartIcon:hover,
-	.postMenu:hover {
+	.postMenu:hover,
+	.commentMenu:hover {
 		opacity: .4;
 		cursor: pointer;
 	}
@@ -115,6 +116,10 @@ p {
 	display: flex;
 	align-items: flex-start;
 	width: 90%;
+	position: relative;
+	bottom: 20px;
+	z-index: 3;
+
 }
 
 .currentUserTextInfo {
@@ -165,7 +170,7 @@ p {
 hr {
 	border: none;
 	border-top: 2px solid #95aace;
-	margin: 20px 0;
+	margin: 0;
 	width: 90%;
 }
 
@@ -177,18 +182,23 @@ hr {
 }
 
 /* Settings and Menus */
+.settingsIconContainer {
+	display: flex;
+	justify-content: flex-end;
+	width: 90%;
+	z-index: 4;
+}
+
 .settingsIcon {
 	width: 5vw;
 	max-width: 25px;
-	position: absolute;
-	top: 83px;
-	right: 18px;
 }
 
 .accountSettingsContainer,
 .editBioContainer,
 .postEditContainer,
-.changePasswordContainer {
+.changePasswordContainer,
+.deleteCommentContainer {
 	height: 100vh;
 	width: 100vw;
 	position: fixed;
@@ -202,7 +212,8 @@ hr {
 
 .accountSettingsBackground,
 .editBioBackground,
-.postEditBackground {
+.postEditBackground,
+.deleteCommentBackground {
 	background-color: #ffffffc1;
 	height: 100vh;
 	width: 100vw;
@@ -215,7 +226,8 @@ hr {
 .accountSettingsMenu,
 .editBioMenu,
 .postEditMenu,
-.changePasswordMenu {
+.changePasswordMenu,
+.deleteCommentMenu {
 	background-color: #95aace;
 	min-width: 50vw;
 	width: max-content;
@@ -340,8 +352,8 @@ input:focus {
 }
 
 .postContainer {
-	width: 90%;
-	max-width: 350px;
+	width: 85%;
+	max-width: 380px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -372,14 +384,14 @@ input:focus {
 	padding-left: 10px;
 }
 
-.postMenu {
+.postMenu, .commentMenu {
 	width: 22px;
 	transition: opacity .2s ease;
 }
 
 .postImage {
 	width: 100%;
-	max-width: 350px;
+	max-width: 380px;
 	border-radius: 10px;
 	margin: 0;
 }
@@ -446,7 +458,7 @@ input:focus {
 /* Post View Container */
 
 .postViewPage {
-    height: 100vh;
+    height: max-content;
     width: 100vw;
     z-index: 5;
     border: 0;
@@ -454,7 +466,7 @@ input:focus {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-	position: fixed;
+	position: absolute;
 	overflow-y: scroll;
 }
 
@@ -481,7 +493,7 @@ input:focus {
 }
 
  .postViewPage .postContainer {
-	width: 85%;
+	width: 90%;
 	max-width: 400px;
 	display: flex;
 	flex-direction: column;
@@ -537,13 +549,14 @@ input:focus {
 	width: 90%;
 	max-width: 400px;
 
-	margin-bottom: 100px;
+	margin-bottom: 30px;
 }
 
 .commentContainer {
 	width: 90%;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	margin-bottom: 20px;
 	position: relative;
 }
@@ -581,8 +594,7 @@ input:focus {
 .commentDate {
 	font-size: .7em;
 	opacity: .4;
-	position: absolute;
-	right: 5px;
+	margin: 0 10px;
 }
 
 /* Animations */
@@ -643,7 +655,7 @@ input:focus {
 	letter-spacing: 1px;
 	width: 90%;	
 	padding: 8px 0;
-	margin: 0 0 15px 0;
+	margin: 15px 0 15px 0;
 	font-size: .9em;
 }
 
@@ -729,3 +741,58 @@ input:focus {
 	padding: 10px;
 	border-radius: 10px;
 }
+
+/* NOTIFICATIONS STYLING */
+
+.notificationsPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.notificationContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 80%;
+	max-width: 400px;
+	background-color: #f1c1ce87;
+	border-radius: 10px;
+	padding: 8px 10px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.accountAndNotification, .dateAndPostPreview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.accountProfilePic {
+	width: 45px;
+	border-radius: 999vw;
+	margin-right: 10px;
+}
+
+.notificationText {
+	font-size: .9em;
+	text-align: left;
+	opacity: .9;
+}
+
+.notificationText .comment {
+	opacity: 1;
+}
+
+.dateNotified {
+	font-size: .8em;
+	opacity: .7;
+}
+
+.postPreviewPic {
+	width: 45px;
+	border-radius: 5px;
+	margin-left: 15px;
+}
+

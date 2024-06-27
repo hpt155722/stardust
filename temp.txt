@@ -1,83 +1,11 @@
-<?php
-    include ("connection.php");
+.slide-in-left{animation:slide-in-left .4s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes slide-in-left{0%{transform:translateX(-100vw);opacity:0}100%{transform:translateX(0);opacity:1}}
 
-    session_start();
+.slide-in-right{animation:slide-in-right .4s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes slide-in-right{0%{transform:translateX(100vw);opacity:0}100%{transform:translateX(0);opacity:1}}
 
-    // Retrieve postID from GET parameters
-    if(isset($_GET['postID'])) {
-        $postID = $_GET['postID'];
+.slide-out-right{animation:slide-out-right .4s cubic-bezier(.55,.085,.68,.53) both}
+@keyframes slide-out-right{0%{transform:translateX(0);opacity:1}100%{transform:translateX(100vw);opacity:0}}
 
-        // Perform your database query
-        // Example: fetching post details joined with user details
-        $query = "SELECT posts.*, users.username, users.profilePic,
-                 COUNT(likes.postID) AS like_count,
-                 EXISTS (
-                     SELECT 1 FROM likes
-                     WHERE likes.postID = posts.postID
-                     AND likes.userID = '" . mysqli_real_escape_string($conn, $_SESSION['loggedInUser']) . "'
-                 ) AS liked_by_user
-         FROM posts 
-         LEFT JOIN users ON posts.userID = users.userID 
-         LEFT JOIN likes ON posts.postID = likes.postID
-         WHERE posts.postID = $postID
-         GROUP BY posts.postID";
-
-
-        $result = mysqli_query($conn, $query);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            
-            // Build posts data structure
-            $postData = "<div class='posterInfo'>
-            <img class='posterProfilePic' src='../../resources/profilePics/" . $row['profilePic'] . "'>
-            <p class='postUsername'>" . $row['username'] . "</p>
-            <img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost()'>
-            </div>
-            <img class='postImage' src='";
-
-            // Check if the image file exists
-            if (file_exists("../resources/posts/" . $row['imageFilePath'])) {
-            // If the image file exists, use it
-            $postData .= "../../resources/posts/" . $row['imageFilePath'];
-            } else {
-            // If the image file doesn't exist, use the fallback image
-            $postData .= "../../resources/images/imageNotFound.png";
-            }
-
-            $postData .= "'>
-            <div class='postFooter'>
-            <div class='postText'>
-                <p class='postCaption'>" . $row['caption'] . "</p>
-                <p class='postDate'>" . $row['datePosted'] . "</p>
-            </div>
-            <div class='postIcons'>
-                <p class='postLikeCount'>" . $row['like_count'] . "</p>";
-
-            // Conditional rendering of like icon based on $row['liked_by_user']
-            if ($row['liked_by_user']) {
-            $postData .= "<img class='postHeartIcon' data-postID='" . $row['postID'] . "' src='../../resources/images/likedHeart.png' onclick='toggleLike(this);'>";
-            } else {
-            $postData .= "<img class='postHeartIcon' data-postID='" . $row['postID'] . "' src='../../resources/images/unlikedHeart.png' onclick='toggleLike(this);'>";
-            }
-
-            $postData .= "</div>
-            </div>
-            </div>"; // Close remaining divs
-
-            echo $postData;
-
-        } else {
-            echo "Post not found";
-        }
-    }
-
-?>
- now query the comments table for all rows with postID = postID and then combine rows with users table where row userID = userID. for each row return <div class = 'commentContainer'>
-						<img class = 'commentorProfilePic' src = '../../mater.jpg'>
-						<div class = 'commentText'>
-							<p class = 'commentorUsername'> sillygirl24</p>
-							<p class = 'commentorComment'> so cute! i love it</p>
-						</div>
-						<p class = 'commentDate'> 06.23.24</p>
-					</div> and then put it in a php varible called $commentsData then echo out both postData and comments Data at the end
+.slide-out-left{animation:slide-out-left .4s cubic-bezier(.55,.085,.68,.53) both}
+@keyframes slide-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-100vw);opacity:0}}

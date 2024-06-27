@@ -46,6 +46,13 @@
 		<div class='header'>
 			<img class='headerLogo' src='../../resources/images/stardustLogoInvert.png'>
 		</div>
+			<!-- COMMENT DELETE PAGE -->
+			<div class='deleteCommentContainer' style='display: none'>
+				<div class='deleteCommentMenu'>
+					<button class='deleteComment' onclick='deleteComment()'> delete comment</button>
+				</div>
+				<div class='deleteCommentBackground' onclick='closeDeleteComment()'></div>
+			</div>
 			<!-- POST VIEW PAGE -->
 			<div class='postViewPage contentPage' style='display: none'>
 					<div class = 'backToFeedButtonContainer'>
@@ -131,7 +138,26 @@
 		</div>
 		<!-- NOTIFICATIONS PAGE -->
 		<div class='notificationsPage contentPage' style='display: none'>
-			<p> notifications page here implement later</p>
+			<div class = 'notificationContainer'>
+				<div class = 'accountAndNotification'>
+					<img class = 'accountProfilePic' src = '../../mater.jpg'>
+					<p class = 'notificationText' > testaccount liked your post! </p>
+				</div>
+				<div class = 'dateAndPostPreview' >
+					<p class = 'dateNotified'> 3d ago</p>
+					<img class = 'postPreviewPic' src = '../../mater.jpg'>
+				</div>
+			</div>
+			<div class = 'notificationContainer'>
+				<div class = 'accountAndNotification'>
+					<img class = 'accountProfilePic' src = '../../mater.jpg'>
+					<p  class = 'notificationText' > testaccount commented your post: <br><span class = 'comment'> "i love you!" </span> </p>
+				</div>
+				<div class = 'dateAndPostPreview' >
+					<p class = 'dateNotified'> 3d ago</p>
+					<img class = 'postPreviewPic' src = '../../mater.jpg'>
+				</div>
+			</div>
 		</div>
 		<!-- CREATE A POST PAGE -->
 		<div class = 'createAPostPage contentPage' style='display: none'>
@@ -140,11 +166,11 @@
 				</div>
 				<p class = 'createAPostLabel'> &#9733; create a post &#9733; </p>
 				<!-- IMAGE UPLOAD -->
-				<input type="file" id="createPostFileInput" style="display: none;">
+				<input type="file" id="createPostFileInput" accept="image/*" style="display: none;">
 				<img class="uploadImageButton" onclick="handleImageUpload()" src="../../resources/images/uploadAnImage.png" style="cursor: pointer;">
 				
 				<!-- Crop photo container -->
-				<div id="croppedImage"></div>
+				<div id="croppedImage" onclick = 'handleImageUpload()'></div>
 
 				<!-- CAPTION -->
 				<textarea class='postCaption createACaption' placeholder="share your thoughts..." maxlength="110" spellcheck="false"></textarea>
@@ -187,7 +213,13 @@
 				<div class='accountSettingsBackground' onclick='closeSettings()'></div>
 			</div>
 			<!-- MAIN ACCOUNT PAGE -->
+			<div class = 'settingsIconContainer'>
+					<img class='settingsIcon' onclick='openSettings()' src='../../resources/images/settingsIcon.png'>
+
+				</div>
 			<div class='currentUserInfo'>
+				
+
 				<input type="file" id="fileInput" style="display: none;">
 				<img class='currentUserProfilePic' onclick="handleProfilePicUpload()" src='../../resources/profilePics/defaultProfilePic.png'>
 
@@ -221,7 +253,6 @@
 
 				</div>
 			</div>
-			<img class='settingsIcon' onclick='openSettings()' src='../../resources/images/settingsIcon.png'>
 		</div>
 		<!-- FOOTER -->
 		<div class='footer'>

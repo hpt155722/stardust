@@ -45,7 +45,6 @@
                 </div>
                 <img class='postImage' src='";
 
-
             // Check if the image file exists
             if (file_exists("../resources/posts/" . $row['imageFilePath'])) {
                 $postData .= "../../resources/posts/" . $row['imageFilePath'];
@@ -53,11 +52,18 @@
                 $postData .= "../../resources/images/imageNotFound.png";
             }
 
-            $postData .= "'>
-                <div class='postFooter'>
-                <div class='postText'>
-                    <p class='postCaption'>" . $row['caption'] . "</p>
-                    <p class='postDate'>" . $formattedDatePosted . "</p> <!-- Updated date format here -->
+            $postData .= "'> 
+            <div class='postFooter'>
+                <div class='postText'>";
+        
+            // Check if caption exists and add it if not empty
+            if (!empty($row['caption'])) {
+                $postData .= "<p class='postCaption'>" . $row['caption'] . "</p>";
+            }
+            
+            // Continue with the rest of the content
+            $postData .= "<p class='postDate'>" . $formattedDatePosted . "</p> <!-- Updated date format here -->
+                    </div>
                 </div>";
                 
             $postData .= "</div>
@@ -80,21 +86,30 @@
 
             if ($commentsResult && mysqli_num_rows($commentsResult) > 0) {
                 while ($commentRow = mysqli_fetch_assoc($commentsResult)) {
-$formattedCommentDate = date("m.d.y", strtotime($commentRow['dateCommented']));
+                    $formattedCommentDate = date("m.d.y", strtotime($commentRow['dateCommented']));
                     $commentsData .= "<div class='commentContainer'>
-                        <img class='commentorProfilePic' src='../../resources/profilePics/" . $commentRow['profilePic'] . "'>
-                        <div class='commentText'>
-                            <p class='commentorUsername'>" . $commentRow['username'] . "</p>
-                            <p class='commentorComment'>" . $commentRow['commentText'] . "</p>
+                        <div style='display: flex; align-items:center'>
+                            <img class='commentorProfilePic' src='../../resources/profilePics/" . $commentRow['profilePic'] . "'>
+                            <div class='commentText'>
+                                <p class='commentorUsername'>" . $commentRow['username'] . "</p>
+                                <p class='commentorComment'>" . $commentRow['commentText'] . "</p>
+                            </div>
                         </div>
-                        <p class='commentDate'>" . $formattedCommentDate . "</p>
-                    </div>";
+                        <div style='display: flex; align-items:center'>
+                            <p class='commentDate'>" . $formattedCommentDate . "</p>";
+            
+                    // Check if the comment belongs to the logged-in user
+                    if ($commentRow['userID'] == $_SESSION['loggedInUser'] || $row['userID'] ==  $_SESSION['loggedInUser']) {
+                        $commentsData .= "<img class='commentMenu' src='../../resources/images/ellipsis.png' onclick='openDeleteComment(\"" . $commentRow['commentID'] . "\")'>";
+                    }
+            
+                    $commentsData .= "</div>
+                        </div>";
                 }
-                
             } else {
                 $commentsData = "<p>No comments yet.</p>";
             }
-
+            
             // Add commentsData to output array
             $output['commentsData'] = $commentsData;
 
