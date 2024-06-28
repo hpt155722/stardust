@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>stardust - Log in</title>
 
+    <link rel="icon" href="stardust.ico" type="image/x-icon">
+
     <!-- Include stylesheets -->
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="login.css">

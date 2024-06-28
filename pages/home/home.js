@@ -73,7 +73,7 @@ function changePage(pageToOpen) {
 
 // Page Initialization
 function onload() {
-	changePage('search');
+	changePage('feed');
 }
 
 // Footer Page Selection

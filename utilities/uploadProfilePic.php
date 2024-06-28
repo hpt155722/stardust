@@ -18,7 +18,7 @@
                 $row = $result->fetch_assoc();
                 $username = $row["username"];
                 $oldProfilePic = $row["profilePic"];
-                if (!empty($oldProfilePic)) {
+                if (!empty($oldProfilePic) && $oldProfilePic != 'defaultProfilePic.png') {
                     $oldFilePath = "../resources/profilePics/" . $oldProfilePic;
                     if (file_exists($oldFilePath)) {
                         unlink($oldFilePath); // Delete old file

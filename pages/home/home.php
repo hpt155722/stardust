@@ -18,6 +18,9 @@
 	<link rel="stylesheet" href="../../main.css">
 	<link rel="stylesheet" href="home.css">
 
+	<link rel="icon" href="../../stardust.ico" type="image/x-icon">
+
+	
 	<!-- Include jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
