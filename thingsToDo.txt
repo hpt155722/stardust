@@ -1,0 +1,2 @@
+-fix feed to only show followings posts
+-fix search page
