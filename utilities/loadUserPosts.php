@@ -11,7 +11,6 @@
     // Check if user is logged in
     if (isset($_GET['userID'])) {
         $userID = $_GET['userID'];
-        $fromSearch = $_GET['fromSearch'];
 
         // Query to retrieve posts for the user sorted by descending order
         $query = "SELECT postID, imageFilePath FROM posts WHERE userID = ? ORDER BY datePosted DESC";
@@ -31,11 +30,7 @@
                 $imgSrc = file_exists("../resources/posts/" . $imageFilePath) ? "../../resources/posts/$imageFilePath" : "../../resources/images/imageNotFound.png";
 
                 // Append the img tag to the output variable
-                if ($fromSearch == 'true') {
-                    $output .= "<img class='userPostPreview' src='$imgSrc'>";
-                } else {
-                    $output .= "<img class='userPostPreview' src='$imgSrc' onclick=\"loadPostView($postID)\">";
-                }
+                $output .= "<img class='userPostPreview' src='$imgSrc' onclick=\"loadPostView($postID)\">";
             }
         } else {
             // No posts found message

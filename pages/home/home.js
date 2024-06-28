@@ -511,29 +511,45 @@ function openPostView() {
 
 
 // Close post view page
+var closedFromSearch = false;
 function closePostView() {
-		if (currentPageOpened == 'feed') {
+	console.log("closePostView: " + openedFromSearch );
+	if (openedFromSearch) { //If post view is from search
+			closedFromSearch = true;
+			loadProfileView(profileOpened);
+			$('.backToFeedButton').text('back to search');
 			$('.postViewPage').addClass('slide-out-right');
-			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
-			$('.footer').addClass('slide-in-bottom').show();
-			setTimeout(() => {
-				$('.footer').removeClass('slide-in-bottom');
-				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
-				$('.postViewPage').removeClass('slide-out-right').hide();
-				scrollToCurrentPost();
-			}, 400);
-		} else {
-			$('.postViewPage').addClass('slide-out-right');
-			$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
-			$('.footer').addClass('slide-in-bottom').show();
+			$('.profileViewPage').addClass('slide-in-left').show();
 	
 			setTimeout(() => {
-				$('.footer').removeClass('slide-in-bottom');
-				$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+				$('profileViewPage').removeClass('slide-in-left');
 				$('.postViewPage').removeClass('slide-out-right').hide();
+				closedFromSearch = false;
 			}, 400);
+		} else {
+			if (currentPageOpened == 'feed') {
+				loadFeed();
+				$('.postViewPage').addClass('slide-out-right');
+				$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+				$('.footer').addClass('slide-in-bottom').show();
+				setTimeout(() => {
+					$('.footer').removeClass('slide-in-bottom');
+					$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+					$('.postViewPage').removeClass('slide-out-right').hide();
+					scrollToCurrentPost();
+				}, 400);
+			} else {
+				$('.postViewPage').addClass('slide-out-right');
+				$('.'+currentPageOpened+'Page').addClass('slide-in-left').show();
+				$('.footer').addClass('slide-in-bottom').show();
+		
+				setTimeout(() => {
+					$('.footer').removeClass('slide-in-bottom');
+					$('.'+currentPageOpened+'Page').removeClass('slide-in-left');
+					$('.postViewPage').removeClass('slide-out-right').hide();
+				}, 400);
+			}
 		}
-
 }
 
 // Scroll to current post and invoke callback when done
@@ -835,7 +851,9 @@ function closeProfileView(fromWhere) {
 	}
 }
 
+var openedFromSearch = false;
 function loadProfileView(userID, fromSearch) {
+	openedFromSearch = fromSearch;
 	profileOpened = userID;
 
 	$('.profileViewPage .noPostsYet').hide();
@@ -851,14 +869,19 @@ function loadProfileView(userID, fromSearch) {
     // Load user's posts
     $.get("../../utilities/loadUserPosts.php", { userID: userID, fromSearch: fromSearch })
         .done(function(response) {
-			if (response == 'User has no posts') {
+			if (response === 'No posts found.') {
 				$('.profileViewPage .noPostsYet').show();
 				$('.userPostContainer').hide();
 			} else {
 				$('.userPostPreviewContainer').html(response);
 				$('.userPostContainer').show();
+				$('.profileViewPage .noPostsYet').hide();
 			}
-            openProfileView(); 
+			console.log(closedFromSearch === false);
+
+			if (closedFromSearch === false) {
+            	openProfileView(); 
+			}
         })
         .fail(function(xhr, textStatus, errorThrown) {
             console.error("Error loading user's posts:", errorThrown);

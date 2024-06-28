@@ -76,7 +76,6 @@ p {
 	.postHeartIcon:hover,
 	.postMenu:hover,
 	.commentMenu:hover,
-	.postUsername:hover,
 	.followButton:hover,
 	.username:hover {
 		opacity: .4;
@@ -360,6 +359,9 @@ input:focus {
 	padding-bottom: 80px;
 	position: absolute;
 	width: 100vw;
+
+	font-family: BPreplayBold;
+	letter-spacing: 2px;
 }
 
 .accountsPage, .profileViewPage {
@@ -448,6 +450,8 @@ input:focus {
 	border-radius: 10px;
 	color: #34353f;
 	font-size: .85em;
+	font-family: BPreplay;
+	letter-spacing: .2px;
 }
 
 .postDate {
@@ -455,6 +459,8 @@ input:focus {
 	opacity: .5;
 	text-align: left;
 	margin: 3px 0 0 5px;
+	font-family: BPreplay;
+	letter-spacing: .2px;
 }
 
 .postIcons {
@@ -782,6 +788,9 @@ input:focus {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	font-family: BPreplayBold;
+	letter-spacing: 2px;
+
 }
 
 .notificationContainer {
@@ -795,6 +804,8 @@ input:focus {
 	padding: 8px 10px;
 	position: relative;
 	margin-bottom: 20px;
+	font-family: BPreplay;
+	letter-spacing: .2px;
 }
 
 .accountAndNotification, .dateAndPostPreview {

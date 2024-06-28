@@ -32,23 +32,18 @@
             SELECT 
                 u.username, 
                 u.biography,
-                u.profilePic,
-                COUNT(p.postID) AS post_count
+                u.profilePic
             FROM 
                 users u 
-            LEFT JOIN 
-                posts p ON u.userID = p.userID
             WHERE 
                 u.userID = ?
-            GROUP BY 
-                u.userID
         ");
 
         $stmt_user->bind_param('i', $userID); // 'i' indicates the userID is an integer
         $stmt_user->execute();
 
         // Bind result variables
-        $stmt_user->bind_result($username, $bio, $profilePic, $post_count);
+        $stmt_user->bind_result($username, $bio, $profilePic);
 
         // Fetch user information
         if ($stmt_user->fetch()) {
@@ -94,11 +89,6 @@
                 } else {
                     echo "<img class='followButton following' onclick='toggleFollow($userID)' src='../../resources/images/following.png'>";
                 }
-            }
-
-            // Check if user has any posts
-            if ($post_count == 0) {
-                echo "User has no posts";
             }
         } else {
             // Handle case where user with given userID is not found

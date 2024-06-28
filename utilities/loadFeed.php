@@ -5,11 +5,15 @@
     // Start session
     session_start();
 
-    // Query to fetch posts sorted by datePosted descending
+    // Query to fetch posts from users that the logged-in user is following, as well as their own posts, sorted by datePosted descending
+    $loggedInUserID = $_SESSION['loggedInUser'];
     $query = "SELECT p.*, u.username, u.profilePic 
-            FROM posts p 
-            INNER JOIN users u ON p.userID = u.userID 
-            ORDER BY p.datePosted DESC";
+              FROM posts p 
+              INNER JOIN users u ON p.userID = u.userID 
+              LEFT JOIN relationships r ON p.userID = r.followingID AND r.followerID = $loggedInUserID
+              WHERE p.userID = $loggedInUserID OR r.followerID = $loggedInUserID 
+              ORDER BY p.datePosted DESC";
+
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -36,16 +40,15 @@
             $showMenu = $row["userID"] == $_SESSION["loggedInUser"];
 
             // Check if the current user has liked this post
-            $loggedInUserID = $_SESSION["loggedInUser"];
             $likeCheckQuery = "SELECT COUNT(*) AS liked FROM likes WHERE postID = $postID AND userID = $loggedInUserID";
             $likeCheckResult = mysqli_query($conn, $likeCheckQuery);
             $liked = mysqli_fetch_assoc($likeCheckResult)["liked"];
 
             // Output HTML for each post
-            echo "<div class='postContainer' id = 'post$postID'>";
+            echo "<div class='postContainer' id='post$postID'>";
             echo "<div class='posterInfo'>";
             echo "<img class='posterProfilePic' src='../../resources/profilePics/$profilePic'>";
-            echo "<p class='postUsername' onclick = 'loadProfileView($userID, false)'>$username</p>";
+            echo "<p class='postUsername' onclick='loadProfileView($userID, false)'>$username</p>";
             if ($showMenu) {
                 echo "<img class='postMenu' src='../../resources/images/ellipsis.png' onclick='openEditPost($postID, \"feedPage\")'>";
             }
@@ -66,7 +69,7 @@
             echo "</div>";
             echo "<div class='postIcons'>";
             echo "<p class='postCommentCount'>$commentCount</p>";
-            echo "<img class='postCommentIcon'  onclick=\"loadPostView($postID, 'feedPage')\" src='../../resources/images/comment.png' data-postid='$postID'>";
+            echo "<img class='postCommentIcon' onclick='loadPostView($postID, \"feedPage\")' src='../../resources/images/comment.png' data-postid='$postID'>";
             echo "<p class='postLikeCount'>$likeCount</p>";
             if ($liked > 0) {
                 echo "<img class='postHeartIcon' data-postID='$postID' src='../../resources/images/likedHeart.png' onclick='toggleLike(this);'>";
@@ -78,7 +81,7 @@
             echo "</div>";
         }
     } else {
-        echo "No posts found.";
+        echo "no posts yet";
     }
 
     // Close connection
