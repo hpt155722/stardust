@@ -24,3 +24,18 @@ SELECT
     FROM comments c
     INNER JOIN posts p ON c.postID = p.postID
     WHERE p.userID = 69 AND c.userID != 69
+
+
+
+
+
+
+
+
+
+
+
+DELETE FROM users WHERE username = 'iloveboba420';
+
+
+

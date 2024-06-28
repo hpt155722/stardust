@@ -634,6 +634,7 @@ function closeCreateAPostPage() {
 	$('#croppedImage').croppie('destroy');
 	$('.createAPostPage').addClass('slide-out-right');
 	$('.footer').addClass('slide-in-bottom').show();
+	loadCurrentUserProfile();
 	$('.accountsPage').addClass('slide-in-left').show();
 
 	setTimeout(() => {

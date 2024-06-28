@@ -14,7 +14,7 @@ stardust is a social media app. Currently in progress.
 ☆ mySQL <br>
 <br>
 
-<!--
+
 ### ☆ ───── Features ───── ☆
  <br>
 ☆ Create, edit, delete posts, captions <br>
@@ -33,13 +33,15 @@ stardust is a social media app. Currently in progress.
  <div>
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/loginPage.png">
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/signupPage.png">
-    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/home.png">
-    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/addNewItem.png">
-    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/editItem.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/account.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/feed.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/postViewPage.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/notificationsPage.png">
 </div>
  <br>
  
 ### ☆ ───── Future enhancements ───── ☆
 
  <br>
-☆ Multiple Lists <br>  -->
+☆ Text-based post <br>
+☆ Image carousel <br>
