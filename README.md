@@ -31,8 +31,8 @@ stardust is a social media app. Currently in progress.
 
 
  <div>
-    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/loginPage.png">
-    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/signupPage.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/login.png">
+    <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/signup.png">
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/account.png">
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/feed.png">
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/postViewPage.png">
