@@ -19,9 +19,8 @@ stardust is a social media app. Currently in progress.
  <br>
 ☆ Create, edit, delete posts, captions <br>
 ☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
+☆ Follow/Unfollow system <br>
+☆ Notifications page for likes and comments<br>
 ☆ Password encryption<br>
  <br>
   
