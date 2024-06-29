@@ -45,7 +45,7 @@
             }
             $statement->close();
         } catch (Exception $e) {
-            echo "Login error.";
+            echo "Login error: " . $e->getMessage(); // Echo the error message for debugging
         }
 
         //Close connection

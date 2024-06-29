@@ -44,19 +44,22 @@ function login() {
     if (userGivenUsername == "" || userGivenPassword == "") {
         $(".errorMessage").text("Credentials cannot be empty.");
         $(".errorMessage").show();
+        $(".loadingContainer").hide(); // Move this inside the validation block
     } else {
         $.post("utilities/loginFunction.php", { username: userGivenUsername, password: userGivenPassword }, function (data) {
             if (data.trim() === "Logged in successfully.") {
                 sessionStorage.setItem('loggedInUsername', userGivenUsername);
                 window.location.href = "pages/home/home.php";
             } else {
+                console.log(data);
                 $(".errorMessage").text(data);
                 $(".errorMessage").show();
             }
+            $(".loadingContainer").hide(); // Move this inside the $.post callback
         });
     }
-    $(".loadingContainer").hide();
 }
+
 
 function isValidEmail(email) {
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
