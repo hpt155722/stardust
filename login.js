@@ -23,6 +23,7 @@ function onload() {
         },  4000);
         setTimeout(() => {
             $('.startUpContainer').hide();
+            $('.startUpContainer').removeClass('fade-out');
         },  4700);
         sessionStorage.setItem('startup', 'false');
     } else {
