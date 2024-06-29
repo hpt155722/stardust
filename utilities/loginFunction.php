@@ -1,6 +1,6 @@
 <?php
     //Hide PHP errors from being displayed
-    error_reporting(0);
+    //error_reporting(0);
 
     include "connection.php";
 
