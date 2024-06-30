@@ -5,6 +5,7 @@
     include "connection.php";
 
     session_start();
+    echo "Request method: " . $_SERVER["REQUEST_METHOD"];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = htmlspecialchars($_POST["username"]);
