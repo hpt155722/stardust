@@ -263,7 +263,6 @@
 				<div class='accountSettingsMenu'>
 					<button class='editBioButton' onclick='closeSettings(); openEditBio()'> edit bio</button>
 					<button class='changePasswordButton' onclick='openChangePassword()'> change password</button>
-					<button class='menuButton' onclick='logout()'> tester 3</button>
 					<button class='logoutButton' onclick='logout()'> log out</button>
 				</div>
 				<div class='accountSettingsBackground' onclick='closeSettings()'></div>
