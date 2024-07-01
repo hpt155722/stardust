@@ -87,6 +87,7 @@ function reselectPage(element) {
 // Load current user's profile
 function loadCurrentUserProfile() {
 	$('.loadingContainer').show();
+
 	$.get('../../utilities/loadCurrentUserProfile.php', function(userData, status) {
 		if (userData) {
 			var profilePicUrl = "../../resources/profilePics/" + userData.profilePic;
@@ -125,6 +126,7 @@ function loadCurrentUserProfile() {
 			$('.accountsPage .noPostsYet').show();
 			$('.currentUserPostContainer').hide();
 		} else {
+			$('.accountsPage .noPostsYet').hide();
 			$('.currentUserPostPreviewContainer').html(data);
 			$('.currentUserPostContainer').show();
 		}
