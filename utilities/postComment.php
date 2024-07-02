@@ -14,7 +14,8 @@
         $postID = $_POST['postID'];
 
         // Insert comment into the comments table
-        $query = "INSERT INTO comments (userID, commentText, postID) VALUES ('$userID', '$commentText', '$postID')";
+        $currentDateTime = date('Y-m-d H:i:s'); 
+        $query = "INSERT INTO comments (userID, commentText, postID, dateCommented) VALUES ('$userID', '$commentText', '$postID', '$currentDateTime')";
         $result = mysqli_query($conn, $query);
 
         if ($result) {

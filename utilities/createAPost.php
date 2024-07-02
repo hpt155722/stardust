@@ -50,9 +50,10 @@
 
             if ($fileSaved !== false) {
                 // Insert into database
-                $sql = "INSERT INTO posts (userID, imageFilePath, caption) VALUES (?, ?, ?)";
+                $currentDateTime = date('Y-m-d H:i:s'); 
+                $sql = "INSERT INTO posts (userID, imageFilePath, caption, datePosted) VALUES (?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("iss", $userID, $filename, $caption);
+                $stmt->bind_param("isss", $userID, $imageFilePath, $caption, $currentDateTime);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
