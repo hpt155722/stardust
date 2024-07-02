@@ -1,2 +1,5 @@
 # Ignore connection.php file in the utilities folder
 utilities/connection.php
+
+resources/posts
+resources/profilePics
