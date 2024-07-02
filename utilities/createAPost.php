@@ -50,10 +50,20 @@
 
             if ($fileSaved !== false) {
                 // Insert into database
-                $currentDateTime = date('Y-m-d H:i:s'); 
+                date_default_timezone_set('UTC');
+
+                // Create a DateTime object with the current time
+                $currentTime = new DateTime();
+
+                // Set the timezone to Central Time (CT)
+                $currentTime->setTimezone(new DateTimeZone('America/Chicago')); // America/Chicago is the timezone identifier for Central Time
+
+                // Format the timestamp as needed for storage
+                $timestamp = $currentTime->format('Y-m-d H:i:s');
+
                 $sql = "INSERT INTO posts (userID, imageFilePath, caption, datePosted) VALUES (?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("isss", $userID, $filename, $caption, $currentDateTime);
+                $stmt->bind_param("isss", $userID, $filename, $caption, $timestamp);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {

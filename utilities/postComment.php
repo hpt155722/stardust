@@ -14,8 +14,19 @@
         $postID = $_POST['postID'];
 
         // Insert comment into the comments table
-        $currentDateTime = date('Y-m-d H:i:s'); 
-        $query = "INSERT INTO comments (userID, commentText, postID, dateCommented) VALUES ('$userID', '$commentText', '$postID', '$currentDateTime')";
+        date_default_timezone_set('UTC');
+
+        // Create a DateTime object with the current time
+        $currentTime = new DateTime();
+
+        // Set the timezone to Central Time (CT)
+        $currentTime->setTimezone(new DateTimeZone('America/Chicago')); // America/Chicago is the timezone identifier for Central Time
+
+        // Format the timestamp as needed for storage
+        $timestamp = $currentTime->format('Y-m-d H:i:s');
+
+        
+        $query = "INSERT INTO comments (userID, commentText, postID, dateCommented) VALUES ('$userID', '$commentText', '$postID', '$timestamp')";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
