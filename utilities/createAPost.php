@@ -53,7 +53,7 @@
                 $currentDateTime = date('Y-m-d H:i:s'); 
                 $sql = "INSERT INTO posts (userID, imageFilePath, caption, datePosted) VALUES (?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("isss", $userID, $imageFilePath, $caption, $currentDateTime);
+                $stmt->bind_param("isss", $userID, $filename, $caption, $currentDateTime);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {

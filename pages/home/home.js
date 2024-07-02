@@ -426,7 +426,6 @@ function deletePost() {
 	$.get("../../utilities/deletePost.php", {
 		postID: postCurrentlyEditting
 	}, function(data, status) {
-		console.log("Data: " + data + "\nStatus: " + status);
 		if (currentPageOpened == 'feed') {
 			loadFeed();
 			closeEditPost();
@@ -733,7 +732,6 @@ function uploadPost() {
 
 function createAPost(croppedData){
     var caption = $('.createACaption').val();
-    console.log(croppedData);
 
     if (croppedData) {
         $.post('../../utilities/createAPost.php', { image: croppedData, caption:caption })
