@@ -1,6 +1,6 @@
 # stardust
 
-stardust is an image based social media app. Currently in progress.
+stardust is an image based social media web app. Currently in progress.
 
 <br> 
 
