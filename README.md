@@ -32,7 +32,7 @@ stardust is an image based social media web app. Currently in progress.
  
 ### ☆ ──── Future Enhancements ──── ☆
 
-☆ Text-based post <br>
-☆ Image carousel <br>
+• Text-based post <br>
+• Image carousel <br>
  <br>
 
