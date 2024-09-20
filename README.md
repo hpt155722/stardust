@@ -1,4 +1,4 @@
-# stardust 
+# stardust
 
 stardust is a social media app. Currently in progress.
 
@@ -7,28 +7,21 @@ stardust is a social media app. Currently in progress.
 ### ☆ ───── Technologies ───── ☆
 
 <br>
-☆ HTML <br>
-☆ CSS <br>
-☆ Javascript <br>
-☆ PHP <br>
-☆ mySQL <br>
-<br>
+• HTML <br>
+• CSS <br>
+• JavaScript <br>
+• PHP <br>
+• MySQL <br>
 
+☆ ───── Features ───── ☆ <br>
+• Post Photos: Share single photos along with a caption. <br>
+• Delete Posts: Easily delete your photos and captions anytime. <br>
+• User Profiles: Create and customize your profile to showcase your personality. <br>
+• Password Security: Ensure your account is secure with password hashing. <br>
 
-### ☆ ───── Features ───── ☆
- <br>
-☆ Create, edit, delete posts, captions <br>
-☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
-☆ Create, edit profiles<br>
-☆ Password encryption<br>
- <br>
-  
 ### ☆ ───── Screenshots ───── ☆
 
  <br>
-
 
  <div>
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/login.png">
