@@ -1,28 +1,25 @@
 # stardust
 
-stardust is a social media app. Currently in progress.
+stardust is an image based social media app. Currently in progress.
 
-<br>
+<br> 
 
-### ☆ ───── Technologies ───── ☆
-
-<br>
+### ☆ ──── Technologies ──── ☆
 • HTML <br>
 • CSS <br>
 • JavaScript <br>
 • PHP <br>
 • MySQL <br>
+<br> 
 
-☆ ───── Features ───── ☆ <br>
-• Post Photos: Share single photos along with a caption. <br>
-• Delete Posts: Easily delete your photos and captions anytime. <br>
-• User Profiles: Create and customize your profile to showcase your personality. <br>
-• Password Security: Ensure your account is secure with password hashing. <br>
+### ☆ ──── Features ──── ☆
+• **Post Photos:** Share single photos along with a caption. <br>
+• **Delete Posts:** Easily delete your photos and captions anytime. <br>
+• **User Profiles:** Create and customize your profile to showcase your personality. <br>
+• **Password Security:** Ensure your account is secure with password hashing. <br>
+<br>
 
-### ☆ ───── Screenshots ───── ☆
-
- <br>
-
+### ☆ ──── Screenshots ──── ☆
  <div>
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/login.png">
     <img style = "width: 20vh; margin: 5vh;" src = "resources/thumbnails/signup.png">
@@ -33,8 +30,9 @@ stardust is a social media app. Currently in progress.
 </div>
  <br>
  
-### ☆ ───── Future enhancements ───── ☆
+### ☆ ──── Future Enhancements ──── ☆
 
- <br>
 ☆ Text-based post <br>
 ☆ Image carousel <br>
+ <br>
+
